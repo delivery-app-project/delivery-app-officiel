@@ -195,7 +195,7 @@ import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
-import useJwt from '@/auth/jwt/useJwt'
+import useJwt from '@/auth/jwt/useJwt' 
 
 export default {
   components: {
