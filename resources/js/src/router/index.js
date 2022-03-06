@@ -25,6 +25,20 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/third-page',
+      name: 'third-page',
+      component: () => import('@/views/ThirdPage.vue'),
+      meta: {
+        pageTitle: 'Third Page',
+        breadcrumb: [
+          {
+            text: 'Third Page',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: '/second-page',
       name: 'second-page',
       component: () => import('@/views/SecondPage.vue'),

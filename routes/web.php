@@ -21,7 +21,7 @@ use App\Http\Controllers\ApplicationController;
 //     return "wowowowow";
 // });
 
-Route::get('/login', function (){
+Route::get('/login-back', function (){
     return redirect('/');
 })->name('login');
 

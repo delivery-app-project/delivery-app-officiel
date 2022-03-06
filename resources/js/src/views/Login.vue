@@ -195,6 +195,8 @@ import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
+import useJwt from '@/auth/jwt/useJwt'
+
 export default {
   components: {
     BRow,
@@ -243,14 +245,30 @@ export default {
     validationForm() {
       this.$refs.loginValidation.validate().then(success => {
         if (success) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: 'Form Submitted',
-              icon: 'EditIcon',
-              variant: 'success',
-            },
-          })
+       useJwt.login({
+        email: this.userEmail,
+        password: this.password,
+      })
+        .then(response => {
+          // `response.data` is response from API which is above mentioned
+          const { userData } = response.data
+          console.log(userData);
+
+          useJwt.setToken(response.data.access_token)
+
+        })
+        .catch(error => {
+          this.$refs.loginForm.setErrors(error.response.data.error)
+        })
+
+          // this.$toast({
+          //   component: ToastificationContent,
+          //   props: {
+          //     title: 'Form Submitted',
+          //     icon: 'EditIcon',
+          //     variant: 'success',
+          //   },
+          // })
         }
       })
     },
