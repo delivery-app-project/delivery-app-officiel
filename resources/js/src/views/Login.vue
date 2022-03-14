@@ -48,7 +48,7 @@
           </b-card-text>
 
           <!-- form -->
-          <validation-observer ref="loginValidation">
+          <validation-observer ref="loginForm">
             <b-form
               class="auth-login-form mt-2"
               @submit.prevent
@@ -128,7 +128,7 @@
                 type="submit"
                 variant="primary"
                 block
-                @click="validationForm"
+                @click="login"
               >
                 Sign in
               </b-button>
@@ -195,6 +195,7 @@ import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
+import { getHomeRouteForLoggedInUser } from '@/auth/utils'
 import useJwt from '@/auth/jwt/useJwt' 
 
 export default {
@@ -242,37 +243,64 @@ export default {
     },
   },
   methods: {
-    validationForm() {
-      this.$refs.loginValidation.validate().then(success => {
-        if (success) {
-       useJwt.login({
+    login() {
+
+  // Form Validation
+  this.$refs.loginForm.validate().then(success => {
+
+    // If form validation is successful
+    if (success) {
+
+      // Make Login request using JWT request
+      // NOTE: You can use axios.post() instead of JWT service
+      useJwt.login({
         email: this.userEmail,
         password: this.password,
       })
         .then(response => {
           // `response.data` is response from API which is above mentioned
           const { userData } = response.data
-          console.log(userData);
 
-          useJwt.setToken(response.data.access_token)
+          // Setting access token in localStorage
+          // NOTE: Please check the source code to better understand JWT service
+          useJwt.setToken(response.data.accessToken)
 
+          // Setting refresh token in localStorage
+          useJwt.setRefreshToken(response.data.refreshToken)
+
+          // Setting user data in localStorage
+          localStorage.setItem('userData', JSON.stringify(userData))
+
+          // Updating user ability in CASL plugin instance
+          this.$ability.update(userData.ability)
+
+          // ? This is just for demo purpose as well.
+          // ? Because we are showing eCommerce app's cart items count in navbar
+          // this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
+
+          // Redirection after login
+          // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
+          this.$router.replace(getHomeRouteForLoggedInUser())
+            .then(() => {
+              this.$toast({
+                component: ToastificationContent,
+                position: 'top-right',
+                props: {
+                  title: `Welcome ${userData.name || userData.username}`,
+                  icon: 'CoffeeIcon',
+                  variant: 'success',
+                  text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
+                },
+              })
+            })
         })
         .catch(error => {
           this.$refs.loginForm.setErrors(error.response.data.error)
         })
-
-          // this.$toast({
-          //   component: ToastificationContent,
-          //   props: {
-          //     title: 'Form Submitted',
-          //     icon: 'EditIcon',
-          //     variant: 'success',
-          //   },
-          // })
-        }
-      })
-    },
-  },
+    }
+  })
+},
+  }
 }
 </script>
 

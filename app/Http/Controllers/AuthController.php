@@ -26,8 +26,8 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        
-        if (! $token = auth('api')->attempt($credentials)) {
+
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -75,14 +75,23 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            'accessToken' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
-        ]);
-    }
-    
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'refreshToken' => auth('api')->refresh(),
+            'userData' => array_merge(
+                auth('api')->user()->toArray(),
+                    [
+                        "ability" => [
+                            [
+                                "action" => "read",
+                                "subject" => "Auth"
+                            ],
+                        ]
+                    ],
+              
+            ),
 
-    public function test(){
-        return "afissa bob dani";
+        ]);
     }
 }
