@@ -3,7 +3,7 @@ export default [
     title: 'Home',
     route: 'home',
     icon: 'HomeIcon',
-    resource : 'HomePage',
+    resource : 'Home',
     action : 'read'
   },
   {

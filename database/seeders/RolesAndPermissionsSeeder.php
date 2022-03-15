@@ -18,7 +18,9 @@ class RolesAndPermissionsSeeder extends Seeder
         //
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         
-        Permission::create(['name' => 'read','ressource' => 'Home']);
+        Permission::create(['name' => 'view Home','subject' => 'Home' , 'action' => 'read']);
+        Permission::create(['name' => 'view Not Authorized','subject' => 'Not Authorized' , 'action' => 'read']);
+
         // Permission::create(['name' => 'delete articles']);
         // Permission::create(['name' => 'publish articles']);
         // Permission::create(['name' => 'unpublish articles']);

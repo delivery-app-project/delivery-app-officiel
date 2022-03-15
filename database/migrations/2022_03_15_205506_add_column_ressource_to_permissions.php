@@ -15,7 +15,8 @@ class AddColumnRessourceToPermissions extends Migration
     {
         Schema::table('permissions', function (Blueprint $table) {
             //
-            $table->string('ressource')->nullable();
+            $table->string('subject')->nullable();
+            $table->string('action')->nullable();
         });
     }
 

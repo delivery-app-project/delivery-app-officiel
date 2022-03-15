@@ -73,8 +73,8 @@ class User extends Authenticatable implements JWTSubject
         $permissions = $this->getAllPermissions();
         $abilities = $permissions->map(function ($item){
             return [
-                'subject' => $item->ressource,
-                'action' => $item->name
+                'subject' => $item->subject,
+                'action' => $item->action
             ];
         });
         // $res = [];

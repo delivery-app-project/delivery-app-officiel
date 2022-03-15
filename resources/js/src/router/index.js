@@ -19,7 +19,7 @@ const router = new VueRouter({
       component: () => import('@/views/pages/miscellaneous/NotAuthorized.vue'),
       meta: {
         pageTitle: 'Not Authorized',
-        // resource : 'Auth',
+        resource : 'Not Authorized',
         breadcrumb: [
           {  
             text: 'Not Authorized',
@@ -34,7 +34,7 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue'),
       meta: {
         pageTitle: 'Home',
-        resource : 'HomePage',
+        resource : 'Home',
         breadcrumb: [
           {
             text: 'Home',

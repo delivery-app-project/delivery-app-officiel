@@ -3,6 +3,10 @@ export const initialAbility = [
     action: 'read',
     subject: 'Auth',
   },
+  {
+    action: 'read',
+    subject: 'Not Authorized',
+  },
   // {
   //   action : 'read',
   //   subject : 'Home'
