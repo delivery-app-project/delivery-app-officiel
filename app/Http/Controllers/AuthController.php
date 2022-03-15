@@ -79,18 +79,19 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
             'refreshToken' => auth('api')->refresh(),
-            'userData' => array_merge(
-                auth('api')->user()->toArray(),
-                    [
-                        "ability" => [
-                            [
-                                "action" => "read",
-                                "subject" => "Auth"
-                            ],
-                        ]
-                    ],
+            'userData' => auth('api')->user()->toArray()
+            // array_merge(
+            //     auth('api')->user()->toArray(),
+            //         [
+            //             "ability" => [
+            //                 [
+            //                     "action" => "read",
+            //                     "subject" => "Auth"
+            //                 ],
+            //             ]
+            //         ],
               
-            ),
+            // ),
 
         ]);
     }

@@ -19,7 +19,7 @@ const router = new VueRouter({
       component: () => import('@/views/pages/miscellaneous/NotAuthorized.vue'),
       meta: {
         pageTitle: 'Not Authorized',
-        resource : 'Auth',
+        // resource : 'Auth',
         breadcrumb: [
           {  
             text: 'Not Authorized',
@@ -34,7 +34,7 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue'),
       meta: {
         pageTitle: 'Home',
-        // resource : 'Auth',
+        resource : 'Home',
         breadcrumb: [
           {
             text: 'Home',
@@ -49,7 +49,7 @@ const router = new VueRouter({
       component: () => import('@/views/ThirdPage.vue'),
       meta: {
         pageTitle: 'Third Page',
-        resource: 'Auth',
+        resource: 'ThirdPage',
         breadcrumb: [
           {
             text: 'Third Page',
@@ -64,6 +64,7 @@ const router = new VueRouter({
       component: () => import('@/views/SecondPage.vue'),
       meta: {
         pageTitle: 'Second Page',
+        resource : 'SecondPage',
         breadcrumb: [
           {
             text: 'Second Page',
@@ -89,7 +90,7 @@ const router = new VueRouter({
       component: () => import('@/views/error/Error404.vue'),
       meta: {
         layout: 'full',
-        resource : 'Auth'
+        // resource : 'Auth'
       },
     },
     {
@@ -105,6 +106,7 @@ router.beforeEach((to, _, next) => {
   const isLoggedIn = isUserLoggedIn()
   
   if (!canNavigate(to)) {
+    // console.log("check");
     // Redirect to login if not logged in
     if (!isLoggedIn) return next({ name: 'login' })
     
