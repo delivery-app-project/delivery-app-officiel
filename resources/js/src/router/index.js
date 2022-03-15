@@ -34,7 +34,7 @@ const router = new VueRouter({
       component: () => import('@/views/Home.vue'),
       meta: {
         pageTitle: 'Home',
-        resource : 'Home',
+        resource : 'HomePage',
         breadcrumb: [
           {
             text: 'Home',
@@ -106,7 +106,6 @@ router.beforeEach((to, _, next) => {
   const isLoggedIn = isUserLoggedIn()
   
   if (!canNavigate(to)) {
-    // console.log("check");
     // Redirect to login if not logged in
     if (!isLoggedIn) return next({ name: 'login' })
     

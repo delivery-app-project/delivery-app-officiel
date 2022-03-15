@@ -3,7 +3,7 @@ export default [
     title: 'Home',
     route: 'home',
     icon: 'HomeIcon',
-    resource : 'Home',
+    resource : 'HomePage',
     action : 'read'
   },
   {
@@ -16,7 +16,7 @@ export default [
   {
     title: 'Third Page',
     route: 'third-page',
-    icon: 'FileIcon',
+    icon: 'FileIcon', 
     resource : 'ThirdPage',
     action : 'read'
   },

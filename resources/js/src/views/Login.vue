@@ -260,21 +260,16 @@ export default {
         .then(response => {
           // `response.data` is response from API which is above mentioned
           const { userData } = response.data
-
+          console.log(response.data);
           // Setting access token in localStorage
           // NOTE: Please check the source code to better understand JWT service
           useJwt.setToken(userData.accessToken)
-// console.log("check1")
           // Setting refresh token in localStorage
           useJwt.setRefreshToken(userData.refreshToken)
-// console.log("check2")
           // Setting user data in localStorage
           localStorage.setItem('userData', JSON.stringify(userData))
-// console.log("check3")
-//           console.log(userData);
           // Updating user ability in CASL plugin instance
-          // this.$ability.update(userData.ability)
-          // console.log("check4")
+          this.$ability.update(userData.ability)
           // ? This is just for demo purpose as well.
           // ? Because we are showing eCommerce app's cart items count in navbar
           // this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)

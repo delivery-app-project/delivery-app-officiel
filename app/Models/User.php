@@ -6,11 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -64,5 +67,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function abilities(){
+        $permissions = $this->getAllPermissions();
+        $abilities = $permissions->map(function ($item){
+            return [
+                'subject' => $item->ressource,
+                'action' => $item->name
+            ];
+        });
+        // $res = [];
+        // foreach($abilities as $ability){
+        //     $res = array_merge($res,$ability);
+        // };
+
+        return $abilities;
     }
 }
