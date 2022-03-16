@@ -28,4 +28,20 @@ class Marchent extends Model implements Transformable
         'user_id'
     ];
 
+    // // orders of the marchent 
+    // public function orders(){
+    //     return $this->hasMany(Order::class,'marchent_id','id');
+    // }
+
+    public function packages(){
+        return $this->hasMany(Package::class,'marchent_id','id');
+    }
+
+    // has many through 
+    // orders of the marchent 
+    public function orders(){
+        return $this->hasManyThrough(Order::class,Package::class);
+    }
+
+
 }

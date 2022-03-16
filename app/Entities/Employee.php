@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use PDO;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -24,5 +25,20 @@ class Employee extends Model implements Transformable
         'stock_type',
         'user_id'
     ];
+
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function agencies(){
+        return $this->belongsToMany(Agency::class,'agency_employee');
+    }
+
+
+
+    public function stocks(){
+        return $this->belongsToMany(Stock::class,'stock_employee');
+    }
 
 }

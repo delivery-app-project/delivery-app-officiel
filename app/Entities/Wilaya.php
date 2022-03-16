@@ -26,4 +26,8 @@ class Wilaya extends Model implements Transformable
         'active'
     ];
 
+
+    public function dairas(){
+        return $this->hasMany(Daira::class);
+    }
 }

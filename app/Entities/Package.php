@@ -24,7 +24,12 @@ class Package extends Model implements Transformable
         'name',
         'description',
         'type',
-        'user_id'
+        'marchent_id'
     ];
+
+    public function marchent(){
+        return $this->belongsTo(Marchent::class,'marchent_id');
+    }
+    
 
 }

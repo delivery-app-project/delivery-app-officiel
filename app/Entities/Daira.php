@@ -19,6 +19,8 @@ class Daira extends Model implements Transformable
      * The attributes that are mass assignable.
      *
      * @var array
+     * 
+     * 
      */
     protected $fillable = [
         'name',
@@ -26,4 +28,13 @@ class Daira extends Model implements Transformable
         'active'
     ];
 
+
+    public function wilaya(){
+        return $this->belongsTo(Wilaya::class);
+    }
+
+    public function cities(){
+        return $this->hasMany(City::class);
+    }
+    
 }

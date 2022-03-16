@@ -26,4 +26,10 @@ class City extends Model implements Transformable
         'active'
     ];
 
+
+    public function daira(){
+        return $this->belongsTo(Daira::class);
+    }
+
+
 }

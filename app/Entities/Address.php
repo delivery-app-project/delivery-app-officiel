@@ -25,4 +25,12 @@ class Address extends Model implements Transformable
         'city_id'
     ];
 
+
+    public function model(){
+        return $this->morphTo();
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
 }

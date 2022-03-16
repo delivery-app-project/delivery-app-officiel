@@ -22,6 +22,9 @@ class CreateStocksTable extends Migration
 			
 			$table->enum('type',['central','secondary']);
 			$table->unsignedBigInteger('address_id')->nullable();
+
+			$table->unsignedBigInteger('employee_id')->nullable();
+			$table->unsignedBigInteger('agency_id')->nullable();
         
 			$table->timestamps();
 		});

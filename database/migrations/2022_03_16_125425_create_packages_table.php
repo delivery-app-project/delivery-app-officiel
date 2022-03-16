@@ -22,8 +22,8 @@ class CreatePackagesTable extends Migration
 			$table->text('description')->nullable();
 			$table->enum('type',['glass','easy to crach'])->nullable();
 			// user
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('marchent_id');
+            $table->foreign('marchent_id')->references('id')->on('marchents')->onDelete('cascade');
 
             $table->timestamps();
 		});

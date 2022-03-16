@@ -23,6 +23,10 @@ class CreateAgenciesTable extends Migration
 			$table->unsignedBigInteger('address_id')->nullable();
 			// to fullfill معلومات السجل التجاري 
 
+			// the main employee (director)
+			$table->unsignedBigInteger('employee_id')->nullable();
+			$table->unsignedBigInteger('stock_id')->nullable();
+			
             $table->timestamps();
 		});
 	}

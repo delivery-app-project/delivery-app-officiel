@@ -23,7 +23,24 @@ class Agency extends Model implements Transformable
     protected $fillable = [
         'type',
         'name',
-        'address_id'
+        'address_id',
+        'employee_id',
+        'stock_id'
     ];
+
+    public function director(){
+        return $this->belongsTo(Employee::class,'employee_id');
+    }
+
+    public function main_stock(){
+        return $this->belongsTo(Employee::class,'employee_id');
+    }
+
+    public function employees(){
+        return $this->belongsToMany(Employee::class,'agency_employee');
+    }
+
+    
+
 
 }

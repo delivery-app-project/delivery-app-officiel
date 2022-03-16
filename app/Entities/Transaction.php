@@ -24,7 +24,18 @@ class Transaction extends Model implements Transformable
         'send_date',
         'time_send_date',
         'receive_date',
-        'time_receive_date'
+        'time_receive_date',
+        'employee_id'
     ];
 
+
+    public function orders(){
+        return $this->belongsToMany(Order::class,'transaction_order');
+    }
+
+    public function employee(){
+        return $this->belongsTo(Employee::class,'employee_id');
+    }
+
+    
 }

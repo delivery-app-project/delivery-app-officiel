@@ -38,4 +38,10 @@ class Order extends Model implements Transformable
         'package_id'
     ];
 
+
+    public function package(){
+        return $this->belongsTo(Package::class,'package_id');
+    }
+
+    
 }
