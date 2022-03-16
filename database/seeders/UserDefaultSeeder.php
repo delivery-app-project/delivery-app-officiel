@@ -22,14 +22,19 @@ class UserDefaultSeeder extends Seeder
         DB::table('users')->insert(
             [
                 [
-                    'name' => 'User for test',
                     'email' => 'user-mar@test.com',
                     'password' => Hash::make($password),
+                    'first_name' => 'user',
+                    'last_name' => 'for test',
+                    'phone' => '0111111111',
+                    
                 ],
                 [
-                    'name' => 'Transporter for test',
                     'email' => 'user-tr@test.com',
                     'password' => Hash::make($password),
+                    'first_name' => 'Transporter',
+                    'last_name' => 'for test',
+                    'phone' => '01111111112',
                 ],
             ]
 

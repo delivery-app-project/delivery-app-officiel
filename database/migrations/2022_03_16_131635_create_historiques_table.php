@@ -2,11 +2,12 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateMarchentsTable.
+ * Class CreateHistoriquesTable.
  */
-class CreateMarchentsTable extends Migration
+class CreateHistoriquesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -15,8 +16,8 @@ class CreateMarchentsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('marchents', function(Blueprint $table) {
-            $table->increments('id');
+		Schema::create('historiques', function(Blueprint $table) {
+            $table->id();
 
             $table->timestamps();
 		});
@@ -29,6 +30,6 @@ class CreateMarchentsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('marchents');
+		Schema::drop('historiques');
 	}
 }

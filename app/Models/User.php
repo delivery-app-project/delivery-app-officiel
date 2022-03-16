@@ -15,6 +15,10 @@ class User extends Authenticatable implements JWTSubject
 
     use HasRoles;
 
+    protected $appends = [
+        'name'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +27,23 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'first_name',
+        'last_name',
+        'phone',
+        'second_phone',
+        'address_id',
+        'bank_account_number',
+        'commercial_registration_no',
+        'insurance_number',
+        'birth_certifcate_number',
+        'car_type',
+        'car_registration_number',
+        'joining_date',
+        'first_name_father',
+        'first_name_mother',
+        'last_name_mother',
+        'joining_amount',
+        'permanent_employee',
         'password',
     ];
 
@@ -83,5 +104,11 @@ class User extends Authenticatable implements JWTSubject
         // };
 
         return $abilities;
+    }
+
+    // appends 
+
+    public function getNameAttribute(){
+        return $this->first_name . " " . $this->last_name;
     }
 }
