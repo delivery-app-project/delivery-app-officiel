@@ -20,6 +20,10 @@ class Agency extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'type',
+        'name',
+        'address_id'
+    ];
 
 }

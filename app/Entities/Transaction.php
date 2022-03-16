@@ -20,6 +20,11 @@ class Transaction extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'send_date',
+        'time_send_date',
+        'receive_date',
+        'time_receive_date'
+    ];
 
 }

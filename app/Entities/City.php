@@ -20,6 +20,10 @@ class City extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'daira_id',
+        'active'
+    ];
 
 }

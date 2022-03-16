@@ -20,6 +20,9 @@ class Address extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'district',
+        'city_id'
+    ];
 
 }

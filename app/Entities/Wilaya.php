@@ -20,6 +20,10 @@ class Wilaya extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'code_postal',
+        'active'
+    ];
 
 }

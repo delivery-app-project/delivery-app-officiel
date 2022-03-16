@@ -20,6 +20,9 @@ class Employee extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'stock_type',
+        'user_id'
+    ];
 
 }

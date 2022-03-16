@@ -20,6 +20,22 @@ class Order extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'receiver',
+        'receiver_type',
+        'phone',
+        'second_phone',
+        'email',
+        'weight',
+        'height',
+        'width',
+        'length',
+        'send_date',
+        'receive_date',
+        'time_receive_date',
+        'etat',
+        'quatity',
+        'package_id'
+    ];
 
 }

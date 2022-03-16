@@ -20,6 +20,12 @@ class Marchent extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'company_name',
+        'address_id',
+        'tax_identification_number',
+        'trade_type',
+        'user_id'
+    ];
 
 }
