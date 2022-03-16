@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
+import marchent from './routes/marchent'
+import employee from './routes/employee' 
 
 Vue.use(VueRouter)
 
@@ -97,6 +100,8 @@ const router = new VueRouter({
       path: '*',
       redirect: 'error-404',
     },
+    ...marchent,
+    ...employee
   ],
 })
 

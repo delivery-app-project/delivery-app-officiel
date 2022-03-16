@@ -21,10 +21,18 @@ class UserDefaultSeeder extends Seeder
 
         DB::table('users')->insert(
             [
-                'name' => 'User for test',
-                'email' => 'user@test.com',
-                'password' => Hash::make($password),
+                [
+                    'name' => 'User for test',
+                    'email' => 'user-mar@test.com',
+                    'password' => Hash::make($password),
+                ],
+                [
+                    'name' => 'Transporter for test',
+                    'email' => 'user-tr@test.com',
+                    'password' => Hash::make($password),
+                ],
             ]
+
             );
     }
 }

@@ -1,3 +1,7 @@
+
+import employee from './employee'
+import marchent from './marchent'
+
 export default [
   {
     title: 'Home',
@@ -20,4 +24,6 @@ export default [
     resource : 'ThirdPage',
     action : 'read'
   },
+  ...marchent,
+  ...employee
 ]
