@@ -330,6 +330,15 @@ export default {
 
     const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
 
+    // const  fetchInvoices = [
+    //     {
+    //       id : 5036,
+    //       client : "Andrew Burns",
+    //       total : "3171",
+    //       issuedDate : "19 Apr 2019",
+    //       balance : "205"
+    //     }
+    // ] ; 
     const {
       fetchInvoices,
       tableColumns,
