@@ -24569,8 +24569,8 @@ return [
                                     [
                                         "name" => [
                                             "ar" => "عين قزّام",
-                                            "en" => "",
-                                            "fr" => ""
+                                            "en" => "In Guezzam",
+                                            "fr" => "In Guezzam"
                                         ],
 
                                         // true or false
