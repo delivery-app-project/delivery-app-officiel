@@ -6,11 +6,18 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+
+    use HasRoles;
+
+    protected $appends = [
+        'name'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +27,23 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'first_name',
+        'last_name',
+        'phone',
+        'second_phone',
+        'address_id',
+        'bank_account_number',
+        'commercial_registration_no',
+        'insurance_number',
+        'birth_certifcate_number',
+        'car_type',
+        'car_registration_number',
+        'joining_date',
+        'first_name_father',
+        'first_name_mother',
+        'last_name_mother',
+        'joining_amount',
+        'permanent_employee',
         'password',
     ];
 
@@ -64,5 +88,27 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function abilities(){
+        $permissions = $this->getAllPermissions();
+        $abilities = $permissions->map(function ($item){
+            return [
+                'subject' => $item->subject,
+                'action' => $item->action
+            ];
+        });
+        // $res = [];
+        // foreach($abilities as $ability){
+        //     $res = array_merge($res,$ability);
+        // };
+
+        return $abilities;
+    }
+
+    // appends 
+
+    public function getNameAttribute(){
+        return $this->first_name . " " . $this->last_name;
     }
 }
