@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserDefaultSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserRolesSeeder::class);
+
+        // wilaya daira , city 
+        $this->call(WilayaDairaCitySeeder::class);
     }
 }
