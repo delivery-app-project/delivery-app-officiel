@@ -19,6 +19,8 @@ class UserDefaultSeeder extends Seeder
         //
         $password = 'password';
 
+        // User::truncate();
+
         DB::table('users')->insert(
             [
                 [

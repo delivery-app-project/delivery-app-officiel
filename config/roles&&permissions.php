@@ -16,6 +16,8 @@ return [
         // for transporter
         ['name' => 'view transactions','subject' => 'Transactions' , 'action' => 'read'],
         
+        ['name' => 'view orders','subject' => 'Orders' , 'action' => 'read'],
+        
         
     ],
 
@@ -26,7 +28,8 @@ return [
             'view not authorized'
         ],
         'marchent' => [
-                'view package'
+                'view package',
+                'view orders'
         ],
         'transporter' => [
                 'view transactions'

@@ -47,6 +47,9 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {   
         //
+        // Permission::truncate();
+        // Role::truncate();
+
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         
         // DB::table('permissions')->insert(

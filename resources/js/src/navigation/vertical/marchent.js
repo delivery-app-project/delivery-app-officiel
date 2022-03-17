@@ -6,5 +6,12 @@ export default [
         resource : 'Package', 
         action : 'read'
       },
+    {
+        title: 'Orders',
+        route: 'orders',
+        icon: 'FileTextIcon', 
+        resource : 'Orders', 
+        action : 'read'
+      },
   ]
   
