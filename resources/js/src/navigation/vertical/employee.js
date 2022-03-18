@@ -2,7 +2,7 @@ export default [
     {
       title: 'Transactions',
       icon: 'HomeIcon',
-    route: 'transactions/:id',
+    route: 'transactions',
     resource : 'Transactions',
     action : 'read'
     },
