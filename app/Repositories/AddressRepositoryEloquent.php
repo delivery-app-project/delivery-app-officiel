@@ -44,5 +44,5 @@ class AddressRepositoryEloquent extends BaseRepository implements AddressReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }
