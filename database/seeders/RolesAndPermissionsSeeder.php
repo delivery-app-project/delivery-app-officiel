@@ -9,21 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
-    protected $role_permissions = [
-        'all_roles' => [
-            'view home',
-            'view not authorized'
-        ],
-        'marchent' => [
-            'view packages'
-        ]
-    ];
-
-    // protected $permissions = [
-    //     ['name' => 'view home','subject' => 'Home' , 'action' => 'read'],
-    //     ['name' => 'view not authorized','subject' => 'Not Authorized' , 'action' => 'read'],
-    //     ['name' => 'view pa','subject' => 'Not Authorized' , 'action' => 'read'],
-    // ];
+    
 
 
     public function filter_permissions($permissions){
@@ -34,11 +20,6 @@ class RolesAndPermissionsSeeder extends Seeder
         });
     }
 
-    // protected $roles = [
-    //     [
-    //         'name' => 'marchent'
-    //     ]
-    // ];
     /**
      * Run the database seeds.
      *
@@ -46,15 +27,10 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run()
     {   
-        //
-        // Permission::truncate();
-        // Role::truncate();
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         
-        // DB::table('permissions')->insert(
-        //     $this->permissions
-        // );
+
         $permissions = config('roles&&permissions.permissions');
         
         array_filter(
@@ -62,16 +38,6 @@ class RolesAndPermissionsSeeder extends Seeder
             function ($item) { Permission::create($item);}
         );
         
-        // roles 
-        // marchent 
-        // $role = Role::create(
-        //     [ 'name' => 'marchent']
-        // );
-        
-        // $role->givePermissionTo($this->filter_permissions($this->role_permissions['all_roles']));
-        // $role->givePermissionTo($this->filter_permissions($this->role_permissions['marchent']));
-
-
         $roles = config('roles&&permissions.roles');
         $permissions_by_roles = config('roles&&permissions.permissions_by_role');
 
