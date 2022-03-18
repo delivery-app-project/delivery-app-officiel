@@ -7,7 +7,6 @@ import ToastificationContent from '@core/components/toastification/Toastificatio
 import {  getUserData } from '@/auth/utils'
 
 export default function useInvoicesList() {
-  
   // Use toast
   const toast = useToast()
 
@@ -16,16 +15,10 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'receiver', sortable: true },
-    { key: 'receiver_type', sortable: true },
-    { key: 'phone', sortable: true, formatter: val => `$${val}` },
-    { key: 'code_postal', sortable: true },
-    { key: 'weight', sortable: true },
-    { key: 'height' },
-    { key: 'length' },
-    { key: 'width' },
-    { key: 'quatity' },
-    { key: 'etat' },
+    { key: 'name', sortable: true },
+    { key: 'description', sortable: true },
+    { key: 'type', sortable: true, formatter: val => `$${val}` },
+    { key: 'created_at', sortable: true },
     { key: 'actions' },
   ]
   const perPage = ref(10)
@@ -57,6 +50,8 @@ export default function useInvoicesList() {
   const fetchInvoices = (ctx, callback) => {
     
     const userData = getUserData()
+
+
     store
       .dispatch('app-invoice/fetchInvoices', {
         search: searchQuery.value,
@@ -65,13 +60,13 @@ export default function useInvoicesList() {
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
-        id : userData.marchent.id
-
+        id : userData.marchent.id 
       })
       .then(response => {
         const { data, total } = response.data
 
         callback(data)
+
         totalInvoices.value = total
       })
       .catch(() => {
@@ -91,7 +86,7 @@ export default function useInvoicesList() {
   // *===============================================---*
 
   const resolveInvoiceStatusVariantAndIcon = status => {
-    if (status === 'Partial Payment') return { variant: 'warning', icon: 'PieChartIcon' }
+    if (status === 'Glass') return { variant: 'warning', icon: 'PieChartIcon' }
     if (status === 'Paid') return { variant: 'success', icon: 'CheckCircleIcon' }
     if (status === 'Downloaded') return { variant: 'info', icon: 'ArrowDownCircleIcon' }
     if (status === 'Draft') return { variant: 'primary', icon: 'SaveIcon' }

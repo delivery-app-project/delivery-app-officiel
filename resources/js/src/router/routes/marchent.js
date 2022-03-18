@@ -2,11 +2,11 @@ export default [
     {
       path: '/packages',
       name: 'packages',
-      component: () => import('@/views/pages/packages/Packages.vue'),
+      component: () => import('@/views/pages/packages/index.vue'),
       meta: {
         pageTitle: 'Packages',
         resource : 'Package',
-    
+        
         // breadcrumb: [
         //   {
         //     text: 'Home',

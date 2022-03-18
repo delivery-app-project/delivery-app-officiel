@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Entities\Address;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,14 @@ class UserDefaultSeeder extends Seeder
     {
         //
         $password = 'password';
-
-        // User::truncate();
+        
+        $adr = Address::create(
+            
+            [
+                'district' => 'district name 1',
+                'city_id' => 1
+            ]
+         );
 
         DB::table('users')->insert(
             [
@@ -40,6 +47,26 @@ class UserDefaultSeeder extends Seeder
                 ],
             ]
 
-            );
+        );
+
+        $user_mar = User::where('id',1)->get()->first();
+        $user_tr = User::where('id',2)->get()->first();
+
+        $user_mar->address()->save($adr);
+        $user_tr->address()->save($adr);
+
+        DB::table('marchents')->insert([
+                [
+                    'company_name' => null,
+                    'address_id' => $adr->id,
+                    'user_id' => $user_mar->id
+                ]
+        ]);
+
+        DB::table('employees')->insert([
+                [
+                    'user_id' => $user_tr->id
+                ]
+        ]);
     }
 }

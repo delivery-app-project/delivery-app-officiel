@@ -32,6 +32,9 @@ class Marchent extends Model implements Transformable
     // public function orders(){
     //     return $this->hasMany(Order::class,'marchent_id','id');
     // }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
     public function packages(){
         return $this->hasMany(Package::class,'marchent_id','id');
@@ -42,6 +45,5 @@ class Marchent extends Model implements Transformable
     public function orders(){
         return $this->hasManyThrough(Order::class,Package::class);
     }
-
 
 }

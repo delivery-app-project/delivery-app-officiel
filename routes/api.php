@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PackageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +36,7 @@ Route::group([
     Route::get('test', [AuthController::class,'test'])->name('api-test');
 
 });
+// api/package
+Route::get('package',[PackageController::class,'index'])->name('package.index');
+Route::get('order',[OrderController::class,'index'])->name('order.index');
+
