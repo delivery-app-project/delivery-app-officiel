@@ -4,8 +4,10 @@ import store from '@/store'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import {  getUserData } from '@/auth/utils'
 
 export default function useInvoicesList() {
+  
   // Use toast
   const toast = useToast()
 
@@ -14,11 +16,16 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'invoiceStatus', sortable: true },
-    { key: 'client', sortable: true },
-    { key: 'total', sortable: true, formatter: val => `$${val}` },
-    { key: 'issuedDate', sortable: true },
-    { key: 'balance', sortable: true },
+    { key: 'receiver', sortable: true },
+    { key: 'receiver_type', sortable: true },
+    { key: 'phone', sortable: true, formatter: val => `$${val}` },
+    { key: 'code_postal', sortable: true },
+    { key: 'weight', sortable: true },
+    { key: 'height' },
+    { key: 'length' },
+    { key: 'width' },
+    { key: 'quatity' },
+    { key: 'etat' },
     { key: 'actions' },
   ]
   const perPage = ref(10)
@@ -48,19 +55,23 @@ export default function useInvoicesList() {
   })
 
   const fetchInvoices = (ctx, callback) => {
+    
+    const userData = getUserData()
     store
       .dispatch('app-invoice/fetchInvoices', {
-        q: searchQuery.value,
+        search: searchQuery.value,
         perPage: perPage.value,
         page: currentPage.value,
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
+        id : userData.marchent.id
+
       })
       .then(response => {
-        const { invoices, total } = response.data
+        const { data, total } = response.data
 
-        callback(invoices)
+        callback(data)
         totalInvoices.value = total
       })
       .catch(() => {

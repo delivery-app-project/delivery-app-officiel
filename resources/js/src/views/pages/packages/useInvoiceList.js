@@ -4,6 +4,7 @@ import store from '@/store'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import {  getUserData } from '@/auth/utils'
 
 export default function useInvoicesList() {
   // Use toast
@@ -47,6 +48,10 @@ export default function useInvoicesList() {
   })
 
   const fetchInvoices = (ctx, callback) => {
+    
+    const userData = getUserData()
+
+
     store
       .dispatch('app-invoice/fetchInvoices', {
         search: searchQuery.value,
@@ -55,6 +60,7 @@ export default function useInvoicesList() {
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
+        id : userData.marchent.id 
       })
       .then(response => {
         const { data, total } = response.data
@@ -80,7 +86,7 @@ export default function useInvoicesList() {
   // *===============================================---*
 
   const resolveInvoiceStatusVariantAndIcon = status => {
-    if (status === 'Partial Payment') return { variant: 'warning', icon: 'PieChartIcon' }
+    if (status === 'Glass') return { variant: 'warning', icon: 'PieChartIcon' }
     if (status === 'Paid') return { variant: 'success', icon: 'CheckCircleIcon' }
     if (status === 'Downloaded') return { variant: 'info', icon: 'ArrowDownCircleIcon' }
     if (status === 'Draft') return { variant: 'primary', icon: 'SaveIcon' }

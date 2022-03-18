@@ -25,21 +25,6 @@ class PackageController extends Controller
 
     public function index(Request $request){
             
-            // $id = $request->marchent_id;
-            // // "search" => null
-            // // "perPage" => "10"
-            // // "page" => "1"
-            // // "sortBy" => "id"
-            // // "sortDesc" => "true"
-            // // "status" => "Paid"
-            // $model = $this->repository->where(
-
-            // );
-            // get package where id marchent
-            // if($id) return response()->json($this->repository->whereHas('marchent',function ($q) use ($id){
-            //     $q->where('id',$id);
-            // })->paginate($request->perPage));
-
             // if there is no marchent id 
             return response()->json($this->repository->index($request->all()));
     }

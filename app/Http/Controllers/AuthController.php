@@ -74,17 +74,20 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+
         $user = auth('api')->user();
+        // dd($user->marchent);
         return response()->json([
             'userData' => 
                 array_merge(
-                    $user->toArray(),
+                    $user->load(['marchent','employee'])->toArray(),
                     [
                         'ability' => $user->abilities(),
                         'accessToken' => $token,
                         'token_type' => 'bearer',
                         'expires_in' => auth('api')->factory()->getTTL() * 60,
                         'refreshToken' => auth('api')->refresh(),
+
                     ]
                 )
         ]);

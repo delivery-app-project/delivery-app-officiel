@@ -59,7 +59,7 @@ class UserDefaultSeeder extends Seeder
                 [
                     'company_name' => null,
                     'address_id' => $adr->id,
-                    'user_id' => $user_tr->id
+                    'user_id' => $user_mar->id
                 ]
         ]);
 

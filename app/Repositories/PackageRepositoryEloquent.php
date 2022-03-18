@@ -53,7 +53,7 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
     // for package controller index 
     public function index($data)
     {
-
+        // id of the marchent 
         $id = key_exists('id', $data) ? $data['id'] : null;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;

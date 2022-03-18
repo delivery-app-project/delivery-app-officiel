@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Entities\Address;
+use App\Entities\Employee;
+use App\Entities\Marchent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -110,6 +112,14 @@ class User extends Authenticatable implements JWTSubject
 
     public function address(){
         return $this->morphOne(Address::class,'model');
+    }
+
+    public function marchent(){
+        return $this->hasOne(Marchent::class,'user_id','id');
+    }
+
+    public function employee(){
+        return $this->hasOne(Employee::class,'user_id','id');
     }
 
     // appends 
