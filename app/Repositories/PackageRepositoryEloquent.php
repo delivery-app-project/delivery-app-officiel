@@ -6,6 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\PackageRepository;
 use App\Entities\Package;
+use App\Providers\RouteServiceProvider;
 use App\Validators\PackageValidator;
 
 /**
@@ -15,6 +16,10 @@ use App\Validators\PackageValidator;
  */
 class PackageRepositoryEloquent extends BaseRepository implements PackageRepository
 {
+
+    protected $fieldSearchable = [
+        'name' => 'like'
+    ];
     /**
      * Specify Model class name
      *
@@ -26,10 +31,10 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -44,5 +49,27 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    // for package controller index 
+    public function index($data)
+    {
+
+        $id = key_exists('id', $data) ? $data['id'] : null;
+
+        $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
+
+        $model = $this;
+
+        if (key_exists('status', $data) && $data['status'])
+            $model = $this->where(
+                'type',
+                $data['status']
+            );
+
+        if ($id) $model =  $this->whereHas('marchent', function ($q) use ($id) {
+            $q->where('id', $id);
+        });
+
+        return $model->paginate($perPage);
+    }
 }

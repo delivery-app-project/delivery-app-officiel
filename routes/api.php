@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PackageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,6 @@ Route::group([
     Route::get('test', [AuthController::class,'test'])->name('api-test');
 
 });
+
+Route::get('package',[PackageController::class,'index'])->name('package.index');
+
