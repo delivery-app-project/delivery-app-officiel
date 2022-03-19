@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PackageTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +40,7 @@ Route::group([
 });
 // api/package
 Route::get('package',[PackageController::class,'index'])->name('package.index');
+Route::get('package-type',[PackageTypeController::class,'index'])->name('package-type.index');
+Route::get('order-status',[OrderStatusController::class,'index'])->name('package-status.index');
 Route::get('order',[OrderController::class,'index'])->name('order.index');
 

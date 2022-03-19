@@ -1,4 +1,4 @@
-import { ref, watch, computed } from '@vue/composition-api'
+import { ref, watch, computed,created } from '@vue/composition-api'
 import store from '@/store'
 
 // Notification
@@ -28,8 +28,8 @@ export default function useInvoicesList() {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
-  const statusFilter = ref(null)
-
+  const statusFilter = ref(null);
+  
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
     return {
@@ -39,6 +39,7 @@ export default function useInvoicesList() {
     }
   })
 
+  
   const refetchData = () => {
     refInvoiceListTable.value.refresh()
   }
@@ -46,6 +47,8 @@ export default function useInvoicesList() {
   watch([currentPage, perPage, searchQuery, statusFilter], () => {
     refetchData()
   })
+
+ 
 
   const fetchInvoices = (ctx, callback) => {
     
@@ -122,7 +125,6 @@ export default function useInvoicesList() {
 
     resolveInvoiceStatusVariantAndIcon,
     resolveClientAvatarVariant,
-
-    refetchData,
+    refetchData
   }
 }

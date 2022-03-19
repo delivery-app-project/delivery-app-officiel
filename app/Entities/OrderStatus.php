@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class Package.
+ * Class OrderStatus.
  *
  * @package namespace App\Entities;
  */
-class Package extends Model implements Transformable
+class OrderStatus extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -22,18 +22,12 @@ class Package extends Model implements Transformable
      */
     protected $fillable = [
         'name',
-        'description',
-        'type',
-        'marchent_id'
+        'description'
     ];
 
-    public function marchent(){
-        return $this->belongsTo(Marchent::class,'marchent_id');
-    }
-    
 
-    public function package_type(){
-        return $this->belongsTo(PackageType::class,'package_type_id');
+    public function orders(){
+        return $this->belongsToMany(Order::class,'order_status_order');
     }
-    
+
 }

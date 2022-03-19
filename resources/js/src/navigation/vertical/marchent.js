@@ -12,6 +12,6 @@ export default [
         icon: 'FileTextIcon', 
         resource : 'Orders', 
         action : 'read'
-      },
+      }
   ]
   

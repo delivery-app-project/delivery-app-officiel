@@ -46,9 +46,10 @@
             <v-select
               v-model="statusFilter"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-              :options="statusOptions"
+              :options="stOptions"
               class="invoice-filter-select"
               placeholder="Select Status"
+              
             >
               <template #selected-option="{ label }">
                 <span class="text-truncate overflow-hidden">
@@ -291,7 +292,7 @@ import {
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
-import { onUnmounted } from '@vue/composition-api'
+import { onMounted, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
 
@@ -316,6 +317,42 @@ export default {
 
     vSelect,
   },
+  data() {
+    return {
+      statusOptions : []
+    }
+  },
+  computed: {
+    stOptions(){
+      return this.statusOptions.map(item => {
+        return item.name
+      });
+    }
+  },
+  methods: {
+    fetchTypes(){
+    store
+    .dispatch('app-invoice/fetchTypes',{})
+    .then(response => {
+
+      this.statusOptions = response.data;
+
+    })
+    .catch(() => {
+      toast({
+        component: ToastificationContent,
+        props: {
+          title: "Error fetching invoices' list",
+          icon: 'AlertTriangleIcon',
+          variant: 'danger',
+        },
+      });    
+    });
+    },
+  },
+  created() {
+    this.fetchTypes();
+  },
   setup() {
     const INVOICE_APP_STORE_MODULE_NAME = 'app-invoice'
 
@@ -328,17 +365,6 @@ export default {
       if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME)) store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME)
     })
 
-    const statusOptions = ['glass', 'easy to crach', 'Paid', 'Partial Payment', 'Past Due']
-
-    // const  fetchInvoices = [
-    //     {
-    //       id : 5036,
-    //       client : "Andrew Burns",
-    //       total : "3171",
-    //       issuedDate : "19 Apr 2019",
-    //       balance : "205"
-    //     }
-    // ] ; 
 
     const {
       fetchInvoices,
@@ -375,7 +401,6 @@ export default {
       refInvoiceListTable,
       statusFilter,
       refetchData,
-      statusOptions,
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,

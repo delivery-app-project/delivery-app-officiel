@@ -58,7 +58,7 @@ export default function useInvoicesList() {
     
     const userData = getUserData()
     store
-      .dispatch('app-invoice/fetchInvoices', {
+      .dispatch('app-order/fetchInvoices', {
         search: searchQuery.value,
         perPage: perPage.value,
         page: currentPage.value,
