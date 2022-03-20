@@ -57,6 +57,7 @@ export default function useInvoicesList() {
   const fetchInvoices = (ctx, callback) => {
     
     const userData = getUserData()
+    
     store
       .dispatch('app-order/fetchInvoices', {
         search: searchQuery.value,

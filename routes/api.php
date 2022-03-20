@@ -23,24 +23,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group([
+    'middleware' => 'auth:api'
+], function ($router){
+        Route::get('package',[PackageController::class,'index'])->name('package.index');
+        Route::get('package-type',[PackageTypeController::class,'index'])->name('package-type.index');
+        Route::get('order-status',[OrderStatusController::class,'index'])->name('package-status.index');
+        Route::get('order',[OrderController::class,'index'])->name('order.index');
+
+});
+
 
 Route::group([
-
     'middleware' => 'api',
+    'middleware' => 'jwt.refresh',
     'prefix' => 'jwt'
 
 ], function ($router) {
 
     Route::post('login', [AuthController::class,'login'])->name('api-login');
     Route::post('logout', [AuthController::class,'logout'])->name('api-logout');
-    Route::post('refresh', [AuthController::class,'refresh'])->name('api-refresh');
+    Route::post('refresh-token', [AuthController::class,'refresh'])->name('api-refresh');
     Route::post('me', [AuthController::class,'me'])->name('api-me');
     Route::get('test', [AuthController::class,'test'])->name('api-test');
 
+    
 });
 // api/package
-Route::get('package',[PackageController::class,'index'])->name('package.index');
-Route::get('package-type',[PackageTypeController::class,'index'])->name('package-type.index');
-Route::get('order-status',[OrderStatusController::class,'index'])->name('package-status.index');
-Route::get('order',[OrderController::class,'index'])->name('order.index');
 

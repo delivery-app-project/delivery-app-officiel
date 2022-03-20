@@ -39,7 +39,7 @@ import {
   BLink, BNavbarNav,
 } from 'bootstrap-vue'
 import Bookmarks from './components/Bookmarks.vue'
-import Locale from './components/Locale.vue'
+import Locale from './components/Locale.vue' 
 import SearchBar from './components/SearchBar.vue'
 import DarkToggler from './components/DarkToggler.vue'
 import CartDropdown from './components/CartDropdown.vue'
@@ -49,7 +49,7 @@ import UserDropdown from './components/UserDropdown.vue'
 export default {
   components: {
     BLink,
-
+ 
     // Navbar Components
     BNavbarNav,
     Bookmarks,

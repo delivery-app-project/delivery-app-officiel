@@ -1,5 +1,5 @@
 <template>
-  <b-nav-item-dropdown
+    <b-nav-item-dropdown
     id="dropdown-grouped"
     variant="link"
     class="dropdown-language"
@@ -17,7 +17,7 @@
     <b-dropdown-item
       v-for="localeObj in locales"
       :key="localeObj.locale"
-      @click="$i18n.locale = localeObj.locale"
+      @click="setLocale(localeObj)"
     >
       <b-img
         :src="localeObj.img"
@@ -25,13 +25,19 @@
         width="22px"
         :alt="localeObj.locale"
       />
-      <span class="ml-50">{{ localeObj.name }}</span>
+      <span
+       class="ml-50">{{ localeObj.name }}</span>
     </b-dropdown-item>
+     
   </b-nav-item-dropdown>
+
 </template>
 
 <script>
 import { BNavItemDropdown, BDropdownItem, BImg } from 'bootstrap-vue'
+// import useAppConfig from '@core/app-config/useAppConfig'
+import store from '@/store'
+import { computed, watch } from '@vue/composition-api'
 
 export default {
   components: {
@@ -44,6 +50,15 @@ export default {
     currentLocale() {
       return this.locales.find(l => l.locale === this.$i18n.locale)
     },
+  },
+  methods: {
+    setLocale(localeObj){
+    this.$i18n.locale = localeObj.locale;
+    if(localeObj.locale === 'ar')
+    this.rtl = true;
+    else this.rtl = false;
+    }
+    
   },
   setup() {
     /* eslint-disable global-require */
@@ -68,11 +83,35 @@ export default {
         img: require('@/assets/images/flags/pt.png'),
         name: 'Portuguese',
       },
+      {
+        locale: 'ar',
+        img: require('@/assets/images/flags/ar.png'),
+        name: 'Arabic',
+      },
     ]
+
+    // const {
+    //   isRTL 
+    // } = useAppConfig();
     /* eslint-disable global-require */
 
+    const rtl  =  computed({
+    get: () => store.state.appConfig.layout.isRTL,
+    set: val => {
+      store.commit('appConfig/TOGGLE_RTL', val)
+      },
+    })
+
+    // const cLang = computed({
+    // get: () => this.locales.find(l => l.locale === this.$i18n.locale),
+    // set: val => {
+    //   // console.log("check app cofnig");
+    //   store.commit('appConfig/TOGGLE_RTL', val)
+    //   },
+    // })
+
     return {
-      locales,
+      locales,rtl
     }
   },
 }

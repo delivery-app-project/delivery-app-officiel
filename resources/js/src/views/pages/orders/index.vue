@@ -294,7 +294,7 @@ import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
-
+// import { Can } from '@casl/vue';
 import invoiceStoreModule from './invoiceStoreModule'
 
 export default {
