@@ -109,7 +109,7 @@ import Locale from '@core/layouts/components/app-navbar/components/Locale.vue'
 import { initialAbility } from '@/libs/acl/config'
 import useJwt from '@/auth/jwt/useJwt'
 
-import { getLocale } from '../../locale/utils'
+import { getLocale,isRtl } from '../../locale/utils'
 import store from '@/store'
 
 
@@ -137,7 +137,8 @@ export default {
   created() {
     
     // update rtl 
-    store.commit('appConfig/TOGGLE_RTL',getLocale());
+    // for rtl 
+    store.commit('appConfig/TOGGLE_RTL',isRtl()===true);
   },
   methods: {
        logout() {
@@ -148,6 +149,8 @@ export default {
 
       // Remove userData from localStorage
       localStorage.removeItem('userData')
+      localStorage.removeItem('rtl')
+      localStorage.removeItem('lang')
 
       // Reset ability
       this.$ability.update(initialAbility)

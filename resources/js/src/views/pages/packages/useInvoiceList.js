@@ -72,15 +72,7 @@ export default function useInvoicesList() {
 
         totalInvoices.value = total
       })
-      .catch(() => {
-        toast({
-          component: ToastificationContent,
-          props: {
-            title: "Error fetching invoices' list",
-            icon: 'AlertTriangleIcon',
-            variant: 'danger',
-          },
-        })
+      .catch(error => {
       })
   }
 

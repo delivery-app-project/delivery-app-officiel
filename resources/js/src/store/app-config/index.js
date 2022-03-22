@@ -25,10 +25,9 @@ export default {
   getters: {},
   mutations: {
     TOGGLE_RTL(state,val) {
-      // console.log(getLocale());
       state.layout.isRTL = val
       document.documentElement.setAttribute('dir', state.layout.isRTL ? 'rtl' : 'ltr')
-      setLocale(val)
+      setLocale(val ? 'rtl' : 'ltr')
     },
     UPDATE_SKIN(state, skin) {
       state.layout.skin = skin

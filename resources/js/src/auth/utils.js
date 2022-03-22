@@ -1,5 +1,6 @@
 import useJwt from '@/auth/jwt/useJwt'
 
+
 /**
  * Return if user is logged in
  * This is completely up to you and how you want to store the token in your frontend application
@@ -34,3 +35,4 @@ export const getHomeRouteForLoggedInUser = () => {
   if (userData) return '/'
   return { name: 'login' }
 }
+

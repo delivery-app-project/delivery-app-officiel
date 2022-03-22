@@ -260,7 +260,6 @@ export default {
         .then(response => {
           // `response.data` is response from API which is above mentioned
           const { userData } = response.data
-          console.log(response.data);
           // Setting access token in localStorage
           // NOTE: Please check the source code to better understand JWT service
           useJwt.setToken(userData.accessToken)

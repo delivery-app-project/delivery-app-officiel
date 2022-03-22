@@ -5,6 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageTypeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,13 +31,16 @@ Route::group([
         Route::get('package-type',[PackageTypeController::class,'index'])->name('package-type.index');
         Route::get('order-status',[OrderStatusController::class,'index'])->name('package-status.index');
         Route::get('order',[OrderController::class,'index'])->name('order.index');
-
+   
+        Route::resource('user', UserController::class)->only(
+            'update'
+        );
 });
 
 
 Route::group([
     'middleware' => 'api',
-    'middleware' => 'jwt.refresh',
+    // 'middleware' => 'jwt.refresh',
     'prefix' => 'jwt'
 
 ], function ($router) {
@@ -45,7 +49,7 @@ Route::group([
     Route::post('logout', [AuthController::class,'logout'])->name('api-logout');
     Route::post('refresh-token', [AuthController::class,'refresh'])->name('api-refresh');
     Route::post('me', [AuthController::class,'me'])->name('api-me');
-    Route::get('test', [AuthController::class,'test'])->name('api-test');
+    // Route::patch('respondWithToken', [AuthController::class,'respondWithToken'])->name('api-respondWithToken');
 
     
 });

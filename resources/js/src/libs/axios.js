@@ -19,11 +19,14 @@ const axiosIns = axios.create({
   // timeout: 1000,
   headers: {
     // 'X-Custom-Header': 'foobar'
-    'Authorization': userData!=null ? `Bearer ${userData.accessToken}` : null
+    // 'Authorization': userData!=null ? `Bearer ${userData.accessToken}` : null
     
   }  
 })
 
 Vue.prototype.$http = axiosIns
+
+
+
 
 export default axiosIns

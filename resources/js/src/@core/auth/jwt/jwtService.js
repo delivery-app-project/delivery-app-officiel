@@ -1,4 +1,5 @@
 import jwtDefaultConfig from './jwtDefaultConfig'
+import { redirectToLogin } from '@/locale/utils'
 
 export default class JwtService {
   // Will be used by this service for making API calls
@@ -37,12 +38,14 @@ export default class JwtService {
     this.axiosIns.interceptors.response.use(
       response => response,
       error => {
+        
         // const { config, response: { status } } = error
         const { config, response } = error
         const originalRequest = config
 
         // if (status === 401) {
         if (response && response.status === 401) {
+
           if (!this.isAlreadyFetchingAccessToken) {
             this.isAlreadyFetchingAccessToken = true
             this.refreshToken().then(r => {
@@ -55,20 +58,24 @@ export default class JwtService {
               this.onAccessTokenFetched(r.data.accessToken)
             })
           }
-          const retryOriginalRequest = new Promise(resolve => {
-            this.addSubscriber(accessToken => {
-              // Make sure to assign accessToken according to your response.
-              // Check: https://pixinvent.ticksy.com/ticket/2413870
-              // Change Authorization header
-              originalRequest.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
-              resolve(this.axiosIns(originalRequest))
-            })
-          })
-          return retryOriginalRequest
+
+          // const retryOriginalRequest = new Promise((resolve) => {
+          //   this.addSubscriber(accessToken => {
+          //     // Make sure to assign accessToken according to your response.
+          //     // Check: https://pixinvent.ticksy.com/ticket/2413870
+          //     // Change Authorization header
+          //     originalRequest.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
+          //     resolve(this.axiosIns(originalRequest))
+          //   })
+          // });
+
+          // return retryOriginalRequest
+          return redirectToLogin();
         }
         return Promise.reject(error)
       },
     )
+
   }
 
   onAccessTokenFetched(accessToken) {

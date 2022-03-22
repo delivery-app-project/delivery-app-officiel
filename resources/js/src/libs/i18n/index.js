@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import { getLocale  } from '../../locale/utils'
+import { getLocale ,isRtl , getLang } from '../../locale/utils'
 
 
 Vue.use(VueI18n)
@@ -19,7 +19,7 @@ function loadLocaleMessages() {
 }
 
 export default new VueI18n({
-  locale: getLocale() ? 'ar' : 'en',
-  fallbackLocale: getLocale() ? 'ar' : 'en',
+  locale: (getLang() && getLang() != 'null') ? getLang() : 'en',
+  fallbackLocale: (getLang() && getLang() != 'null') ? getLang() : 'en',
   messages: loadLocaleMessages(),
 })
