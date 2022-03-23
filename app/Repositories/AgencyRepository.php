@@ -12,4 +12,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface AgencyRepository extends RepositoryInterface
 {
     //
+
+    public function index($data);
 }

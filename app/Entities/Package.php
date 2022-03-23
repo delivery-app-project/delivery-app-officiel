@@ -32,4 +32,8 @@ class Package extends Model implements Transformable
     }
     
 
+    public function package_type(){
+        return $this->belongsTo(PackageType::class,'package_type_id');
+    }
+    
 }

@@ -26,5 +26,5 @@ Route::get('/login-back', function (){
 })->name('login');
 
 
-Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '^(?!api).*$');
+Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '^(?!api).*$')->name('any');
 

@@ -18,6 +18,7 @@ export default function usAppConfig() {
   const isRTL = computed({
     get: () => store.state.appConfig.layout.isRTL,
     set: val => {
+      // console.log("check is rtl of customizer");
       store.commit('appConfig/TOGGLE_RTL', val)
     },
   })

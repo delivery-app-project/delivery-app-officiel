@@ -59,12 +59,11 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
 
         $model = $this;
-
+        // filter by type 
         if (key_exists('status', $data) && $data['status'])
-            $model = $this->where(
-                'type',
-                $data['status']
-            );
+            $model = $this->whereHas('package_type', function ($q) use ($data){
+                $q->where('package_types.name' , $data['status']);
+            });
 
         if ($id) $model =  $this->whereHas('marchent', function ($q) use ($id) {
             $q->where('id', $id);

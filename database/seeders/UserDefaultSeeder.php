@@ -45,15 +45,25 @@ class UserDefaultSeeder extends Seeder
                     'last_name' => 'for test',
                     'phone' => '01111111112',
                 ],
+                [
+                    'email' => 'user-admin@test.com',
+                    'password' => Hash::make($password),
+                    'first_name' => 'Admin',
+                    'last_name' => 'for test',
+                    'phone' => '01111111113',
+                    
+                ]
             ]
 
         );
 
         $user_mar = User::where('id',1)->get()->first();
         $user_tr = User::where('id',2)->get()->first();
+        $user_admin = User::where('id',3)->get()->first();
 
         $user_mar->address()->save($adr);
         $user_tr->address()->save($adr);
+        $user_admin->address()->save($adr);
 
         DB::table('marchents')->insert([
                 [
@@ -63,9 +73,14 @@ class UserDefaultSeeder extends Seeder
                 ]
         ]);
 
+        // insert transporter and admin
+
         DB::table('employees')->insert([
                 [
                     'user_id' => $user_tr->id
+                ],
+                [
+                    'user_id' => $user_admin->id
                 ]
         ]);
     }

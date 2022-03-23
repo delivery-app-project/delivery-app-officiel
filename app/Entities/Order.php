@@ -43,5 +43,9 @@ class Order extends Model implements Transformable
         return $this->belongsTo(Package::class,'package_id');
     }
 
+
+    public function order_statuses(){
+        return $this->belongsToMany(OrderStatus::class,'order_status_order');
+    }
     
 }

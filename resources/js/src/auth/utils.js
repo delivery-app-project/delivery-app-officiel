@@ -1,4 +1,6 @@
 import useJwt from '@/auth/jwt/useJwt'
+import CryptoJS from 'crypto-js'
+
 
 /**
  * Return if user is logged in
@@ -7,10 +9,24 @@ import useJwt from '@/auth/jwt/useJwt'
  */
 // eslint-disable-next-line arrow-body-style
 export const isUserLoggedIn = () => {
+  
   return localStorage.getItem('userData') && localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName)
 }
 
-export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
+export const getUserData = () => {
+  
+  var secret = "user data secret in browser";
+  
+  let data = localStorage.getItem('userData');
+  
+  let userData = null;
+  
+  if(data)
+  userData = JSON.parse(CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8));
+
+  // console.log(userData);
+  return userData;
+}
 
 /**
  * This function is used for demo purpose route navigation
@@ -33,3 +49,15 @@ export const getHomeRouteForLoggedInUser = () => {
   if (userData) return '/'
   return { name: 'login' }
 }
+
+
+export function setUserData (userData)  { 
+  var secret = "user data secret in browser";
+  let data = JSON.stringify(userData);
+  const encrypted = CryptoJS.AES.encrypt(data, secret);
+
+  localStorage.setItem('userData', encrypted)
+}
+
+
+

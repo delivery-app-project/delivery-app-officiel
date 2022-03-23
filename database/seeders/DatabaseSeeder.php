@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this->call(UserDefaultSeeder::class);
-        $this->call(RolesAndPermissionsSeeder::class);
+        // $this->call(UserDefaultSeeder::class);
+        // $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserRolesSeeder::class);
 
         // wilaya daira , city 

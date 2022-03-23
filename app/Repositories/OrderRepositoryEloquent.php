@@ -17,7 +17,7 @@ use PDO;
  */
 class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 {
-    
+
     protected $fieldSearchable = [
         'receiver' => 'like'
     ];
@@ -71,11 +71,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
         $model = $this;
 
+        // filter by type 
         if (key_exists('status', $data) && $data['status'])
-            $model = $this->where(
-                'etat',
-                $data['status']
-            );
+            $model = $this->whereHas('order_statuses', function ($q) use ($data) {
+                $q->where('order_statuses.name', $data['status']);
+            });
 
         if ($id) $model =  $this->whereHas('package', function ($q) use ($id) {
             $q->where('marchent_id', $id);

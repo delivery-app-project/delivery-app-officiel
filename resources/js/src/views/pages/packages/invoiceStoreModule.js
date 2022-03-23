@@ -14,6 +14,14 @@ export default {
           .catch(error => reject(error))
       })
     },
+    fetchTypes(ctx,queryParams){
+      return new Promise((resolve, reject) => {
+        axios
+          .get('/package-type', { params: queryParams })
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
     fetchInvoice(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios

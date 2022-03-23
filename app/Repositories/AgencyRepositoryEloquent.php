@@ -6,6 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AgencyRepository;
 use App\Entities\Agency;
+use App\Providers\RouteServiceProvider;
 use App\Validators\AgencyValidator;
 
 /**
@@ -15,6 +16,13 @@ use App\Validators\AgencyValidator;
  */
 class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepository
 {
+
+
+    
+    protected $fieldSearchable = [
+        'name' => 'like'
+    ];
+
     /**
      * Specify Model class name
      *
@@ -43,6 +51,29 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+
+    public function index($data){
+        
+        $id = key_exists('id', $data) ? $data['id'] : null;
+
+        $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
+
+
+        $model = $this;
+
+        // filter by type 
+        // if (key_exists('status', $data) && $data['status'])
+        //     $model = $this->whereHas('order_statuses', function ($q) use ($data) {
+        //         $q->where('order_statuses.name', $data['status']);
+        //     });
+
+        if ($id) $model =  $this->where('employee_id',$id);
+
+
+        return $model->with(['director.user','address.city.daira.wilaya','main_stock'])->paginate($perPage);
+   
     }
     
 }

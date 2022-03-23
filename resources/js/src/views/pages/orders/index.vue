@@ -46,7 +46,7 @@
             <v-select
               v-model="statusFilter"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-              :options="statusOptions"
+              :options="stOptions"
               class="invoice-filter-select"
               placeholder="Select Status"
             >
@@ -294,7 +294,7 @@ import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
-
+// import { Can } from '@casl/vue';
 import invoiceStoreModule from './invoiceStoreModule'
 
 export default {
@@ -316,8 +316,45 @@ export default {
 
     vSelect,
   },
+  methods: {
+    fetchStatuses(){
+    store
+    .dispatch('app-order/fetchStatuses',{})
+    .then(response => {
+
+      this.statusOptions = response.data;
+
+    })
+    .catch(() => {
+      toast({
+        component: ToastificationContent,
+        props: {
+          title: "Error fetching invoices' list",
+          icon: 'AlertTriangleIcon',
+          variant: 'danger',
+        },
+      });    
+    });
+    },
+  },
+  
+  created() {
+    this.fetchStatuses();
+  },
+  data() {
+    return {
+      statusOptions : []
+    }
+  },
+  computed: {
+    stOptions(){
+      return this.statusOptions.map(item => {
+        return item.name
+      });
+    }
+  },
   setup() {
-    const INVOICE_APP_STORE_MODULE_NAME = 'app-invoice'
+    const INVOICE_APP_STORE_MODULE_NAME = 'app-order'
 
     // Register module
     if (!store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
@@ -328,7 +365,7 @@ export default {
       if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME)) store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME)
     })
 
-    const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
+    // const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
 
     // const  fetchInvoices = [
     //     {
@@ -374,7 +411,7 @@ export default {
       refInvoiceListTable,
       statusFilter,
       refetchData,
-      statusOptions,
+      // statusOptions,
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,

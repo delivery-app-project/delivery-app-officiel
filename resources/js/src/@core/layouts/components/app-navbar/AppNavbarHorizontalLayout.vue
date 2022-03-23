@@ -45,7 +45,7 @@ import CartDropdown from './components/CartDropdown.vue'
 import NotificationDropdown from './components/NotificationDropdown.vue'
 import UserDropdown from './components/UserDropdown.vue'
 
-export default {
+export default { 
   components: {
     BLink,
 

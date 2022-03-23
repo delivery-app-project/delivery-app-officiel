@@ -1,4 +1,5 @@
 import { $themeConfig } from '@themeConfig'
+import { setLocale,getLocale  } from '../../locale/utils'
 
 export default {
   namespaced: true,
@@ -23,9 +24,10 @@ export default {
   },
   getters: {},
   mutations: {
-    TOGGLE_RTL(state) {
-      state.layout.isRTL = !state.layout.isRTL
+    TOGGLE_RTL(state,val) {
+      state.layout.isRTL = val
       document.documentElement.setAttribute('dir', state.layout.isRTL ? 'rtl' : 'ltr')
+      setLocale(val ? 'rtl' : 'ltr')
     },
     UPDATE_SKIN(state, skin) {
       state.layout.skin = skin
@@ -56,5 +58,6 @@ export default {
       Object.assign(state.layout.footer, obj)
     },
   },
-  actions: {},
+  actions: {
+  },
 }

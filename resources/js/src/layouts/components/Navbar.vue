@@ -19,9 +19,13 @@
     <!-- Left Col -->
     <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
       <dark-Toggler class="d-none d-lg-block" />
+      
     </div>
 
+    
+
     <b-navbar-nav class="nav align-items-center ml-auto">
+      <locale />
       <b-nav-item-dropdown
         right
         toggle-class="d-flex align-items-center dropdown-user-link"
@@ -97,13 +101,17 @@
 
 <script>
 import {
-  BLink, BNavbarNav, BNavItemDropdown, BDropdownItem, BDropdownDivider, BAvatar,
+  BLink, BNavbarNav, BNavItemDropdown, BDropdownItem, BDropdownDivider, BAvatar
 } from 'bootstrap-vue'
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue'
-
+import Locale from '@core/layouts/components/app-navbar/components/Locale.vue'
 
 import { initialAbility } from '@/libs/acl/config'
 import useJwt from '@/auth/jwt/useJwt'
+
+import { getLocale,isRtl } from '../../locale/utils'
+import store from '@/store'
+
 
 export default {
   components: {
@@ -116,13 +124,21 @@ export default {
 
     // Navbar Components
     DarkToggler,
+    Locale
   },
   props: {
+
     toggleVerticalMenuActive: {
       type: Function,
       default: () => {},
     },
     
+  },
+  created() {
+    
+    // update rtl 
+    // for rtl 
+    store.commit('appConfig/TOGGLE_RTL',isRtl()===true);
   },
   methods: {
        logout() {
@@ -133,6 +149,8 @@ export default {
 
       // Remove userData from localStorage
       localStorage.removeItem('userData')
+      localStorage.removeItem('rtl')
+      localStorage.removeItem('lang')
 
       // Reset ability
       this.$ability.update(initialAbility)
