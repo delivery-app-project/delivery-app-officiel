@@ -3,7 +3,8 @@
 return [
     'roles' => [
         'marchent',
-        'transporter'
+        'transporter',
+        'admin'
     ],
     'permissions' => [
         // for all roles 
@@ -17,6 +18,12 @@ return [
         ['name' => 'view transactions','subject' => 'Transactions' , 'action' => 'read'],
         
         ['name' => 'view orders','subject' => 'Orders' , 'action' => 'read'],
+        
+        // for admin
+        ['name' => 'view agencies','subject' => 'Agencies' , 'action' => 'read'],
+        ['name' => 'view stocks','subject' => 'Stocks' , 'action' => 'read'],
+        ['name' => 'view employees','subject' => 'Employees' , 'action' => 'read'],
+        ['name' => 'view marchents','subject' => 'Marchents' , 'action' => 'read'],
         
         
     ],
@@ -33,6 +40,12 @@ return [
         ],
         'transporter' => [
                 'view transactions'
+        ],
+        'admin' => [
+            'view agencies',
+            'view stocks',
+            'view employees',
+            'view marchents'
         ]
     ]
 

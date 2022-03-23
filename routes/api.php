@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
@@ -34,6 +35,10 @@ Route::group([
    
         Route::resource('user', UserController::class)->only(
             'update'
+        );
+
+        Route::resource('agency', AgencyController::class)->only(
+            'index'
         );
 });
 

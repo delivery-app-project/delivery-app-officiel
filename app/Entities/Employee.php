@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use PDO;
 use Prettus\Repository\Contracts\Transformable;

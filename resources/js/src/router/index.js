@@ -6,6 +6,7 @@ import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
 import marchent from './routes/marchent'
 import employee from './routes/employee' 
+import admin from './routes/admin' 
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,8 @@ const router = new VueRouter({
         pageTitle: 'Not Authorized',
         resource : 'Not Authorized',
         breadcrumb: [
-          {  
+          {
+            layout: 'full',
             text: 'Not Authorized',
             active: true,
           },
@@ -101,7 +103,8 @@ const router = new VueRouter({
       redirect: 'error-404',
     },
     ...marchent,
-    ...employee
+    ...employee,
+    ...admin
   ],
 })
 

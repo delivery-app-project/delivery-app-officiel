@@ -8,7 +8,6 @@ import { getUserData } from '@/auth/utils'
 // ? You can update this if you store user abilities to more secure place
 // ! Anyone can update localStorage so be careful and please update this
 const userData = getUserData()
-console.log(userData);
 
 const existingAbility = userData ? userData.ability : null
 

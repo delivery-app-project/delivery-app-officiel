@@ -1,4 +1,5 @@
 
+import admin from './admin'
 import employee from './employee'
 import marchent from './marchent'
 
@@ -25,5 +26,6 @@ export default [
     action : 'read'
   },
   ...marchent,
-  ...employee
+  ...employee,
+  ...admin
 ]
