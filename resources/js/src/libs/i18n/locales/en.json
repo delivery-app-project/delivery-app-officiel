@@ -177,11 +177,13 @@
   "Test" : "Test en",
 
 
-  
+
   "Home" : "Home",
   "Packages" : "Packages",
   "Orders" : "Orders",
-  "Transactions" : "Transactions"
+  "Transactions" : "Transactions",
+
+  "test" : "test"
 
 
 
