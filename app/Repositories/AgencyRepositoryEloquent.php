@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Criteria\AgencyRepositoryCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AgencyRepository;
 use App\Entities\Agency;
 use App\Providers\RouteServiceProvider;
+use App\Traits\BaseRepositoryTrait;
 use App\Validators\AgencyValidator;
 
 /**
@@ -17,7 +19,12 @@ use App\Validators\AgencyValidator;
 class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepository
 {
 
+    use BaseRepositoryTrait;
 
+    protected $relations = [
+        'director.user','address.city.daira.wilaya','main_stock'
+    ];
+    
     
     protected $fieldSearchable = [
         'name' => 'like'
@@ -51,6 +58,9 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+
+        $this->pushCriteria(app(AgencyRepositoryCriteria::class));
+
     }
 
 
@@ -63,17 +73,18 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
         $model = $this;
 
-        // filter by type 
-        // if (key_exists('status', $data) && $data['status'])
-        //     $model = $this->whereHas('order_statuses', function ($q) use ($data) {
-        //         $q->where('order_statuses.name', $data['status']);
-        //     });
 
         if ($id) $model =  $this->where('employee_id',$id);
 
 
-        return $model->with(['director.user','address.city.daira.wilaya','main_stock'])->paginate($perPage);
+        return $model->paginate($perPage);
    
     }
+    
+
+    public function show($id){
+        return $this->findOrFail($id);
+    }
+
     
 }

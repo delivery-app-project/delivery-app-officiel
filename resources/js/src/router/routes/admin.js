@@ -15,6 +15,15 @@ export default [
           // ],
         },
       },
+      {
+        path: '/agencies/preview/:id',
+        name: 'agency-preview',
+        component: () => import('@/views/pages/agencies/agency-preview/agencyPreview.vue'),
+        meta : {
+          pageTitle : "Agency preview",
+          resource : "Agencies"
+        }
+      },
     {
         path: '/stocks',
         name: 'stocks',
@@ -63,6 +72,8 @@ export default [
           // ],
         },
       },
+
+      
 
 
 

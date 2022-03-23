@@ -27,19 +27,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([
     'middleware' => 'auth:api'
-], function ($router){
-        Route::get('package',[PackageController::class,'index'])->name('package.index');
-        Route::get('package-type',[PackageTypeController::class,'index'])->name('package-type.index');
-        Route::get('order-status',[OrderStatusController::class,'index'])->name('package-status.index');
-        Route::get('order',[OrderController::class,'index'])->name('order.index');
-   
-        Route::resource('user', UserController::class)->only(
-            'update'
-        );
+], function ($router) {
 
-        Route::resource('agency', AgencyController::class)->only(
-            'index'
-        );
+    Route::get('package', [PackageController::class, 'index'])->name('package.index');
+    Route::get('package-type', [PackageTypeController::class, 'index'])->name('package-type.index');
+    Route::get('order-status', [OrderStatusController::class, 'index'])->name('package-status.index');
+    Route::get('order', [OrderController::class, 'index'])->name('order.index');
+
+    Route::resource('user', UserController::class)->only(
+        'update'
+    );
+
 });
 
 
@@ -50,13 +48,16 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', [AuthController::class,'login'])->name('api-login');
-    Route::post('logout', [AuthController::class,'logout'])->name('api-logout');
-    Route::post('refresh-token', [AuthController::class,'refresh'])->name('api-refresh');
-    Route::post('me', [AuthController::class,'me'])->name('api-me');
+    Route::post('login', [AuthController::class, 'login'])->name('api-login');
+    Route::post('logout', [AuthController::class, 'logout'])->name('api-logout');
+    Route::post('refresh-token', [AuthController::class, 'refresh'])->name('api-refresh');
+    Route::post('me', [AuthController::class, 'me'])->name('api-me');
     // Route::patch('respondWithToken', [AuthController::class,'respondWithToken'])->name('api-respondWithToken');
 
-    
+
 });
 // api/package
 
+Route::resource('agency', AgencyController::class)->only(
+    'index','show'
+);
