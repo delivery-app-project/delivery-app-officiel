@@ -9,9 +9,13 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface AgencyRepository extends RepositoryInterface
+interface AgencyRepository extends RepositoryInterface , BaseRepositoryInterface
 {
     //
 
     public function index($data);
+
+    public function show($id);
+
+
 }

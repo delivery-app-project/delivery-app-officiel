@@ -45,4 +45,6 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
         $this->pushCriteria(app(RequestCriteria::class));
     }
     
+
+    
 }

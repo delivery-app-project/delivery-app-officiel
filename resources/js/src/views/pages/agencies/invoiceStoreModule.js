@@ -26,7 +26,7 @@ export default {
     fetchInvoice(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`/apps/invoice/invoices/${id}`)
+          .get(`/agency/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
