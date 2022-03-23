@@ -195,7 +195,7 @@ import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
-import { getHomeRouteForLoggedInUser } from '@/auth/utils'
+import { getHomeRouteForLoggedInUser,setUserData } from '@/auth/utils'
 import useJwt from '@/auth/jwt/useJwt' 
 
 export default {
@@ -266,7 +266,8 @@ export default {
           // Setting refresh token in localStorage
           useJwt.setRefreshToken(userData.refreshToken)
           // Setting user data in localStorage
-          localStorage.setItem('userData', JSON.stringify(userData))
+          // localStorage.setItem('userData', JSON.stringify(userData))
+          setUserData(userData)
           // Updating user ability in CASL plugin instance
           this.$ability.update(userData.ability)
           // ? This is just for demo purpose as well.

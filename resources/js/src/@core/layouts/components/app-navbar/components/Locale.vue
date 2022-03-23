@@ -37,7 +37,7 @@ import store from "@/store";
 import { computed, watch } from "@vue/composition-api";
 import { setLang, setLocale } from "../../../../../locale/utils";
 import localeStoreModule from './localeStoreModule'
-import {getUserData} from '@/auth/utils'
+import {getUserData,setUserData} from '@/auth/utils'
 
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
@@ -75,7 +75,8 @@ export default {
     .then(response => {
         const { lang } = response.data;
         userData.lang = lang;
-        localStorage.setItem('userData', JSON.stringify(userData))
+        setUserData(userData);
+        // localStorage.setItem('userData', JSON.stringify(userData))
         this.setLocale(localeObj);
     } )
     .catch((error) => {

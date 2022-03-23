@@ -3,7 +3,6 @@ import Vue from 'vue'
 // axios
 import axios from 'axios'
 
-const userData = JSON.parse(localStorage.getItem('userData'));
 
 // let headers = {};
 

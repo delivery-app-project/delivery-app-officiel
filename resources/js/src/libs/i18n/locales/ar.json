@@ -174,5 +174,11 @@
   "Without Menu": "Without Menu",
   "Layout Empty": "Layout Empty",
   "Layout Blank": "Layout Blank",
-  "Test" : "Test en"
+  "Test" : "Test en",
+
+  "Home" : "الصفحة الرئيسية",
+  "Packages" : "الطرود",
+  "Orders" : "الطلبيات",
+  "Transactions" : "المعاملات"
+
 }

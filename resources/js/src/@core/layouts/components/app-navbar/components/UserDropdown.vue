@@ -127,6 +127,7 @@ import {
 import { initialAbility } from '@/libs/acl/config'
 import useJwt from '@/auth/jwt/useJwt'
 import { avatarText } from '@core/utils/filter'
+import {getUserData} from '@/auth/utils'
 
 export default {
   components: {
@@ -137,7 +138,7 @@ export default {
   },
   data() {
     return {
-      userData: JSON.parse(localStorage.getItem('userData')),
+      userData: getUserData(),
       avatarText,
     }
   },

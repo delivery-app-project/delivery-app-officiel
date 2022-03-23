@@ -174,5 +174,15 @@
   "Without Menu": "Without Menu",
   "Layout Empty": "Layout Empty",
   "Layout Blank": "Layout Blank",
-  "Test" : "Test en"
+  "Test" : "Test en",
+
+
+  
+  "Home" : "Home",
+  "Packages" : "Packages",
+  "Orders" : "Orders",
+  "Transactions" : "Transactions"
+
+
+
 }

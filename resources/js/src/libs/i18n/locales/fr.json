@@ -178,5 +178,10 @@
   "Without Menu": "Sans menu",
   "Layout Empty": "Disposition vide",
   "Layout Blank": "Mise en page vierge",
-  "Test" : "Test fr"
+  "Test" : "Test fr",
+  
+  "Home" : "Page principale",
+  "Packages" : "Paquets",
+  "Orders" : "Commandes",
+  "Transactions" : "Transactions"
 }
