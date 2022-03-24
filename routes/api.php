@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,5 +60,10 @@ Route::group([
 // api/package
 
 Route::resource('agency', AgencyController::class)->only(
+    'index','show'
+);
+
+//api/stock
+Route::resource('stocks', StockController::class)->only(
     'index','show'
 );
