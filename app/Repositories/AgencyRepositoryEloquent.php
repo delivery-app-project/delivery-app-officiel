@@ -24,8 +24,8 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     protected $relations = [
         'director.user','address.city.daira.wilaya','main_stock'
     ];
-    
-    
+
+
     protected $fieldSearchable = [
         'name' => 'like'
     ];
@@ -65,7 +65,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
 
     public function index($data){
-        
+
         $id = key_exists('id', $data) ? $data['id'] : null;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
@@ -78,13 +78,13 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
 
         return $model->paginate($perPage);
-   
+
     }
-    
+
 
     public function show($id){
         return $this->findOrFail($id);
     }
 
-    
+
 }

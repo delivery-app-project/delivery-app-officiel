@@ -6,7 +6,7 @@ export default [
         meta: {
           pageTitle: 'Agencies',
           resource : 'Agencies',
-          
+
           // breadcrumb: [
           //   {
           //     text: 'Home',
@@ -31,7 +31,7 @@ export default [
         meta: {
           pageTitle: 'Stocks',
           resource : 'Stocks',
-          
+
           // breadcrumb: [
           //   {
           //     text: 'Home',
@@ -40,6 +40,16 @@ export default [
           // ],
         },
       },
+      {
+        path: '/stocks/preview/:id',
+        name: 'stocks-preview',
+        component: () => import('@/views/pages/stocks/stocks-preview/stocksPreview.vue'),
+        meta : {
+          pageTitle : "Stocks preview",
+          resource : "Stocks"
+        }
+      },
+
     {
         path: '/employees',
         name: 'employees',
@@ -47,7 +57,7 @@ export default [
         meta: {
           pageTitle: 'Employees',
           resource : 'Employees',
-          
+
           // breadcrumb: [
           //   {
           //     text: 'Home',
@@ -63,7 +73,7 @@ export default [
         meta: {
           pageTitle: 'Marchents',
           resource : 'Marchents',
-          
+
           // breadcrumb: [
           //   {
           //     text: 'Home',
@@ -73,7 +83,7 @@ export default [
         },
       },
 
-      
+
 
 
 
