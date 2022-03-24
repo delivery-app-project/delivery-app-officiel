@@ -24,6 +24,7 @@ export default {
     BCard,
     BCardText,
     BLink,
+    
   },
 }
 </script>
