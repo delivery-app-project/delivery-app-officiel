@@ -9,7 +9,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface MarchentRepository extends RepositoryInterface
+interface MarchentRepository extends RepositoryInterface, BaseRepositoryInterface
 {
     //
+    public function index($data);
+
+    public function show($id);
 }

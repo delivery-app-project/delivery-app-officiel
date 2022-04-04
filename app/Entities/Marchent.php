@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entities;
-
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -28,7 +28,7 @@ class Marchent extends Model implements Transformable
         'user_id'
     ];
 
-    // // orders of the marchent 
+    // // orders of the marchent
     // public function orders(){
     //     return $this->hasMany(Order::class,'marchent_id','id');
     // }
@@ -40,8 +40,8 @@ class Marchent extends Model implements Transformable
         return $this->hasMany(Package::class,'marchent_id','id');
     }
 
-    // has many through 
-    // orders of the marchent 
+    // has many through
+    // orders of the marchent
     public function orders(){
         return $this->hasManyThrough(Order::class,Package::class);
     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MarchentController;
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
@@ -34,7 +36,6 @@ Route::group([
     Route::get('package-type', [PackageTypeController::class, 'index'])->name('package-type.index');
     Route::get('order-status', [OrderStatusController::class, 'index'])->name('package-status.index');
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
-
     Route::resource('user', UserController::class)->only(
         'update'
     );
@@ -65,5 +66,11 @@ Route::resource('agency', AgencyController::class)->only(
 
 //api/stock
 Route::resource('stocks', StockController::class)->only(
+    'index','show'
+);
+Route::resource('employee', EmployeeController::class)->only(
+    'index','show'
+);
+Route::resource('marchent', MarchentController::class)->only(
     'index','show'
 );

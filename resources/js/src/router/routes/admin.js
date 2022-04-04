@@ -53,10 +53,26 @@ export default [
     {
         path: '/employees',
         name: 'employees',
-        component: () => import('@/views/pages/employees/index.vue'),
+        component: () => import('@/views/pages/employees/employees-list/index.vue'),
         meta: {
           pageTitle: 'Employees',
           resource : 'Employees',
+
+          // breadcrumb: [
+          //   {
+          //     text: 'Home',
+          //     active: true,
+          //   },
+          // ],
+        },
+      },{
+      path: '/employees/:id',
+        name: 'employees-preview',
+        component: () => import('@/views/pages/employees/employees-view/index.vue'),
+        meta: {
+          pageTitle: 'Employees-preview',
+          //accy to Employees
+          resource : 'Stocks',
 
           // breadcrumb: [
           //   {
@@ -69,7 +85,7 @@ export default [
     {
         path: '/marchents',
         name: 'marchents',
-        component: () => import('@/views/pages/marchents/index.vue'),
+        component: () => import('@/views/pages/marchents/marchents-list/index.vue'),
         meta: {
           pageTitle: 'Marchents',
           resource : 'Marchents',
@@ -82,9 +98,6 @@ export default [
           // ],
         },
       },
-
-
-
 
 
 ];
