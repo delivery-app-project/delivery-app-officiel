@@ -9,7 +9,9 @@ use App\Repositories\EmployeeRepository;
 use App\Entities\Employee;
 use App\Traits\BaseRepositoryTrait;
 use App\Validators\EmployeeValidator;
-
+use App\Criteria\EmployeeRepositoryCriteria;
+use App\Providers\RouteServiceProvider;
+use App\Traits\BaseRepositoryTrait;
 /**
  * Class EmployeeRepositoryEloquent.
  *
@@ -17,12 +19,16 @@ use App\Validators\EmployeeValidator;
  */
 class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepository
 {
-
-    
     use BaseRepositoryTrait;
 
     protected $relations = [
-        'user.roles'
+        'transactions','agencies','user','stocks','user.roles'
+    ];
+
+    protected $fieldSearchable = [
+        'user.first_name' => 'like',
+        'user.last_name' => 'like',
+
     ];
 
     /**
@@ -61,6 +67,14 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         
         $role_ids = key_exists('role_ids',$data) ? $data['role_ids'] : null;
         $role_ids = is_string($role_ids) ? json_decode($role_ids) : $role_ids;
+
+        $perPage = key_exists('perPage', $data) ? $data['perPage'] : null;
+
+
+        $model = $this;
+
+        if($perPage)    return $model->paginate($perPage);
+        
         
 
         if($role_ids)
@@ -78,6 +92,8 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
     }
 
 
+    public function show($id){
+        return $this->findOrFail($id);
+    }
 
-    
 }

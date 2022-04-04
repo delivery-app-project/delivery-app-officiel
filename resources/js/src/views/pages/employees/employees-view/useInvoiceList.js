@@ -4,10 +4,8 @@ import store from '@/store'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-import {  getUserData } from '@/auth/utils'
 
 export default function useInvoicesList() {
-
   // Use toast
   const toast = useToast()
 
@@ -16,10 +14,11 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { label : 'Name' ,key: 'name', sortable: true },
-    { label : 'Address' ,key: 'address.district', sortable: true },
-    { label :'Stock' ,key: 'main_stock.name', sortable: true },
-    { label : 'Director' ,key: 'director.user.name', sortable: true },
+    { key: 'invoiceStatus', sortable: true },
+    { key: 'client', sortable: true },
+    { key: 'total', sortable: true, formatter: val => `$${val}` },
+    { key: 'issuedDate', sortable: true },
+    { key: 'balance', sortable: true },
     { key: 'actions' },
   ]
   const perPage = ref(10)
@@ -30,8 +29,6 @@ export default function useInvoicesList() {
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
-
-  
 
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
@@ -51,23 +48,19 @@ export default function useInvoicesList() {
   })
 
   const fetchInvoices = (ctx, callback) => {
-
-    const userData = getUserData()
     store
-      .dispatch('app-agency/fetchAgencies', {
-        search: searchQuery.value,
+      .dispatch('app-invoice/fetchInvoices', {
+        q: searchQuery.value,
         perPage: perPage.value,
         page: currentPage.value,
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
-        id : userData.employee.id
-
       })
       .then(response => {
-        const { data, total } = response.data
+        const { invoices, total } = response.data
 
-        callback(data)
+        callback(invoices)
         totalInvoices.value = total
       })
       .catch(() => {
