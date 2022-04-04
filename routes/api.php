@@ -4,7 +4,6 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MarchentController;
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;

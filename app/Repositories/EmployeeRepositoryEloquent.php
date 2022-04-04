@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Criteria\EmployeeRepositoryCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\EmployeeRepository;
@@ -10,8 +9,6 @@ use App\Entities\Employee;
 use App\Traits\BaseRepositoryTrait;
 use App\Validators\EmployeeValidator;
 use App\Criteria\EmployeeRepositoryCriteria;
-use App\Providers\RouteServiceProvider;
-use App\Traits\BaseRepositoryTrait;
 /**
  * Class EmployeeRepositoryEloquent.
  *
