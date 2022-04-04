@@ -18,7 +18,8 @@ class CreateAgenciesTable extends Migration
 	{
 		Schema::create('agencies', function(Blueprint $table) {
             $table->id();
-			$table->enum('type',['central','secondary']);
+			// type is morph
+			// $table->enum('type',['central','secondary']);
 			$table->string('name');
 			$table->unsignedBigInteger('address_id')->nullable();
 			// to fullfill معلومات السجل التجاري 

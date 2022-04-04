@@ -5,6 +5,10 @@ import Vuex from 'vuex'
 import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
+import common from './common';
+
+// moduls 
+import agency from './agency';
 
 Vue.use(Vuex)
 
@@ -13,6 +17,9 @@ export default new Vuex.Store({
     app,
     appConfig,
     verticalMenu,
+    common,
+
+    agency
   },
   strict: process.env.DEV,
 })

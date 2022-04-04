@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\TypeMorphController;
+use App\Http\Controllers\wilayaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +38,8 @@ Route::group([
     Route::get('order-status', [OrderStatusController::class, 'index'])->name('package-status.index');
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
 
+    
+    
     Route::resource('user', UserController::class)->only(
         'update'
     );
@@ -59,11 +64,24 @@ Route::group([
 });
 // api/package
 
-Route::resource('agency', AgencyController::class)->only(
-    'index','show'
-);
+    //api/stock
+    Route::resource('stocks', StockController::class)->only(
+        'index','show'
+    );
 
-//api/stock
-Route::resource('stocks', StockController::class)->only(
-    'index','show'
-);
+    Route::resource('type-morph', TypeMorphController::class)->only(
+        'index'
+    );
+
+
+    Route::resource('agency', AgencyController::class)->only(
+        'index','show','store','update'
+    );
+
+    Route::resource('wilaya', wilayaController::class)->only(
+        'index'
+    );
+
+    Route::resource('employee', EmployeeController::class)->only(
+        'index'
+    );

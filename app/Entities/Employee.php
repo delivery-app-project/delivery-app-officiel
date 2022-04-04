@@ -17,6 +17,9 @@ class Employee extends Model implements Transformable
 {
     use TransformableTrait;
 
+    protected $appends = [
+        'name'
+    ];
     /**
      * The attributes that are mass assignable.
      *
@@ -43,6 +46,11 @@ class Employee extends Model implements Transformable
 
     public function stocks(){
         return $this->belongsToMany(Stock::class,'stock_employee');
+    }
+
+
+    public function getNameAttribute(){
+        return $this->user->name;
     }
     
 

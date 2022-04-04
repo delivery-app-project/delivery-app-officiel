@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Criteria\EmployeeRepositoryCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\EmployeeRepository;
 use App\Entities\Employee;
+use App\Traits\BaseRepositoryTrait;
 use App\Validators\EmployeeValidator;
 
 /**
@@ -15,6 +17,14 @@ use App\Validators\EmployeeValidator;
  */
 class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepository
 {
+
+    
+    use BaseRepositoryTrait;
+
+    protected $relations = [
+        'user.roles'
+    ];
+
     /**
      * Specify Model class name
      *
@@ -43,6 +53,31 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(EmployeeRepositoryCriteria::class));
     }
+
+
+    public function index($data){
+        
+        $role_ids = key_exists('role_ids',$data) ? $data['role_ids'] : null;
+        $role_ids = is_string($role_ids) ? json_decode($role_ids) : $role_ids;
+        
+
+        if($role_ids)
+        return $this->whereHas('user',function ($q) use ($role_ids){
+            // $q->whereIn('roles.id',$role_ids);
+            $q->whereHas('roles',function ($q) use ($role_ids){
+                $q->whereIn('roles.id',$role_ids);
+            });
+
+        })->get();
+
+
+        return $this->all();
+
+    }
+
+
+
     
 }

@@ -4,7 +4,8 @@ return [
     'roles' => [
         'marchent',
         'transporter',
-        'admin'
+        'admin',
+        'agency head'
     ],
     'permissions' => [
         // for all roles 

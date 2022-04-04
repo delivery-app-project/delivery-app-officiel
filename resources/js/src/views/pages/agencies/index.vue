@@ -26,7 +26,7 @@
           />
           <b-button
             variant="primary"
-            :to="{ name: 'apps-invoice-add'}"
+            :to="{ name: 'agency-add'}"
           >
             Add Record
           </b-button>
@@ -165,15 +165,16 @@
         <div class="text-nowrap">
           <feather-icon
             :id="`invoice-row-${data.item.id}-send-icon`"
-            icon="SendIcon"
+            icon="EditIcon"
             class="cursor-pointer"
             size="16"
+            @click="$router.push({ name: 'agency-update', params: { id: data.item.id }})"
           />
-          <b-tooltip
-            title="Send Invoice"
+          <!-- <b-tooltip
+            title="Edit Agency"
             class="cursor-pointer"
             :target="`invoice-row-${data.item.id}-send-icon`"
-          />
+          /> -->
 
           <feather-icon
             :id="`invoice-row-${data.item.id}-preview-icon`"
@@ -182,43 +183,23 @@
             class="mx-1"
             @click="$router.push({ name: 'agency-preview', params: { id: data.item.id }})"
           />
-          <b-tooltip
-            title="Preview Invoice"
+          <!-- <b-tooltip
+            title="Preview Agency"
             :target="`invoice-row-${data.item.id}-preview-icon`"
+          /> -->
+
+          <feather-icon
+            :id="`invoice-row-${data.item.id}-delete-icon`"
+            icon="DeleteIcon"
+            size="16"
+            class="mx-1"
+          
           />
+          <!-- <b-tooltip
+            title="Delete Agency"
+            :target="`invoice-row-${data.item.id}-delete-icon`"
+          /> -->
 
-          <!-- Dropdown -->
-          <b-dropdown
-            variant="link"
-            toggle-class="p-0"
-            no-caret
-            :right="$store.state.appConfig.isRTL"
-          >
-
-            <template #button-content>
-              <feather-icon
-                icon="MoreVerticalIcon"
-                size="16"
-                class="align-middle text-body"
-              />
-            </template>
-            <b-dropdown-item>
-              <feather-icon icon="DownloadIcon" />
-              <span class="align-middle ml-50">Download</span>
-            </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }">
-              <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">Delete</span>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <feather-icon icon="CopyIcon" />
-              <span class="align-middle ml-50">Duplicate</span>
-            </b-dropdown-item>
-          </b-dropdown>
         </div>
       </template>
 

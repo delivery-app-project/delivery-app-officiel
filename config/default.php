@@ -1,7 +1,24 @@
+
 <?php
+
+use App\Entities\Agency;
 // problem in 49 + wilaya thy have 2 type of document tation for nmber
 return [
+        "general" => [
+                "agency" => [
+                    "seed" => [
+                        [
+                            "name" => "Central",
+                            "type" => Agency::class
+                        ],
+                        [
+                            "name" => "Secondary", 
+                            "type" => Agency::class
+                        ]
+                    ]
 
+                ] 
+        ] ,
         "wilayas" => [
                 // wilaya 1
             [

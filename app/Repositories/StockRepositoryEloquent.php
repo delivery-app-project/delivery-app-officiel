@@ -60,23 +60,25 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
         // les relation
        $this->pushCriteria(app(StockRepositoryCriteria::class));
     }
+
+
     public function index($data){
 
+        $paginated = key_exists('paginated',$data) ? ($data['paginated'] === "false" ? false : true) : true;
 
         $status = key_exists('status', $data) ? $data['status'] : null;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
-
 
         $model = $this;
 
 
         if ($status) $model =  $this->where('type',$status);
 
-
+        if($paginated)
         return $model->paginate($perPage);
 
-
+        return $model->get();
 
     }
 

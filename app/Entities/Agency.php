@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Validators\AgencyValidator;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -21,11 +22,12 @@ class Agency extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-        'type',
         'name',
         'address_id',
         'employee_id',
-        'stock_id'
+        'stock_id',
+        'phone',
+        'email'
     ];
 
     public function director(){
@@ -45,6 +47,25 @@ class Agency extends Model implements Transformable
     public function address(){
         return $this->morphOne(Address::class,'model');
     }
+
+
+    public function type(){
+        return $this->morphTo();
+    }
+
+
+
+     /**
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
+    public function validator()
+    {
+        return AgencyValidator::class;
+    }
+
+
     
 
 

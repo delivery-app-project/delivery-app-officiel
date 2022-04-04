@@ -7,10 +7,25 @@ export default {
   mutations: {},
   actions: {
     fetchAgencies(ctx, queryParams) {
-      console.log("check fetch agencies");
       return new Promise((resolve, reject) => {
         axios
           .get('/agency', { params: queryParams })
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
+    fetchStocks(ctx, queryParams) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get('/stocks', { params: queryParams })
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
+    storeAgency(ctx,queryParams){
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/agency', queryParams )
           .then(response => resolve(response))
           .catch(error => reject(error))
       })

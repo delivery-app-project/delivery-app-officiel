@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Criteria\WilayaRepositoryCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\WilayaRepository;
 use App\Entities\Wilaya;
+use App\Traits\BaseRepositoryTrait;
 use App\Validators\WilayaValidator;
 
 /**
@@ -15,6 +17,14 @@ use App\Validators\WilayaValidator;
  */
 class WilayaRepositoryEloquent extends BaseRepository implements WilayaRepository
 {
+    
+    use BaseRepositoryTrait;
+
+    protected $relations = [
+        'dairas.cities'
+    ];
+
+
     /**
      * Specify Model class name
      *
@@ -33,6 +43,11 @@ class WilayaRepositoryEloquent extends BaseRepository implements WilayaRepositor
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        
+        $this->pushCriteria(app(WilayaRepositoryCriteria::class));
     }
     
+    public function index($data){
+        return $this->all();
+    }
 }

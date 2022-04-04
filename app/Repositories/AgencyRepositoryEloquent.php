@@ -11,6 +11,10 @@ use App\Providers\RouteServiceProvider;
 use App\Traits\BaseRepositoryTrait;
 use App\Validators\AgencyValidator;
 
+use Illuminate\Container\Container as Application;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
+
 /**
  * Class AgencyRepositoryEloquent.
  *
@@ -21,8 +25,21 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
     use BaseRepositoryTrait;
 
+    protected $address_repository;
+    protected $type_morph_repository;
+
+
+
+    public function __construct(Application $app, AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
+    {
+
+        parent::__construct($app);
+        $this->address_repository = $address_repository;
+        $this->type_morph_repository = $type_morph_repository;
+    }
+
     protected $relations = [
-        'director.user','address.city.daira.wilaya','main_stock'
+        'director.user', 'address.city.daira.wilaya', 'main_stock', 'type'
     ];
 
 
@@ -41,10 +58,10 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -60,11 +77,11 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
         $this->pushCriteria(app(RequestCriteria::class));
 
         $this->pushCriteria(app(AgencyRepositoryCriteria::class));
-
     }
 
 
-    public function index($data){
+    public function index($data)
+    {
 
         $id = key_exists('id', $data) ? $data['id'] : null;
 
@@ -74,17 +91,54 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
         $model = $this;
 
 
-        if ($id) $model =  $this->where('employee_id',$id);
+        if ($id) $model =  $this->where('employee_id', $id);
 
 
         return $model->paginate($perPage);
-
     }
 
 
-    public function show($id){
+    public function show($id)
+    {
         return $this->findOrFail($id);
     }
 
+    public function store($data)
+    {
+        // create the agency
+        $agency = $this->create($data);
+        // get type
+        $type = $this->type_morph_repository->find($data['type_id']);
+        // use (district and city_id)
+        $this->address_repository->create(array_merge(
+            ['model_type' => Agency::class, 'model_id' => $agency->id],
+            $data
+        ));
+        // attah type 
+        $type->agencies()->save($agency);
 
+
+        return $agency;
+    }
+
+    public function edit($data, $id)
+    {
+        $agency = $this->update($data,$id);
+
+        $type = $this->type_morph_repository->find($data['type_id']);
+        $address = $data['address_id'] ? $this->address_repository->find($data['address_id']) : null;   
+        // use (district and city_id)
+        if(!$address)
+        $this->address_repository->create(array_merge(
+            ['model_type' => Agency::class, 'model_id' => $agency->id],
+            $data
+        ));
+        else
+        $this->address_repository->update($data,$address->id); 
+        
+        // attah type 
+        $type->agencies()->save($agency);
+
+        return $agency;
+    }
 }

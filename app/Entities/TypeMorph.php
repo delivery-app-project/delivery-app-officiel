@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class Address.
+ * Class TypeMorph.
  *
  * @package namespace App\Entities;
  */
-class Address extends Model implements Transformable
+class TypeMorph extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -21,18 +21,15 @@ class Address extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-        'district',
-        'city_id',
-        'model_type',
-        'model_id'
+        'name',
+        'description',
+        'type'
     ];
 
 
-    public function model(){
-        return $this->morphTo();
+    public function agencies(){
+        return $this->morphMany(Agency::class,'type');
     }
 
-    public function city(){
-        return $this->belongsTo(City::class,'city_id');
-    }
+
 }

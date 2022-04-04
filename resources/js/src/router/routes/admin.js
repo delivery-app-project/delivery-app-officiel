@@ -20,6 +20,24 @@ export default [
         name: 'agency-preview',
         component: () => import('@/views/pages/agencies/agency-preview/agencyPreview.vue'),
         meta : {
+          pageTitle : "Agency Add",
+          resource : "Agencies"
+        }
+      }, 
+      {
+        path: '/agencies/update/:id',
+        name: 'agency-update',
+        component: () => import('@/views/pages/agencies/agency-update/agencyUpdate.vue'),
+        meta : {
+          pageTitle : "Agency Update",
+          resource : "Agencies"
+        } 
+      },
+      {
+        path: '/agencies/add',
+        name: 'agency-add',
+        component: () => import('@/views/pages/agencies/agency-add/agencyAdd.vue'),
+        meta : {
           pageTitle : "Agency preview",
           resource : "Agencies"
         }

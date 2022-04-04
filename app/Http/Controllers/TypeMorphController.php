@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Assistant\ResponseFormatter;
-use App\Repositories\EmployeeRepository;
+use App\Repositories\TypeMorphRepository;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class TypeMorphController extends Controller
 {
     //
     protected $repository;
 
-    public function __construct(EmployeeRepository $repository)
+    public function __construct(TypeMorphRepository $repository)
     {
             $this->repository = $repository;
     }
@@ -19,7 +19,7 @@ class EmployeeController extends Controller
 
 
     public function index(Request $request){
+
         return ResponseFormatter::response($this->repository->index($request->all()));
     }
-    
 }

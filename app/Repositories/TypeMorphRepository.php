@@ -5,13 +5,13 @@ namespace App\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface WilayaRepository.
+ * Interface TypeMorphRepository.
  *
  * @package namespace App\Repositories;
  */
-interface WilayaRepository extends RepositoryInterface,BaseRepositoryInterface
+interface TypeMorphRepository extends RepositoryInterface
 {
     //
-    public function index($data);
 
+    public function index($data);
 }

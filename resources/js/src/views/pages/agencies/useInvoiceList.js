@@ -31,6 +31,8 @@ export default function useInvoicesList() {
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
 
+  
+
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
     return {
