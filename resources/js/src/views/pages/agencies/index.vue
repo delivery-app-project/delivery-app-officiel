@@ -194,11 +194,13 @@
             size="16"
             class="mx-1"
           
+           @click="showMsgBoxOne(data.item.id)"
           />
           <!-- <b-tooltip
             title="Delete Agency"
             :target="`invoice-row-${data.item.id}-delete-icon`"
           /> -->
+            <!-- for the modal  -->
 
         </div>
       </template>
@@ -270,6 +272,8 @@ import {
   BPagination,
   BTooltip,
 } from 'bootstrap-vue'
+
+import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
@@ -278,9 +282,12 @@ import useInvoicesList from './useInvoiceList'
 // import { Can } from '@casl/vue';
 import invoiceStoreModule from './invoiceStoreModule'
 
+// import { codeMessageBox } from './code'
+
 export default {
   components: {
     BCard,
+    BCardCode,
     BRow,
     BCol,
     BFormInput,
@@ -298,6 +305,19 @@ export default {
     vSelect,
   },
   methods: {
+     showMsgBoxOne(id) {
+      this.boxOne = ''
+      this.$bvModal
+        .msgBoxConfirm('Are you sure?', {
+          cancelVariant: 'outline-secondary',
+        })
+        .then(value => {
+          this.boxOne = value
+
+        })
+
+        console.log(id);
+    },
   },
   
   created() {
