@@ -25,7 +25,9 @@ class Stock extends Model implements Transformable
         'type',
         'address_id',
         'employee_id',
-        'agency_id'
+        'agency_id',
+        'phone',
+        'email'
     ];
 
     // main agency for the zone stock
@@ -51,6 +53,26 @@ class Stock extends Model implements Transformable
     }
 
 
+    public function address(){
+        return $this->morphOne(Address::class,'model');
+    }
+
+    
+    public function type(){
+        return $this->morphTo();
+    }
+
+
+//   /**
+//     * Specify Validator class name
+//     *
+//     * @return mixed
+//     */
+//     public function validator()
+//     {
+
+//         return StockValidator::class;
+//     }
 
 
 }

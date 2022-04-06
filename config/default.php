@@ -2,6 +2,7 @@
 <?php
 
 use App\Entities\Agency;
+use App\Entities\Stock;
 // problem in 49 + wilaya thy have 2 type of document tation for nmber
 return [
         "general" => [
@@ -17,7 +18,19 @@ return [
                         ]
                     ]
 
-                ] 
+                        ],
+                    'stock' => [
+                        'seed' => [
+                            [
+                                'name' => "Central",
+                                'type' => Stock::class
+                            ],
+                            [
+                                "name" => "Secondary", 
+                                "type" => Stock::class
+                            ]
+                        ]
+                    ]
         ] ,
         "wilayas" => [
                 // wilaya 1

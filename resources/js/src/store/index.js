@@ -9,6 +9,7 @@ import common from './common';
 
 // moduls 
 import agency from './agency';
+import stock from './stock'; 
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     appConfig,
     verticalMenu,
     common,
+    stock,
 
     agency
   },

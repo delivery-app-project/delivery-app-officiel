@@ -1,5 +1,5 @@
 <template>
-  <b-card-code title="Update Agency">
+  <b-card-code title="Add Stock">
     <validation-observer ref="simpleRules">
       <b-form>
         <b-row>
@@ -10,12 +10,12 @@
               <validation-provider
                 #default="{ errors }"
                 rules="required"
-                name="Agency name"
+                name="Stock name"
               >
                 <b-form-input
-                  v-model="editedAgency.name"
+                  v-model="name"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Agency name"
+                  placeholder="Stock name"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -25,15 +25,15 @@
           <!--Enter Number between 10 & 20 -->
           <b-col md="6">
             <b-form-group>
-              <label>Type of the Agency</label>
+              <label>Type of the Stock</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required"
-                name="Type of the agency"
+                name="Type of the Stock"
               >
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.type"
+                    v-model="type"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     placeholder="Type"
@@ -60,7 +60,7 @@
                 name="Regex"
               >
                 <b-form-input
-                  v-model="editedAgency.phone"
+                  v-model="phone"
                   :state="errors.length > 0 ? false : null"
                   placeholder="Must be phone"
                 />
@@ -172,15 +172,15 @@
 
           <b-col md="6">
             <b-form-group>
-              <label>Agency director</label>
+              <label>Stock director</label>
               <validation-provider
                 #default="{ errors }"
-                name="Agency director"
+                name="Stock director"
                 rules="required"
               >
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.director"
+                    v-model="employee"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="employees"
@@ -202,7 +202,7 @@
                 rules="required|email"
               >
                 <b-form-input
-                  v-model="editedAgency.email"
+                  v-model="emailValue"
                   :state="errors.length > 0 ? false : null"
                   placeholder="Email"
                 />
@@ -215,15 +215,15 @@
           <!--Must be a valid url  -->
           <b-col md="6">
             <b-form-group>
-              <label>Only if your agency contain a stock</label>
-              <validation-provider #default="{ errors }" name="stock" rules="">
+              <label>Only if your Stock contain a Agency</label>
+              <validation-provider #default="{ errors }" name="agency" rules="">
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.main_stock"
+                    v-model="agency"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
-                    :options="stocks"
-                    placeholder="Stock"
+                    :options="agencies"
+                    placeholder="Agency"
                   />
                 </b-form-group>
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -241,7 +241,7 @@
                     rules="required"
                   >
                     <b-form-input
-                      v-model="editedAgency.address.district"
+                      v-model="address"
                       :state="errors.length > 0 ? false : null"
                       placeholder="Address"
                     />
@@ -336,7 +336,7 @@
                 <b-form-input
                   v-model="character"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Enter address of the agency (wilaya,daira,city , district)"
+                  placeholder="Enter address of the Stock (wilaya,daira,city , district)"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -372,9 +372,10 @@ import {
 
 
 import { ref, onUnmounted } from "@vue/composition-api";
+import store from "@/store";
 import {
   BFormInput,
-  BFormGroup, 
+  BFormGroup,
   BForm,
   BRow,
   BCol,
@@ -397,16 +398,13 @@ import {
 import { codeType } from "./code";
 import { mapGetters } from "vuex";
 
-import store from "@/store";
-import router from "@/router";
- 
 import vSelect from "vue-select";
 import invoiceStoreModule from "../invoiceStoreModule";
 export default {
-  components: { 
+  components: {
     BCardCode,
     ValidationProvider,
-    ValidationObserver, 
+    ValidationObserver,
     BFormInput,
     BFormGroup,
     BForm,
@@ -445,21 +443,7 @@ export default {
       alphaDash,
       codeType,
       //
-      editedAgency : {
-        stock: null,
-        name: null,
-        email: null,
-        phone: null,
-        address : {
-          district : null,
-        },
-        director: null,
-        type: null,
-        daira: null,
-        wilaya: null,
-        city: null 
-      },
-      stock: null,
+      agency: null,
       name: null,
       email: null,
       phone: null,
@@ -476,37 +460,28 @@ export default {
     };
   },
   created() {
+    console.log(this.errors);
+    // get types
+    store.dispatch("_UPDATE_MORPH_TYEPS", {
+      //App\Entities\Stock
+      type: "App\\Entities\\Stock",
+    });
+    // get wilayas
+    store.dispatch("_UPDATE_WILAYAS");
+    // get employees
+    store.dispatch("_UPDATE_EMPLOYEES");
+    // fetch agencies 
+    store.dispatch("_UPDATE_AGENCIES",{
+      paginated : false
+    });
     
-        // get agency 
-        store.dispatch('_GET_AGENCY',{
-          id : router.currentRoute.params.id
-        });
-        
-        // get types
-        store.dispatch("_UPDATE_MORPH_TYEPS", {
-          //App\Entities\Agency
-          type: "App\\Entities\\Agency",
-        });
-        // get wilayas
-        store.dispatch("_UPDATE_WILAYAS");
-        // get employees
-        store.dispatch("_UPDATE_EMPLOYEES");
-        // fetch stocks
-        // this.fetchStocks();
-        store.dispatch("_UPDATE_STOCKS",{
-          paginated : false
-        })
-
-        
-
   },
   computed: {
     ...mapGetters({
       morphTypes: "getMorphTypes",
       wilayas: "getWilayas",
       employees: "getEmployees",
-      agency : "getAgency",
-      stocks : "getStocks"
+      agencies : "getAgencies"
     }),
     dairas() {
       if (this.wilaya) return this.wilaya.dairas;
@@ -521,72 +496,86 @@ export default {
   },
   watch: {
     wilaya(value) {
-      // this.daira = null;
+      this.daira = null;
     },
     daira(value) {
-      // this.city = null;
+      this.city = null;
     },
     phone(value){
       this.duplicateErrors['phone']= false;
     },
     emailValue(value){
       this.duplicateErrors['email'] = false;
-    },
-    agency(value){
-      if(value){
-        this.setUpModel(value);
-      
-      }
     }
   },
   methods: {
-    setUpModel(model){
-        this.editedAgency = model;
-        this.city = this.editedAgency.address ? this.editedAgency.address.city : null;
-        this.daira = this.city.daira;
-        this.wilaya = this.daira.wilaya;
-    },
+    // fetchStocks() {
+    //   store
+    //     .dispatch("app-agency/fetchStocks", { 
+    //       paginated: false,
+    //       status: "central",
+    //     })
+    //     .then((response) => {
+    //       // const {data} = response.data;
+    //       this.stocks = response.data;
+    //     })
+    //     .catch((err) => {
+    //       toast({
+    //         component: ToastificationContent,
+    //         props: {
+    //           title: "Error fetching stocks list",
+    //           icon: "AlertTriangleIcon",
+    //           variant: "danger",
+    //         },
+    //       });
+    //     });
+    // },
     validationForm() {
       this.$refs.simpleRules.validate().then((success) => {
         if (success) {
           // eslint-disable-next-line
           const data = {
-            stock_id: this.editedAgency.main_stock ? this.editedAgency.main_stock.id : null,
-            name: this.editedAgency.name, 
-            email: this.editedAgency.email,
-            phone: this.editedAgency.phone,
-            district: this.editedAgency.address.district,
-            employee_id: this.editedAgency.director.id,
-            type_id: this.editedAgency.type.id,
+            agency_id: this.agency ? this.agency.id : null,
+            name: this.name,
+            email: this.emailValue,
+            phone: this.phone,
+            district: this.address,
+            employee_id: this.employee.id,
+            type_id: this.type.id,
             city_id: this.city.id,
-            id : this.agency.id,
-            address_id : this.editedAgency.address.id
           };
           // alert("form submitted!");
-          store.dispatch("_UPDATE_AGENCY",data).then((response) => {
+          store.dispatch("storeStock", data).then((response) => {
             // console.log(response);
             const { error } = response.data;
             // console.log(error);
             if (error) {
-              this.duplicateErrors = {
-                email : false,
-                phone : false
-              }
-              
               const { keys } = response.data;
               
               keys.map(key => {
-
                 this.duplicateErrors[key] = true;
               })
             }
             else { 
-              this.$router.replace('/agencies')
+              this.$router.replace('/stocks')
             }
           });
         }
       });
     },
-  }
+  },
+  setup() {
+    const INVOICE_APP_STORE_MODULE_NAME = "app-agency";
+
+    // Register module
+    if (!store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
+      store.registerModule(INVOICE_APP_STORE_MODULE_NAME, invoiceStoreModule);
+
+    // UnRegister on leave
+    onUnmounted(() => {
+      if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
+        store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME);
+    });
+  },
 };
 </script>

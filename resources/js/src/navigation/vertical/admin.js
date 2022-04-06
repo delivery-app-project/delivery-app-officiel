@@ -31,7 +31,26 @@ export default [
     icon: 'HomeIcon',
     route: 'stocks',
     resource: 'Stocks',
-    action: 'read'
+    action: 'read',
+    children: [
+      // {
+      //   title: 'Edit',
+      //   route: { name: 'apps-invoice-edit', params: { id: 4987 } },
+      // },
+      {
+        title: 'Stocks',
+        icon: 'HomeIcon',
+        route: 'stocks',
+        resource: 'Stocks',
+        action: 'read',
+      },
+      {
+        title: 'Add',
+        route: { name: 'stock-add' },
+        resource: 'Agencies',
+        action: 'read'
+      },
+    ],
   },
   {
     title: 'Employees',

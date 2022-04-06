@@ -61,7 +61,8 @@ export default function useInvoicesList() {
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
-        id : userData.employee.id
+        id : userData.employee.id,
+        paginated: true
 
       })
       .then(response => {

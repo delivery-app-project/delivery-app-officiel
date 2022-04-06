@@ -9,11 +9,10 @@ use App\Repositories\AgencyRepository;
 use App\Entities\Agency;
 use App\Providers\RouteServiceProvider;
 use App\Traits\BaseRepositoryTrait;
+use App\Traits\repositoriesCrud;
 use App\Validators\AgencyValidator;
 
 use Illuminate\Container\Container as Application;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class AgencyRepositoryEloquent.
@@ -24,6 +23,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 {
 
     use BaseRepositoryTrait;
+    use repositoriesCrud;
 
     protected $address_repository;
     protected $type_morph_repository;
@@ -83,18 +83,24 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     public function index($data)
     {
 
-        $id = key_exists('id', $data) ? $data['id'] : null;
+        // $id = key_exists('id', $data) ? $data['id'] : null;
 
-        $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
+        // $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
 
+        // $paginated = key_exists('paginated',$data) ? ($data['paginated'] === "false" ? false : true ) : null;
 
-        $model = $this;
-
-
-        if ($id) $model =  $this->where('employee_id', $id);
+        // $model = $this;
 
 
-        return $model->paginate($perPage);
+        // if ($id) $model =  $this->where('employee_id', $id);
+
+        // if($paginated)
+        // return $model->paginate($perPage);
+
+        // return $model->all();
+
+        return $this->handleIndex($data);
+
     }
 
 
@@ -126,7 +132,8 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
         $agency = $this->update($data,$id);
 
         $type = $this->type_morph_repository->find($data['type_id']);
-        $address = $data['address_id'] ? $this->address_repository->find($data['address_id']) : null;   
+        $address = key_exists('address_id',$data) ? ($data['address_id'] ? $this->address_repository->find($data['address_id']) : null ): null;   
+        
         // use (district and city_id)
         if(!$address)
         $this->address_repository->create(array_merge(

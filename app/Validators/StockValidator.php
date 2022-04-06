@@ -18,7 +18,20 @@ class StockValidator extends LaravelValidator
      * @var array
      */
     protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
-        ValidatorInterface::RULE_UPDATE => [],
+        ValidatorInterface::RULE_CREATE => [
+            'name' => 'required',
+            // 'address_id'  => 'min:3',
+            'employee_id' => 'required',
+            'phone' => 'required|unique:stocks',
+            'email' => 'required|unique:stocks'
+        ],
+        ValidatorInterface::RULE_UPDATE => [
+
+            'name' => 'required',
+            // 'address_id'  => 'min:3',
+            'employee_id' => 'required',
+            'phone' => 'required|unique:stocks',
+            'email' => 'required|unique:stocks'
+        ],
     ];
 }

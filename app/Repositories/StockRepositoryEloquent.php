@@ -10,6 +10,7 @@ use App\Validators\StockValidator;
 use App\Providers\RouteServiceProvider;
 use App\Traits\BaseRepositoryTrait;
 use App\Criteria\StockRepositoryCriteria;
+use Illuminate\Container\Container as Application;
 
 /**
  * Class StockRepositoryEloquent.
@@ -20,9 +21,20 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
 {
 
     use BaseRepositoryTrait;
+    protected $address_repository;
+    protected $type_morph_repository;
+
+
+    public function __construct(Application $app, AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
+    {
+
+        parent::__construct($app);
+        $this->address_repository = $address_repository;
+        $this->type_morph_repository = $type_morph_repository;
+    }
 
     protected $relations = [
-        'director','agencies','main_agency','employees','secondary_stocks'
+        'director.user','agencies','main_agency','employees','secondary_stocks','address.city.daira.wilaya','type'
     ];
     // shearce filed
     protected $fieldSearchable = [
@@ -87,4 +99,45 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
         return $this->findOrFail($id);
     }
 
+
+    public function store($data)
+    {
+        // create the agency
+        $model = $this->create($data);
+        // get type
+        $type = $this->type_morph_repository->find($data['type_id']);
+        // use (district and city_id)
+        $this->address_repository->create(array_merge(
+            ['model_type' => Stock::class, 'model_id' => $model->id],
+            $data
+        ));
+        // attah type 
+        $type->agencies()->save($model);
+
+
+        return $model;
+    }
+
+
+    public function edit($data, $id)
+    {
+        $model = $this->update($data,$id);
+
+        $type = $this->type_morph_repository->find($data['type_id']);
+        
+        $address = key_exists('address_id',$data) ? ($data['address_id'] ? $this->address_repository->find($data['address_id']) : null ): null;   
+        // use (district and city_id)
+        if(!$address)
+        $this->address_repository->create(array_merge(
+            ['model_type' => Stock::class, 'model_id' => $model->id],
+            $data
+        ));
+        else
+        $this->address_repository->update($data,$address->id); 
+        
+        // attah type 
+        $type->agencies()->save($model);
+
+        return $model;
+    }
 }

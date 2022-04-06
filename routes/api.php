@@ -82,7 +82,7 @@ Route::group([
 
 //api/stock
 Route::resource('stocks', StockController::class)->only(
-    'index','show'
+    'index','show','store','update'
 );
 Route::resource('employee', EmployeeController::class)->only(
     'index','show'

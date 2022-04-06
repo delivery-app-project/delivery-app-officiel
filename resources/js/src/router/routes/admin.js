@@ -67,6 +67,24 @@ export default [
           resource : "Stocks"
         }
       },
+      {
+        path: '/stocks/add',
+        name: 'stock-add',
+        component: () => import('@/views/pages/stocks/stock-add/stockAdd.vue'),
+        meta : {
+          pageTitle : "Stock preview",
+          resource : "Agencies"
+        }
+      },
+      {
+        path: '/stocks/update/:id',
+        name: 'stock-update',
+        component: () => import('@/views/pages/stocks/stock-update/stockUpdate.vue'),
+        meta : {
+          pageTitle : "Stock Update",
+          resource : "Agencies"
+        } 
+      },
 
     {
         path: '/employees',

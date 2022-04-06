@@ -26,7 +26,7 @@
           />
           <b-button
             variant="primary"
-            :to="{ name: 'apps-invoice-add'}"
+            :to="{ name: 'stock-add'}"
           >
             Add Record
           </b-button>
@@ -167,7 +167,9 @@
             :id="`invoice-row-${data.item.id}-send-icon`"
             icon="SendIcon"
             class="cursor-pointer"
-            size="16"
+            size="16"     
+            @click="$router.push({ name: 'stock-update', params: { id: data.item.id }})"
+      
           />
         <!--
           <b-tooltip

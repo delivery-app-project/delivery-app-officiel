@@ -15,5 +15,8 @@ interface StockRepository extends RepositoryInterface , BaseRepositoryInterface
 
     public function show($id);
 
+    public function store($data);
+
+    public function edit($data,$id);
     
 }

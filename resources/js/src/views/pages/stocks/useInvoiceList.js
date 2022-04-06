@@ -17,7 +17,7 @@ export default function useInvoicesList() {
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
     { key: 'name', label: 'name', sortable: true },
-    { key: 'type', label: 'status', sortable: true },
+    { key: 'type.name', label: 'Type', sortable: true },
     { key: 'director.name', label: 'director', sortable: true },
     { key: 'actions' },
 
@@ -59,7 +59,7 @@ export default function useInvoicesList() {
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
-        id : userData.employee.id
+        id : userData.employee.id,
 
       })
       .then(response => {

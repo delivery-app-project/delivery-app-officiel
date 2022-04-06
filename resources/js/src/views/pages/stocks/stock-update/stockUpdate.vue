@@ -1,5 +1,5 @@
 <template>
-  <b-card-code title="Update Agency">
+  <b-card-code title="Update Stock">
     <validation-observer ref="simpleRules">
       <b-form>
         <b-row>
@@ -10,12 +10,12 @@
               <validation-provider
                 #default="{ errors }"
                 rules="required"
-                name="Agency name"
+                name="Stock name"
               >
                 <b-form-input
-                  v-model="editedAgency.name"
+                  v-model="editedStock.name"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Agency name"
+                  placeholder="Stock name"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -25,15 +25,15 @@
           <!--Enter Number between 10 & 20 -->
           <b-col md="6">
             <b-form-group>
-              <label>Type of the Agency</label>
+              <label>Type of the Stock</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required"
-                name="Type of the agency"
+                name="Type of the Stock"
               >
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.type"
+                    v-model="editedStock.type"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     placeholder="Type"
@@ -60,12 +60,14 @@
                 name="Regex"
               >
                 <b-form-input
-                  v-model="editedAgency.phone"
+                  v-model="editedStock.phone"
                   :state="errors.length > 0 ? false : null"
                   placeholder="Must be phone"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
-                <small v-if="duplicateErrors.phone" class="text-danger">{{ 'phone is duplicate' }}</small>
+                <small v-if="duplicateErrors.phone" class="text-danger">{{
+                  "phone is duplicate"
+                }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -172,15 +174,15 @@
 
           <b-col md="6">
             <b-form-group>
-              <label>Agency director</label>
+              <label>Stock director</label>
               <validation-provider
                 #default="{ errors }"
-                name="Agency director"
+                name="Stock director"
                 rules="required"
               >
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.director"
+                    v-model="editedStock.director"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="employees"
@@ -202,12 +204,14 @@
                 rules="required|email"
               >
                 <b-form-input
-                  v-model="editedAgency.email"
+                  v-model="editedStock.email"
                   :state="errors.length > 0 ? false : null"
                   placeholder="Email"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
-                <small v-if="duplicateErrors.email" class="text-danger">{{ 'email is duplicate' }}</small>
+                <small v-if="duplicateErrors.email" class="text-danger">{{
+                  "email is duplicate"
+                }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -215,11 +219,11 @@
           <!--Must be a valid url  -->
           <b-col md="6">
             <b-form-group>
-              <label>Only if your agency contain a stock</label>
+              <label>Only if your Stock contain a stock</label>
               <validation-provider #default="{ errors }" name="stock" rules="">
                 <b-form-group>
                   <v-select
-                    v-model="editedAgency.main_stock"
+                    v-model="editedStock.main_agency"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="stocks"
@@ -241,7 +245,7 @@
                     rules="required"
                   >
                     <b-form-input
-                      v-model="editedAgency.address.district"
+                      v-model="editedStock.address.district"
                       :state="errors.length > 0 ? false : null"
                       placeholder="Address"
                     />
@@ -336,7 +340,7 @@
                 <b-form-input
                   v-model="character"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Enter address of the agency (wilaya,daira,city , district)"
+                  placeholder="Enter address of the Stock (wilaya,daira,city , district)"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -365,16 +369,12 @@
 
 <script>
 import BCardCode from "@core/components/b-card-code";
-import {
-  ValidationProvider,
-  ValidationObserver,
-} from "vee-validate";
-
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 import { ref, onUnmounted } from "@vue/composition-api";
 import {
   BFormInput,
-  BFormGroup, 
+  BFormGroup,
   BForm,
   BRow,
   BCol,
@@ -399,14 +399,14 @@ import { mapGetters } from "vuex";
 
 import store from "@/store";
 import router from "@/router";
- 
+
 import vSelect from "vue-select";
 import invoiceStoreModule from "../invoiceStoreModule";
 export default {
-  components: { 
+  components: {
     BCardCode,
     ValidationProvider,
-    ValidationObserver, 
+    ValidationObserver,
     BFormInput,
     BFormGroup,
     BForm,
@@ -445,19 +445,19 @@ export default {
       alphaDash,
       codeType,
       //
-      editedAgency : {
-        stock: null,
+      editedStock: {
+        agency: null,
         name: null,
         email: null,
         phone: null,
-        address : {
-          district : null,
+        address: {
+          district: null,
         },
         director: null,
         type: null,
         daira: null,
         wilaya: null,
-        city: null 
+        city: null,
       },
       stock: null,
       name: null,
@@ -469,44 +469,39 @@ export default {
       daira: null,
       wilaya: null,
       city: null,
-      duplicateErrors : {
-        email : false,
-        phone : false
-      }
+      duplicateErrors: {
+        email: false,
+        phone: false,
+      },
     };
   },
   created() {
-    
-        // get agency 
-        store.dispatch('_GET_AGENCY',{
-          id : router.currentRoute.params.id
-        });
-        
-        // get types
-        store.dispatch("_UPDATE_MORPH_TYEPS", {
-          //App\Entities\Agency
-          type: "App\\Entities\\Agency",
-        });
-        // get wilayas
-        store.dispatch("_UPDATE_WILAYAS");
-        // get employees
-        store.dispatch("_UPDATE_EMPLOYEES");
-        // fetch stocks
-        // this.fetchStocks();
-        store.dispatch("_UPDATE_STOCKS",{
-          paginated : false
-        })
+    // get agency
+    store.dispatch("_GET_STOCK", {
+      id: router.currentRoute.params.id,
+    });
 
-        
+    // get types
+    store.dispatch("_UPDATE_MORPH_TYEPS", {
+      //App\Entities\Agency
+      type: "App\\Entities\\Stock",
+    });
+    // get wilayas
+    store.dispatch("_UPDATE_WILAYAS");
+    // get employees
+    store.dispatch("_UPDATE_EMPLOYEES");
 
+    store.dispatch("_UPDATE_AGENCIES", {
+      paginated: false,
+    });
   },
   computed: {
     ...mapGetters({
       morphTypes: "getMorphTypes",
       wilayas: "getWilayas",
       employees: "getEmployees",
-      agency : "getAgency",
-      stocks : "getStocks"
+      agency: "getStock",
+      stocks: "getAgencies",
     }),
     dairas() {
       if (this.wilaya) return this.wilaya.dairas;
@@ -526,67 +521,71 @@ export default {
     daira(value) {
       // this.city = null;
     },
-    phone(value){
-      this.duplicateErrors['phone']= false;
+    phone(value) {
+      this.duplicateErrors["phone"] = false;
     },
-    emailValue(value){
-      this.duplicateErrors['email'] = false;
+    emailValue(value) {
+      this.duplicateErrors["email"] = false;
     },
-    agency(value){
-      if(value){
+    agency(value) {
+      if (value) {
         this.setUpModel(value);
-      
       }
-    }
+    },
   },
   methods: {
-    setUpModel(model){
-        this.editedAgency = model;
-        this.city = this.editedAgency.address ? this.editedAgency.address.city : null;
+    setUpModel(model) {
+      this.editedStock = model;
+      if (this.editedStock.address) {
+        this.city = this.editedStock.address.city;
+
         this.daira = this.city.daira;
         this.wilaya = this.daira.wilaya;
+      } else this.editedStock.address = { district : null}
     },
     validationForm() {
       this.$refs.simpleRules.validate().then((success) => {
         if (success) {
           // eslint-disable-next-line
           const data = {
-            stock_id: this.editedAgency.main_stock ? this.editedAgency.main_stock.id : null,
-            name: this.editedAgency.name, 
-            email: this.editedAgency.email,
-            phone: this.editedAgency.phone,
-            district: this.editedAgency.address.district,
-            employee_id: this.editedAgency.director.id,
-            type_id: this.editedAgency.type.id,
+            stock_id: this.editedStock.main_agency
+              ? this.editedStock.main_agency.id
+              : null,
+            name: this.editedStock.name,
+            email: this.editedStock.email,
+            phone: this.editedStock.phone,
+            district: this.editedStock.address.district,
+            employee_id: this.editedStock.director.id,
+            type_id: this.editedStock.type.id,
             city_id: this.city.id,
-            id : this.agency.id,
-            address_id : this.editedAgency.address.id
+            id: this.agency.id,
+            address_id: this.editedStock.address.id,
           };
           // alert("form submitted!");
-          store.dispatch("_UPDATE_AGENCY",data).then((response) => {
+          store.dispatch("_UPDATE_STOCK", data).then((response) => {
             // console.log(response);
             const { error } = response.data;
+            
             // console.log(error);
             if (error) {
+              const { keys } = response.data;
+              
               this.duplicateErrors = {
                 email : false,
                 phone : false
               }
               
-              const { keys } = response.data;
               
-              keys.map(key => {
-
+              keys.map((key) => {
                 this.duplicateErrors[key] = true;
-              })
-            }
-            else { 
-              this.$router.replace('/agencies')
+              });
+            } else {
+              this.$router.replace("/stocks");
             }
           });
         }
       });
     },
-  }
+  },
 };
 </script>

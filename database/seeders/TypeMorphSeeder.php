@@ -19,8 +19,10 @@ class TypeMorphSeeder extends Seeder
         //
 
         $types = config('default.general.agency.seed');
-
+        $type_stocks = config('default.general.stock.seed');
+        
         DB::table($this->table)->insert($types);
+        DB::table($this->table)->insert($type_stocks);
         
     }
 }
