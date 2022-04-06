@@ -563,7 +563,7 @@ export default {
           };
           // alert("form submitted!");
           store.dispatch("_UPDATE_STOCK", data).then((response) => {
-            // console.log(response);
+            
             const { error } = response.data;
             
             // console.log(error);
@@ -575,7 +575,7 @@ export default {
                 phone : false
               }
               
-              
+
               keys.map((key) => {
                 this.duplicateErrors[key] = true;
               });
