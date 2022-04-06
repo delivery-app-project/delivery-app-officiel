@@ -165,7 +165,7 @@
         <div class="text-nowrap">
           <feather-icon
             :id="`invoice-row-${data.item.id}-send-icon`"
-            icon="SendIcon"
+            icon="EditIcon"
             class="cursor-pointer"
             size="16"     
             @click="$router.push({ name: 'stock-update', params: { id: data.item.id }})"
@@ -191,9 +191,16 @@
             :target="`invoice-row-${data.item.id}-preview-icon`"
           />
           -->
-
+           <feather-icon
+            :id="`invoice-row-${data.item.id}-delete-icon`"
+            icon="DeleteIcon"
+            size="16"
+            class="mx-1"
+          
+           @click="showMsgBoxOne(data.item.id)"
+          />
           <!-- Dropdown -->
-          <b-dropdown
+          <!-- <b-dropdown
             variant="link"
             toggle-class="p-0"
             no-caret
@@ -223,7 +230,7 @@
               <feather-icon icon="CopyIcon" />
               <span class="align-middle ml-50">Duplicate</span>
             </b-dropdown-item>
-          </b-dropdown>
+          </b-dropdown> -->
         </div>
       </template>
 
@@ -294,6 +301,8 @@ import {
   BPagination,
   BTooltip,
 } from 'bootstrap-vue'
+
+import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
@@ -305,6 +314,7 @@ import invoiceStoreModule from './invoiceStoreModule'
 export default {
   components: {
     BCard,
+    BCardCode,
     BRow,
     BCol,
     BFormInput,
@@ -322,6 +332,19 @@ export default {
     vSelect,
   },
   methods: {
+     showMsgBoxOne(id) {
+      this.boxOne = ''
+      this.$bvModal
+        .msgBoxConfirm('Are you sure?', {
+          cancelVariant: 'outline-secondary',
+        })
+        .then(value => {
+          this.boxOne = value
+
+        })
+
+        console.log(id);
+    },
   },
 
   created() {
