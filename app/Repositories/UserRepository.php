@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface UserRepository extends RepositoryInterface
+interface UserRepository extends RepositoryInterface , BaseRepositoryInterface
 {
     //
 

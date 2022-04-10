@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Criteria\UserRepositoryCriteria;
 use App\Models\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\UserRepository;
+use App\Traits\BaseRepositoryTrait;
+use App\Traits\repositoriesCrud;
 use App\Validators\UserValidator;
 
 
@@ -19,9 +22,15 @@ use Spatie\Permission\Models\Role;
  */
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
+    use BaseRepositoryTrait;
+
     protected $address_repository;
     protected $type_morph_repository;
     protected $employee_repository;
+
+    protected $relations = [];
+
+
 
     public function __construct(Application $app,EmployeeRepository $employee_repository,AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
     {
@@ -60,6 +69,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(UserRepositoryCriteria::class));
     }
 
 
