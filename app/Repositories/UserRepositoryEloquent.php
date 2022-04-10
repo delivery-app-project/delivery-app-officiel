@@ -15,6 +15,7 @@ use App\Validators\UserValidator;
 use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+
 /**
  * Class UserRepositoryEloquent.
  *
@@ -32,7 +33,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
 
 
-    public function __construct(Application $app,EmployeeRepository $employee_repository,AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
+    public function __construct(Application $app, EmployeeRepository $employee_repository, AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
     {
 
         parent::__construct($app);
@@ -51,7 +52,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-     /**
+    /**
      * Specify Validator class name
      *
      * @return mixed
@@ -61,7 +62,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
         return UserValidator::class;
     }
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -73,36 +74,43 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     }
 
 
-    public function store($data){
-            // hash the password 
+    public function store($data)
+    {
+        // hash the password 
 
-            $data['password'] = Hash::make($data['password']);
-            
-            $user = $this->create($data);
-            
-            // attach address
-            $this->address_repository->create(array_merge(
-                ['model_type' => User::class, 'model_id' => $user->id],
-                $data
-            ));
-            // assign to role 
-            $role = Role::findByName($data['role'],'api');
-            // attach the role
-            $user->assignRole($role->name);
+        $data['password'] = Hash::make($data['password']);
+        $status_id  = key_exists('status_id', $data) ? $data['status_id'] : null;
 
-            // if employee
-            $isEmployee = key_exists('isEmployee', $data)? $data['isEmployee'] : null;
-            
-            if($isEmployee){
-                // create the employee
-                $employee = $this->employee_repository->store(array_merge($data,[
-                    'user_id' => $user->id
-                ]));
+        $user = $this->create($data);
 
-            }
+        // attach address
+        $this->address_repository->create(array_merge(
+            ['model_type' => User::class, 'model_id' => $user->id],
+            $data
+        ));
 
-            return $user;
+        if ($status_id)
+            $status = $this->type_morph_repository->find($status_id);
+        else $status = $this->type_morph_repository->findWhere(['name' => 'active', 'type' => 'UserStatus'])->get()->first();
+
+        // attah type 
+        $status->users()->save($user);
+
+        // assign to role 
+        $role = Role::findByName($data['role'], 'api');
+        // attach the role
+        $user->assignRole($role->name);
+
+        // if employee
+        $isEmployee = key_exists('isEmployee', $data) ? $data['isEmployee'] : null;
+
+        if ($isEmployee) {
+            // create the employee
+            $employee = $this->employee_repository->store(array_merge($data, [
+                'user_id' => $user->id
+            ]));
+        }
+
+        return $user;
     }
-
-    
 }

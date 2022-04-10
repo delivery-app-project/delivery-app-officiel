@@ -9,6 +9,8 @@ use App\Entities\Employee;
 use App\Traits\BaseRepositoryTrait;
 use App\Validators\EmployeeValidator;
 use App\Criteria\EmployeeRepositoryCriteria;
+use App\Entities\TypeMorph;
+
 /**
  * Class EmployeeRepositoryEloquent.
  *
@@ -67,19 +69,29 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : null;
         $role = key_exists('role',$data)? $data['role'] : null;
-        
+        $status = key_exists('status',$data) ? $data['status'] : null;
         // dd($role);
 
         $model = $this;
+
         if($role) 
            $model =  $model->whereHas('user',function ($q) use ($role) {
                 $q->whereHas("roles",function ($query) use ($role){
                     $query->where("roles.name",$role);
                 });
             });
-        
+            
+         if($status) {
+            // dd($status);
+            $model = $model->whereHas('user',function ($q) use ($status) {
+                
+                $q->whereHasMorph('status',[TypeMorph::class],function ($quiry) use ($status){
+                    $quiry->where('name',$status);
+                });
+            });
+        }
+
         if($perPage)    return $model->paginate($perPage);
-        
         
 
         if($role_ids)
@@ -105,7 +117,7 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
     public function store($data)
     {
         $model = $this->create($data);
-        
+
         return $model;
     }
 }

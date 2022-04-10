@@ -235,6 +235,7 @@ import UsersListFilters from './UsersListFilters.vue'
 import useUsersList from './useUsersList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -256,6 +257,10 @@ export default {
     BPagination,
 
     vSelect,
+  },
+  created() {
+  },
+  computed: {
   },
   setup() {
     const USER_APP_STORE_MODULE_NAME = 'app-user'

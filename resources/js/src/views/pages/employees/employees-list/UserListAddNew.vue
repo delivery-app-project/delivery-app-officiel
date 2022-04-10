@@ -553,6 +553,32 @@
             </b-form-group>
           </validation-provider>
 
+
+
+          
+          <!-- Status -->
+          <validation-provider
+            #default="validationContext"
+            name="Status"
+            rules="required"
+            >
+            <b-form-group
+              label="Status"
+              label-for="status"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                        v-model="status"
+                        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                        label="name"
+                        :options="types"
+                        placeholder="Status"
+              />
+              <b-form-invalid-feedback :state="getValidationState(validationContext)">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
           <!-- Plan -->
           <!-- <validation-provider
             #default="validationContext"
@@ -577,6 +603,8 @@
               </b-form-invalid-feedback>
             </b-form-group>
           </validation-provider> -->
+
+          
 
           <!-- Form Actions -->
           <div class="d-flex mt-2">
@@ -645,6 +673,9 @@ export default {
     city(value){
       this.userData.city_id = value ?  value.id : null;
     },
+    status(value){
+      this.userData.status_id = value ?  value.id : null;
+    },
     // watch when user data email change turn this to false
     'userData.email' (value){
         this.duplicateErrors.email = false;
@@ -681,6 +712,7 @@ export default {
       city : null,
       wilaya : null,
       daira : null,
+      status : null,
       required,
       alphaNum,
       email,
@@ -700,7 +732,7 @@ export default {
       currentPlan: null,
       // company: '',
       // country: '',
-      // contact: '',
+      status_id : null,
       first_name : '',
       last_name : '',
       phone : '',
@@ -785,6 +817,7 @@ export default {
   computed: {
     ...mapGetters({
       wilayas: "getWilayas",
+      types : 'getMorphTypes'
     }),
     dairas() {
       if (this.wilaya) return this.wilaya.dairas;

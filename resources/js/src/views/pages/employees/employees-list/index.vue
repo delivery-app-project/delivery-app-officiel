@@ -260,14 +260,28 @@ export default {
   },
   created() {
     store.dispatch('_UPDATE_ROLES');
+    
+    store.dispatch("_UPDATE_MORPH_TYEPS", {
+      //App\Entities\Agency
+      type: "UserStatus",
+    });
+
   },
   computed: {
      ...mapGetters({
-        roles : 'getRoles'
+        roles : 'getRoles',
+        types : 'getMorphTypes'
      })
      ,
       roleOptions (){
         return this.roles ? this.roles.map(item => {
+          item.value = item.name;
+          item.label = item.name;
+          return item;
+        }) : [];
+      },
+      statusOptions(){
+        return this.types ? this.types.map(item => {
           item.value = item.name;
           item.label = item.name;
           return item;
@@ -301,11 +315,11 @@ export default {
       { label: 'Team', value: 'team' },
     ]
 
-    const statusOptions = [
-      { label: 'Pending', value: 'pending' },
-      { label: 'Active', value: 'active' },
-      { label: 'Inactive', value: 'inactive' },
-    ]
+    // const statusOptions = [
+    //   { label: 'Pending', value: 'pending' },
+    //   { label: 'Active', value: 'active' },
+    //   { label: 'Inactive', value: 'inactive' },
+    // ]
 
     const {
       fetchUsers,
@@ -359,7 +373,7 @@ export default {
 
       // roleOptions,
       planOptions,
-      statusOptions,
+      // statusOptions,
 
       // Extra Filters
       roleFilter,

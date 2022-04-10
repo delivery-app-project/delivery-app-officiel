@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -14,6 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class TypeMorph extends Model implements Transformable
 {
     use TransformableTrait;
+
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +31,10 @@ class TypeMorph extends Model implements Transformable
 
     public function agencies(){
         return $this->morphMany(Agency::class,'type');
+    }
+
+    public function users(){
+        return $this->morphMany(User::class,'status');
     }
 
 
