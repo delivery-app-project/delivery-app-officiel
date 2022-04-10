@@ -61,7 +61,7 @@
               <b-button
                 variant="primary"
                 @click="isAddNewUserSidebarActive = true"
-              >
+                >
                 <span class="text-nowrap">Add User</span>
               </b-button>
             </div>
@@ -229,6 +229,7 @@ import {
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
+import {mapGetters} from 'vuex';
 import { ref, onUnmounted } from '@vue/composition-api'
 import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
@@ -257,6 +258,23 @@ export default {
 
     vSelect,
   },
+  created() {
+    store.dispatch('_UPDATE_ROLES');
+  },
+  computed: {
+     ...mapGetters({
+        roles : 'getRoles'
+     })
+     ,
+      roleOptions (){
+        return this.roles ? this.roles.map(item => {
+          item.value = item.name;
+          item.label = item.name;
+          return item;
+        }) : [];
+      }
+  },
+
   setup() {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
@@ -270,11 +288,11 @@ export default {
 
     const isAddNewUserSidebarActive = ref(false)
 
-    const roleOptions = [
-      { label: 'Admin', value: 'admin' },
-      { label: 'Maintainer', value: 'maintainer' },
-      { label: 'Subscriber', value: 'subscriber' },
-    ]
+    // const roleOptions = [
+    //   { label: 'Admin', value: 'admin' },
+    //   { label: 'Maintainer', value: 'maintainer' },
+    //   { label: 'Subscriber', value: 'subscriber' },
+    // ]
 
     const planOptions = [
       { label: 'Basic', value: 'basic' },
@@ -339,7 +357,7 @@ export default {
       resolveUserRoleIcon,
       resolveUserStatusVariant,
 
-      roleOptions,
+      // roleOptions,
       planOptions,
       statusOptions,
 

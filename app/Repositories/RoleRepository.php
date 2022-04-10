@@ -5,16 +5,13 @@ namespace App\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface UserRepository.
+ * Interface RoleRepository.
  *
  * @package namespace App\Repositories;
  */
-interface UserRepository extends RepositoryInterface
+interface RoleRepository extends RepositoryInterface
 {
     //
 
-
-    public function store($data);
-
-
+    public function index($data);
 }

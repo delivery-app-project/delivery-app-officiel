@@ -14,4 +14,6 @@ interface EmployeeRepository extends RepositoryInterface, BaseRepositoryInterfac
     public function index($data);
 
     public function show($id);
+
+    public function store($data);
 }

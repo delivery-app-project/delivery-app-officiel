@@ -32,4 +32,5 @@ trait repositoriesCrud {
 
         return $model->all();
     }
+
 }

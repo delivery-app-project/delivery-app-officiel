@@ -29,8 +29,24 @@ return [
                                 "name" => "Secondary", 
                                 "type" => Stock::class
                             ]
+                         ]
+                            ],
+                    'user' => [
+                        'seed' => [
+                            [
+                                'name' => 'active',
+                                'type' => 'UserStatus'
+                            ],
+                            [
+                                'name' => 'deactivate',
+                                'type' => 'UserStatus'
+                            ],
+                            [
+                                'name' => 'pending',
+                                'type' => 'UserStatus'
+                            ]
                         ]
-                    ]
+                    ]                            
         ] ,
         "wilayas" => [
                 // wilaya 1

@@ -66,10 +66,18 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         $role_ids = is_string($role_ids) ? json_decode($role_ids) : $role_ids;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : null;
-
+        $role = key_exists('role',$data)? $data['role'] : null;
+        
+        // dd($role);
 
         $model = $this;
-
+        if($role) 
+           $model =  $model->whereHas('user',function ($q) use ($role) {
+                $q->whereHas("roles",function ($query) use ($role){
+                    $query->where("roles.name",$role);
+                });
+            });
+        
         if($perPage)    return $model->paginate($perPage);
         
         
@@ -93,4 +101,11 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         return $this->findOrFail($id);
     }
 
+
+    public function store($data)
+    {
+        $model = $this->create($data);
+        
+        return $model;
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageTypeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TypeMorphController;
@@ -38,9 +39,9 @@ Route::group([
     Route::get('package-type', [PackageTypeController::class, 'index'])->name('package-type.index');
     Route::get('order-status', [OrderStatusController::class, 'index'])->name('package-status.index');
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
-    Route::resource('user', UserController::class)->only(
-        'update'
-    );
+    // Route::resource('user', UserController::class)->only(
+    //     'update'
+    // );
 
 });
 
@@ -89,4 +90,10 @@ Route::resource('employee', EmployeeController::class)->only(
 );
 Route::resource('marchent', MarchentController::class)->only(
     'index','show'
+);
+Route::resource('role', RoleController::class)->only(
+    'index'
+);
+Route::resource('user', UserController::class)->only(
+    'update','store'
 );

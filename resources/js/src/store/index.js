@@ -10,6 +10,7 @@ import common from './common';
 // moduls 
 import agency from './agency';
 import stock from './stock'; 
+import role from './role'; 
 
 Vue.use(Vuex)
 
@@ -20,7 +21,7 @@ export default new Vuex.Store({
     verticalMenu,
     common,
     stock,
-
+    role,
     agency
   },
   strict: process.env.DEV,

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->text('bank_account_number')->nullable();
             // رقم السجل التجاري
             $table->string('commercial_registration_no')->nullable();
+            $table->string('birth_certifcate_number')->nullable();
             // رقم الضمان الاجتماعي
             $table->string('insurance_number')->nullable();
             // رقم شهادة الميلاد 
@@ -45,6 +46,7 @@ class CreateUsersTable extends Migration
             // موظف دائم او مؤقت 
             $table->boolean('permanent_employee')->nullable();
 
+            $table->string("lang")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

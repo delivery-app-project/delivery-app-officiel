@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name',
+        // 'name',
         'email',
         'first_name',
         'last_name',
@@ -122,6 +122,12 @@ class User extends Authenticatable implements JWTSubject
     public function employee(){
         return $this->hasOne(Employee::class,'user_id','id');
     }
+
+    
+    public function status(){
+        return $this->morphTo();
+    }
+
 
     // appends 
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLangToUsers extends Migration
+class AddStatusToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddLangToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string("lang")->nullable();
+            $table->nullableMorphs('status');
         });
     }
 

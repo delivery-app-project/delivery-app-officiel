@@ -472,6 +472,7 @@ export default {
     store.dispatch("_UPDATE_EMPLOYEES");
     // fetch stocks
     this.fetchStocks();
+    
   },
   computed: {
     ...mapGetters({
