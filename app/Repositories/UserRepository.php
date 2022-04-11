@@ -16,5 +16,7 @@ interface UserRepository extends RepositoryInterface , BaseRepositoryInterface
 
     public function store($data);
 
+    public function edit($data,$id);
+
 
 }

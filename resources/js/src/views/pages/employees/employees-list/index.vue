@@ -8,6 +8,16 @@
       :plan-options="planOptions"
       @refetch-data="refetchData"
     />
+    
+    <user-list-update
+      v-if="selectedUser"
+      :is-update-user-sidebar-active.sync="isUpdateUserSidebarActive"
+      :role-options="roleOptions"
+      :plan-options="planOptions"
+      @refetch-data="refetchData"
+      :selectedUser="selectedUser"
+    />
+
 
     <!-- Filters -->
     <users-list-filters
@@ -149,9 +159,9 @@
               <span class="align-middle ml-50">Details</span>
             </b-dropdown-item>
 
-            <b-dropdown-item :to="{ name: 'apps-users-edit', params: { id: data.item.id } }">
+            <b-dropdown-item >
               <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
+              <span class="align-middle ml-50" @click="selectUserToEdit(data.item)">Edit</span>
             </b-dropdown-item>
 
             <b-dropdown-item>
@@ -236,12 +246,13 @@ import UsersListFilters from './UsersListFilters.vue'
 import useUsersList from './useUsersList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
+import UserListUpdate from './UserListUpdate.vue'
 
 export default {
   components: {
     UsersListFilters,
     UserListAddNew,
-
+    UserListUpdate,
     BCard,
     BRow,
     BCol,
@@ -266,6 +277,21 @@ export default {
       type: "UserStatus",
     });
 
+  },
+  data() {
+    return {
+      //  selectedUser : null
+    }
+  },
+  methods: {
+     selectUserToEdit(user){
+       this.selectedUser = user;
+       this.isUpdateUserSidebarActive = true;
+
+       this.selectedUser = user.user;
+       
+       console.log(this.selectedUser);
+     }
   },
   computed: {
      ...mapGetters({
@@ -301,6 +327,9 @@ export default {
     })
 
     const isAddNewUserSidebarActive = ref(false)
+    const isUpdateUserSidebarActive = ref(false)
+
+    const selectedUser = ref(null);
 
     // const roleOptions = [
     //   { label: 'Admin', value: 'admin' },
@@ -349,7 +378,7 @@ export default {
     return {
       // Sidebar
       isAddNewUserSidebarActive,
-
+      isUpdateUserSidebarActive,
       fetchUsers,
       tableColumns,
       perPage,
@@ -379,6 +408,7 @@ export default {
       roleFilter,
       planFilter,
       statusFilter,
+      selectedUser
     }
   },
 }

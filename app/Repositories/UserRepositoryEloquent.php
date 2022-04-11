@@ -79,6 +79,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         // hash the password 
 
         $data['password'] = Hash::make($data['password']);
+
         $status_id  = key_exists('status_id', $data) ? $data['status_id'] : null;
 
         $user = $this->create($data);
@@ -112,5 +113,55 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
 
         return $user;
+    }
+
+
+    public function edit($data, $id)
+    {
+
+        $password = key_exists('password', $data) ? $data['password'] : null;
+        $forLang = key_exists('lang',$data) ;
+
+        if ($password)
+            $data['password'] = Hash::make($password);
+
+        // if $data contain lang 
+        $model = $this->update($data, $id);
+        
+        if($forLang) return $model;
+
+        $status_id  = key_exists('status_id', $data) ? $data['status_id'] : null;
+
+        if ($status_id)
+            $status = $this->type_morph_repository->find($status_id);
+        else $status = $this->type_morph_repository->findWhere(['name' => 'active', 'type' => 'UserStatus'])->get()->first();
+
+        // attah status
+        $status->users()->save($model);
+        
+        $address = key_exists('address_id', $data) ? ($data['address_id'] ? $this->address_repository->find($data['address_id']) : null) : null;
+        
+
+        if (!$address)
+            $this->address_repository->create(array_merge(
+                ['model_type' => User::class, 'model_id' => $model->id],
+                $data
+            ));
+        else
+            $this->address_repository->update($data, $address->id);
+
+            // if employee
+            $isEmployee = key_exists('isEmployee', $data) ? $data['isEmployee'] : null;
+
+            if ($isEmployee) {
+                // update the employee
+                $this->employee_repository->update(array_merge($data, [
+                    'user_id' => $model->id
+                ]),$model->employee->id);
+            }
+    
+        
+         return $model;
+
     }
 }

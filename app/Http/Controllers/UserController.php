@@ -20,10 +20,10 @@ class UserController extends Controller
 
 
 
-    public function update(Request $request,$id){
+    // public function update(Request $request,$id){
 
-        return response()->json($this->repository->update($request->all(),$id));
-    }
+    //     return response()->json($this->repository->update($request->all(),$id));
+    // }
 
 
     public function store(Request $request){
@@ -46,4 +46,31 @@ class UserController extends Controller
 
         return ResponseFormatter::response($res);
     }
+
+
+    public function update(Request $request,$id){
+        $res = null;
+        // dd($request->all());
+        try {
+
+            $res = $this->repository->edit($request->all(),$id);
+
+
+        } catch (ValidatorException $e) {
+
+            return ResponseFormatter::response($e->getMessageBag()->messages(), true);
+
+        } catch (Exception $th) {
+
+            dd($th->getMessage());
+        }
+
+
+        return ResponseFormatter::response($res);
+    }
+
+
+    // public function updateLang(Request $request,$id){
+    //     return ResponseFormatter::response($this->repository->update($request->all(),$id));
+    // }
 }

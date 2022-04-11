@@ -4,7 +4,7 @@ import { getCond } from '@/utils/helpers';
 export default {
   namespaced: false,
   state: {
-      roles : null
+      roles : []
   },
   getters: {
         getRoles(state) {

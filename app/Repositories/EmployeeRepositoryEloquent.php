@@ -21,7 +21,7 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
     use BaseRepositoryTrait;
 
     protected $relations = [
-        'transactions','agencies','user','stocks','user.roles'
+        'transactions','agencies','user','stocks','user.roles','user.status','user.address.city.daira.wilaya'
     ];
 
     protected $fieldSearchable = [
@@ -80,7 +80,7 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
                     $query->where("roles.name",$role);
                 });
             });
-            
+
          if($status) {
             // dd($status);
             $model = $model->whereHas('user',function ($q) use ($status) {
