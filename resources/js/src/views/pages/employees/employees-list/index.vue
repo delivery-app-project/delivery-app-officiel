@@ -240,7 +240,7 @@ import {
 import vSelect from 'vue-select'
 import store from '@/store'
 import {mapGetters} from 'vuex';
-import { ref, onUnmounted } from '@vue/composition-api'
+import { ref, onUnmounted,watch } from '@vue/composition-api'
 import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
 import useUsersList from './useUsersList'
@@ -315,7 +315,7 @@ export default {
       }
   },
 
-  setup() {
+  setup(context) {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
@@ -330,6 +330,12 @@ export default {
     const isUpdateUserSidebarActive = ref(false)
 
     const selectedUser = ref(null);
+
+    // watch this value if it's false make the selecteduser null
+     watch(isUpdateUserSidebarActive, () => {
+          if(!isUpdateUserSidebarActive.value) selectedUser.value = null;
+    });
+
 
     // const roleOptions = [
     //   { label: 'Admin', value: 'admin' },

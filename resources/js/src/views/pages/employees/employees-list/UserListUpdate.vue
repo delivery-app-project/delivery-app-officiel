@@ -466,10 +466,7 @@
           </validation-provider>
 
           <!--Password -->
-          <validation-provider
-            #default="validationContext"
-            name="Password"
-          >
+          <validation-provider #default="validationContext" name="Password">
             <b-form-group label="Password" label-for="password">
               <b-form-input
                 id="password"
@@ -634,9 +631,7 @@ export default {
     // get wilayas
     store.dispatch("_UPDATE_WILAYAS");
   },
-  mounted() {
-    console.log("check mounted");
-  },
+  mounted() {},
   components: {
     BSidebar,
     BForm,
@@ -661,9 +656,7 @@ export default {
     city(value) {
       this.userData.city_id = value ? value.id : null;
     },
-    status(value) {
-      this.userData.status_id = value ? value.id : null;
-    },
+    status(value) {},
     // watch when user data email change turn this to false
     "userData.email"(value) {
       this.duplicateErrors.email = false;
@@ -697,28 +690,22 @@ export default {
       type: Object,
       required: true,
     },
+    
   },
   data() {
     return {
-      // city: null,
-      // wilaya: null,
-      // daira: null,
-      // status: null,
       required,
       alphaNum,
       email,
-      countries,
-      //  duplicateErrors : {
-      //   email : false,
-      //   phone : false
-      // }
+      countries
+      
     };
   },
   watch: {
     selectedUser(value) {
-      if (value) {
+      if (value) 
         this.setUpModel(value);
-      }
+      
     },
   },
   setup(props, { emit }) {
@@ -728,7 +715,7 @@ export default {
     const status = ref(null);
 
     const blankUserData = {
-      id : null,
+      id: null,
       email: "",
       role: null,
       currentPlan: null,
@@ -762,6 +749,11 @@ export default {
     const resetuserData = () => {
       userData.value = JSON.parse(JSON.stringify(blankUserData));
     };
+
+    // watch status value if change
+    watch(status, () => {
+      userData.value.status_id = status.value ? status.value.id : null;
+    });
 
     const onSubmit = () => {
       store.dispatch("app-user/updateUser", userData.value).then((res) => {
@@ -812,7 +804,7 @@ export default {
         }
       });
     };
-
+    // set up for the first time 
     setUpModel(props.selectedUser);
 
     const { refFormObserver, getValidationState, resetForm } =

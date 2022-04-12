@@ -11,6 +11,7 @@ import common from './common';
 import agency from './agency';
 import stock from './stock'; 
 import role from './role'; 
+import user from './user';
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     common,
     stock,
     role,
-    agency
+    agency,
+    user
   },
   strict: process.env.DEV,
 })

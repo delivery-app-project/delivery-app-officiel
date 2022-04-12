@@ -17,30 +17,30 @@ export default {
   },
   },
   actions: {
-    _UPDATE_USER({ commit},params){
-      return new Promise((resolve, reject) => {
-         axios
-           .patch('/user/'+params.id,params)
-           .then(response => {
-             const { error } = response.data;
-               if(!error)
-               commit("UPDATE_USER",response.data);
-               resolve(response);
-           })
-           .catch(error => reject(error))
-       })
-   },
-    _GET_USER({ commit},params){
+  //   _UPDATE_USER({ commit},params){
+  //     return new Promise((resolve, reject) => {
+  //        axios
+  //          .patch('/user/'+params.id,params)
+  //          .then(response => {
+  //            const { error } = response.data;
+  //              if(!error)
+  //              commit("UPDATE_USER",response.data);
+  //              resolve(response);
+  //          })
+  //          .catch(error => reject(error))
+  //      })
+  //  },
+  //   _GET_USER({ commit},params){
 
-      return new Promise((resolve, reject) => {
-         axios
-           .get('/stocks/'+params.id)
-           .then(response => {
-               commit("UPDATE_USER",response.data);
-               resolve(response);
-           })
-           .catch(error => reject(error))
-       })
-   },
+  //     return new Promise((resolve, reject) => {
+  //        axios
+  //          .get('/stocks/'+params.id)
+  //          .then(response => {
+  //              commit("UPDATE_USER",response.data);
+  //              resolve(response);
+  //          })
+  //          .catch(error => reject(error))
+  //      })
+  //  },
   },
 }
