@@ -73,4 +73,11 @@ class UserController extends Controller
     // public function updateLang(Request $request,$id){
     //     return ResponseFormatter::response($this->repository->update($request->all(),$id));
     // }
+
+
+    public function show($id){
+        
+        return ResponseFormatter::response($this->repository->show($id));
+
+    }
 }

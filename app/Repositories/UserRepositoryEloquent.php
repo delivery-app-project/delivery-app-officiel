@@ -183,4 +183,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
          return $model;
 
     }
+
+    public function show($id){
+        return $this->findOrFail($id);
+    }
 }

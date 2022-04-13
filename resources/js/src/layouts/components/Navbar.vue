@@ -34,7 +34,7 @@
         <template #button-content>
           <div class="d-sm-flex d-none user-nav">
             <p class="user-name font-weight-bolder mb-0">
-              John Doe
+              {{userData.name}}
             </p>
             <span class="user-status">Admin</span>
           </div>
@@ -48,13 +48,17 @@
           />
         </template>
 
-        <b-dropdown-item link-class="d-flex align-items-center">
+        <b-dropdown-item 
+          @click="$router.push({ name: 'user-profile', params: { id: userData.id}})"
+          
+        link-class="d-flex align-items-center">
           <feather-icon
             size="16"
             icon="UserIcon"
             class="mr-50"
           />
-          <span>Profile</span>
+          <span
+          >Profile</span>
         </b-dropdown-item>
 
         <b-dropdown-item link-class="d-flex align-items-center">
@@ -111,6 +115,7 @@ import useJwt from '@/auth/jwt/useJwt'
 
 import { getLocale,isRtl } from '../../locale/utils'
 import store from '@/store'
+import {getUserData} from '@/auth/utils'
 
 
 export default {
@@ -133,6 +138,11 @@ export default {
       default: () => {},
     },
     
+  },
+  computed: {
+     userData(){
+       return getUserData();
+     }
   },
   created() {
     

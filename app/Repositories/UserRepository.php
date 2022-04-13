@@ -18,5 +18,6 @@ interface UserRepository extends RepositoryInterface , BaseRepositoryInterface
 
     public function edit($data,$id);
 
+    public function show($id);
 
 }

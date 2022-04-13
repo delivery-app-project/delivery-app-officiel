@@ -95,5 +95,5 @@ Route::resource('role', RoleController::class)->only(
     'index'
 );
 Route::resource('user', UserController::class)->only(
-    'update','store'
+    'update','store','show'
 );

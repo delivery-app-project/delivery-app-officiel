@@ -99,6 +99,22 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/user/profile/:id',
+      name: 'user-profile',
+      
+      component: () => import('@/views/pages/profile/Profile.vue'),
+      meta: {
+        pageTitle: 'Profile',
+        resource : 'Home',
+        breadcrumb: [
+          {
+            text: 'Profile',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: '*',
       redirect: 'error-404',
     },
