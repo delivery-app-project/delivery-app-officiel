@@ -4,24 +4,17 @@
 
     <user-list-add-new
       :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-      
+      :role-options="roleOptions"
       :plan-options="planOptions"
       @refetch-data="refetchData"
     />
-    
-    <user-list-update
-      v-if="selectedUser"
-      :is-update-user-sidebar-active.sync="isUpdateUserSidebarActive"
-      :plan-options="planOptions"
-      @refetch-data="refetchData"
-      :selectedUser="selectedUser"
-    />
-
 
     <!-- Filters -->
     <users-list-filters
+      :role-filter.sync="roleFilter"
       :plan-filter.sync="planFilter"
       :status-filter.sync="statusFilter"
+      :role-options="roleOptions"
       :plan-options="planOptions"
       :status-options="statusOptions"
     />
@@ -68,7 +61,7 @@
               <b-button
                 variant="primary"
                 @click="isAddNewUserSidebarActive = true"
-                >
+              >
                 <span class="text-nowrap">Add User</span>
               </b-button>
             </div>
@@ -156,9 +149,9 @@
               <span class="align-middle ml-50">Details</span>
             </b-dropdown-item>
 
-            <b-dropdown-item >
+            <b-dropdown-item :to="{ name: 'apps-users-edit', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50" @click="selectUserToEdit(data.item)">Edit</span>
+              <span class="align-middle ml-50">Edit</span>
             </b-dropdown-item>
 
             <b-dropdown-item>
@@ -236,20 +229,19 @@ import {
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
-import {mapGetters} from 'vuex';
-import { ref, onUnmounted,watch } from '@vue/composition-api'
+import { ref, onUnmounted } from '@vue/composition-api'
 import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
 import useUsersList from './useUsersList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
-import UserListUpdate from './UserListUpdate.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     UsersListFilters,
     UserListAddNew,
-    UserListUpdate,
+
     BCard,
     BRow,
     BCol,
@@ -267,52 +259,10 @@ export default {
     vSelect,
   },
   created() {
-    // store.dispatch('_UPDATE_ROLES');
-    
-    store.dispatch("_UPDATE_MORPH_TYEPS", {
-      //App\Entities\Agency
-      type: "UserStatus",
-    });
-
-  },
-  data() {
-    return {
-      //  selectedUser : null
-    }
-  },
-  methods: {
-     selectUserToEdit(user){
-       this.selectedUser = user;
-       this.isUpdateUserSidebarActive = true;
-
-       this.selectedUser = user.user;
-       
-       console.log(this.selectedUser);
-     }
   },
   computed: {
-     ...mapGetters({
-        // roles : 'getRoles',
-        types : 'getMorphTypes'
-     })
-     ,
-      // roleOptions (){
-      //   return this.roles ? this.roles.map(item => {
-      //     item.value = item.name;
-      //     item.label = item.name;
-      //     return item;
-      //   }) : [];
-      // },
-      statusOptions(){
-        return this.types ? this.types.map(item => {
-          item.value = item.name;
-          item.label = item.name;
-          return item;
-        }) : [];
-      }
   },
-
-  setup(context) {
+  setup() {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
@@ -324,21 +274,12 @@ export default {
     })
 
     const isAddNewUserSidebarActive = ref(false)
-    const isUpdateUserSidebarActive = ref(false)
 
-    const selectedUser = ref(null);
-
-    // watch this value if it's false make the selecteduser null
-     watch(isUpdateUserSidebarActive, () => {
-          if(!isUpdateUserSidebarActive.value) selectedUser.value = null;
-    });
-
-
-    // const roleOptions = [
-    //   { label: 'Admin', value: 'admin' },
-    //   { label: 'Maintainer', value: 'maintainer' },
-    //   { label: 'Subscriber', value: 'subscriber' },
-    // ]
+    const roleOptions = [
+      { label: 'Admin', value: 'admin' },
+      { label: 'Maintainer', value: 'maintainer' },
+      { label: 'Subscriber', value: 'subscriber' },
+    ]
 
     const planOptions = [
       { label: 'Basic', value: 'basic' },
@@ -347,11 +288,11 @@ export default {
       { label: 'Team', value: 'team' },
     ]
 
-    // const statusOptions = [
-    //   { label: 'Pending', value: 'pending' },
-    //   { label: 'Active', value: 'active' },
-    //   { label: 'Inactive', value: 'inactive' },
-    // ]
+    const statusOptions = [
+      { label: 'Pending', value: 'pending' },
+      { label: 'Active', value: 'active' },
+      { label: 'Inactive', value: 'inactive' },
+    ]
 
     const {
       fetchUsers,
@@ -381,7 +322,7 @@ export default {
     return {
       // Sidebar
       isAddNewUserSidebarActive,
-      isUpdateUserSidebarActive,
+
       fetchUsers,
       tableColumns,
       perPage,
@@ -403,15 +344,14 @@ export default {
       resolveUserRoleIcon,
       resolveUserStatusVariant,
 
-      // roleOptions,
+      roleOptions,
       planOptions,
-      // statusOptions,
+      statusOptions,
 
       // Extra Filters
       roleFilter,
       planFilter,
       statusFilter,
-      selectedUser
     }
   },
 }

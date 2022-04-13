@@ -28,18 +28,20 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     protected $address_repository;
     protected $type_morph_repository;
     protected $employee_repository;
+    protected $marchent_repository;
 
     protected $relations = [];
 
 
 
-    public function __construct(Application $app, EmployeeRepository $employee_repository, AddressRepository $address_repository, TypeMorphRepository $type_morph_repository)
+    public function __construct(Application $app, EmployeeRepository $employee_repository, AddressRepository $address_repository, TypeMorphRepository $type_morph_repository,MarchentRepository $marchent_repository)
     {
 
         parent::__construct($app);
         $this->address_repository = $address_repository;
         $this->type_morph_repository = $type_morph_repository;
         $this->employee_repository = $employee_repository;
+        $this->marchent_repository = $marchent_repository;
     }
 
     /**
@@ -97,17 +99,25 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         // attah type 
         $status->users()->save($user);
 
+        
         // assign to role 
-        $role = Role::findByName($data['role'], 'api');
+        $role = Role::findByName(key_exists('role',$data) ? $data['role'] : 'marchent', 'api');
         // attach the role
         $user->assignRole($role->name);
 
         // if employee
         $isEmployee = key_exists('isEmployee', $data) ? $data['isEmployee'] : null;
+        $isMarchent = key_exists('isMarchent', $data) ? $data['isMarchent'] : null;
 
         if ($isEmployee) {
             // create the employee
             $employee = $this->employee_repository->store(array_merge($data, [
+                'user_id' => $user->id
+            ]));
+        }
+        else if($isMarchent){                
+            // create the marchent 
+            $marchent = $this->marchent_repository->store(array_merge($data, [
                 'user_id' => $user->id
             ]));
         }
@@ -152,13 +162,22 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
             // if employee
             $isEmployee = key_exists('isEmployee', $data) ? $data['isEmployee'] : null;
+            $isMarchent = key_exists('isMarchent', $data) ? $data['isMarchent'] : null;
 
             if ($isEmployee) {
                 // update the employee
                 $this->employee_repository->update(array_merge($data, [
                     'user_id' => $model->id
                 ]),$model->employee->id);
+            } else if($isMarchent){
+                
+                // update the marchent
+               $marchent =  $this->marchent_repository->update(array_merge($data, [
+                    'user_id' => $model->id
+                ]),$model->marchent->id);
             }
+
+            
     
         
          return $model;

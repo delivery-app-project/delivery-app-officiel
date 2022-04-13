@@ -22,9 +22,7 @@ export default function useUsersList() {
     { key: 'user.last_name', label: 'LastName', sortable: true },
     { key: 'user.email', label: 'EMAIL', sortable: true },
     { key: 'user.phone', label: 'Phone', sortable: true },
-    // if faut aporter les permestion  role bs + emplyee
-    //{key: '',label: 'Role',formatter: title,sortable: true,},
-    {key: 'user.permanent_employee',label: 'Status',formatter: title,sortable: true,},
+
 
     { key: 'actions' },
   ]

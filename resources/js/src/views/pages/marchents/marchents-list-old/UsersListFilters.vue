@@ -7,7 +7,7 @@
     </b-card-header>
     <b-card-body>
       <b-row>
-        <!-- <b-col
+        <b-col
           cols="12"
           md="4"
           class="mb-md-0 mb-2"
@@ -21,8 +21,8 @@
             :reduce="val => val.value"
             @input="(val) => $emit('update:roleFilter', val)"
           />
-        </b-col> -->
-        <!-- <b-col
+        </b-col>
+        <b-col
           cols="12"
           md="4"
           class="mb-md-0 mb-2"
@@ -36,7 +36,7 @@
             :reduce="val => val.value"
             @input="(val) => $emit('update:planFilter', val)"
           />
-        </b-col> -->
+        </b-col>
         <b-col
           cols="12"
           md="4"
@@ -71,10 +71,10 @@ export default {
     vSelect,
   },
   props: {
-    // roleFilter: {
-    //   type: [String, null],
-    //   default: null,
-    // },
+    roleFilter: {
+      type: [String, null],
+      default: null,
+    },
     planFilter: {
       type: [String, null],
       default: null,
@@ -83,10 +83,10 @@ export default {
       type: [String, null],
       default: null,
     },
-    // roleOptions: {
-    //   type: Array,
-    //   required: true,
-    // },
+    roleOptions: {
+      type: Array,
+      required: true,
+    },
     planOptions: {
       type: Array,
       required: true,
@@ -94,7 +94,7 @@ export default {
     statusOptions: {
       type: Array,
       required: true,
-    }
+    },
   },
 }
 </script>

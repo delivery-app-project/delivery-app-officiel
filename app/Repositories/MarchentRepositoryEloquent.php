@@ -9,6 +9,7 @@ use App\Entities\Marchent;
 use App\Validators\MarchentValidator;
 use App\Providers\RouteServiceProvider;
 use App\Criteria\MarchentRepositoryCriteria;
+use App\Entities\TypeMorph;
 use App\Traits\BaseRepositoryTrait;
 
 /**
@@ -21,7 +22,7 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
     use BaseRepositoryTrait;
 
     protected $relations = [
-        'user','packages','orders',
+        'packages','orders','user.address.city.daira.wilaya','user.status'
     ];
 
     protected $fieldSearchable = [
@@ -68,8 +69,20 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
 
+        $status = key_exists('status',$data) ? $data['status'] : null;
+        
 
         $model = $this;
+
+        if($status) {
+            // dd($status);
+            $model = $model->whereHas('user',function ($q) use ($status) {
+                
+                $q->whereHasMorph('status',[TypeMorph::class],function ($quiry) use ($status){
+                    $quiry->where('name',$status);
+                });
+            });
+        }
 
 
         if ($id) $model =  $this->where('id',$id);
@@ -86,4 +99,11 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
         return $this->findOrFail($id);
     }
 
+
+     public function store($data)
+    {
+        $model = $this->create($data);
+
+        return $model;
+    }
 }
