@@ -646,17 +646,17 @@ export default {
     ValidationObserver,
   },
   watch: {
-    wilaya(value) {
-      this.daira = null;
-    },
-    daira(value) {
-      this.city = null;
-    },
-    // for the city id
-    city(value) {
-      this.userData.city_id = value ? value.id : null;
-    },
-    status(value) {},
+    // wilaya(value) {
+    //   this.daira = null;
+    // },
+    // daira(value) {
+    //   this.city = null;
+    // },
+    // // for the city id
+    // city(value) {
+    //   this.userData.city_id = value ? value.id : null;
+    // },
+    // status(value) {},
     // watch when user data email change turn this to false
     "userData.email"(value) {
       this.duplicateErrors.email = false;
@@ -750,12 +750,26 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData));
     };
 
+    watch(wilaya, (newV,oldV) => {
+      if(oldV)
+      daira.value = null;
+    });
+    watch(daira, (newV,oldV) => {
+      if(oldV)
+      city.value = null;
+    });
+    watch(city, () => {
+      userData.value.city_id = city.value ? city.value.id : null;
+    });
     // watch status value if change
     watch(status, () => {
       userData.value.status_id = status.value ? status.value.id : null;
     });
 
     const onSubmit = () => {
+      
+      if(!userData.value.password) delete userData.value.password;
+
       store.dispatch("app-user/updateUser", userData.value).then((res) => {
         const { error } = res.data;
 
@@ -764,7 +778,6 @@ export default {
 
           keys.map((key) => {
             duplicateErrors.value[key] = true;
-            console.log(duplicateErrors);
           });
         } else {
           emit("refetch-data");
@@ -799,6 +812,8 @@ export default {
             break;
 
           default:
+
+            if(value.hasOwnProperty(key))
             userData.value[key] = value[key];
             break;
         }
@@ -849,13 +864,15 @@ export default {
       wilayas: "getWilayas",
       types: "getMorphTypes",
     }),
-    dairas() {
-      if (this.wilaya) return this.wilaya.dairas;
+     dairas() {
+      
+      if (this.wilaya) return this.wilayas.find(item =>item.id===this.wilaya.id).dairas;
 
       return [];
     },
     cities() {
-      if (this.daira) return this.daira.cities;
+
+      if (this.daira) return this.dairas.find(item => item.id===this.daira.id).cities;
 
       return [];
     },
