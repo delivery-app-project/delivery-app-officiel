@@ -735,7 +735,7 @@ export default {
       car_registration_number: "",
       joining_amount: "",
       permanent_employee: "",
-      password: "",
+      password: null,
       isEmployee: true,
     };
 

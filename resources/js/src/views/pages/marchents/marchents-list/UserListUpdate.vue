@@ -355,7 +355,7 @@
           </validation-provider>
 
           <!--commercial registration no -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="commercial registration no"
             rules="required"
@@ -375,9 +375,9 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
           <!--Insurance number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Insurance number"
             rules="required"
@@ -397,10 +397,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--birth_certifcate_number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Birth Certificate number"
             rules="required"
@@ -420,10 +420,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--car_registration_number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Car registration number"
             rules="required"
@@ -443,10 +443,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--joining_amount -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Joining amount"
             rules="required"
@@ -463,7 +463,7 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--Password -->
           <validation-provider #default="validationContext" name="Password">
@@ -476,6 +476,79 @@
               />
 
               <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+
+
+
+          <!-- company name -->
+          <validation-provider
+            #default="validationContext"
+            name="Company name"
+            rules=""
+           >
+            <b-form-group
+              label="Company name"
+              label-for="company_name"
+            >
+              <b-form-input
+                id="company_name"
+                v-model="userData.company_name"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <!-- Tax identification number -->
+          <validation-provider
+            #default="validationContext"
+            name="Tax identification number"
+            rules=""
+           >
+            <b-form-group
+              label="Tax identification number"
+              label-for="tax_identification_number"
+            >
+              <b-form-input
+                id="tax_identification_number"
+                v-model="userData.tax_identification_number"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+
+          <!-- Trade type -->
+          <validation-provider
+            #default="validationContext"
+            name="Trade type"
+            rules=""
+            >
+            <b-form-group
+              label="Trade type"
+              label-for="trade_type"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                        v-model="trade_type"
+                        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                        label="name"
+                        :options="tradeTypes"
+                        placeholder="Trade type"
+              />
+              <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
@@ -646,17 +719,18 @@ export default {
     ValidationObserver,
   },
   watch: {
-    wilaya(value) {
-      this.daira = null;
-    },
-    daira(value) {
-      this.city = null;
-    },
-    // for the city id
-    city(value) {
-      this.userData.city_id = value ? value.id : null;
-    },
-    status(value) {},
+    // wilaya(value) {
+    //   this.daira = null;
+    // },
+    // daira(value) {
+    //   this.city = null;
+    // },
+    // // for the city id
+    // city(value) {
+    //   // console.log("check");
+    //   this.userData.city_id = value ? value.id : null;
+    // },
+    // status(value) {},
     // watch when user data email change turn this to false
     "userData.email"(value) {
       this.duplicateErrors.email = false;
@@ -713,6 +787,7 @@ export default {
     const wilaya = ref(null);
     const daira = ref(null);
     const status = ref(null);
+    const trade_type = ref(null);
 
     const blankUserData = {
       id: null,
@@ -720,6 +795,7 @@ export default {
       role: null,
       currentPlan: null,
       status_id: null,
+      trade_type_id: null,
       first_name: "",
       last_name: "",
       phone: "",
@@ -735,8 +811,12 @@ export default {
       car_registration_number: "",
       joining_amount: "",
       permanent_employee: "",
-      password: "",
-      isEmployee: true,
+      password: null,
+      isMarchent: true,
+      // for the marchent
+      company_name : "",
+      tax_identification_number : "",
+
     };
 
     const duplicateErrors = ref({
@@ -751,11 +831,29 @@ export default {
     };
 
     // watch status value if change
+    watch(wilaya, (newV,oldV) => {
+      if(oldV)
+      daira.value = null;
+    });
+    watch(daira, (newV,oldV) => {
+      if(oldV)
+      city.value = null;
+    });
+    watch(city, () => {
+      userData.value.city_id = city.value ? city.value.id : null;
+    });
     watch(status, () => {
       userData.value.status_id = status.value ? status.value.id : null;
     });
 
+    watch(trade_type, () => {
+      userData.value.trade_type_id = trade_type.value ? trade_type.value.id : null;
+    });
+
+
     const onSubmit = () => {
+      if(!userData.value.password) delete userData.value.password;
+      
       store.dispatch("app-user/updateUser", userData.value).then((res) => {
         const { error } = res.data;
 
@@ -773,14 +871,26 @@ export default {
       });
     };
 
-    const setUpModel = (value) => {
+    const setUpModel = (model) => {
       Object.entries(userData.value).map((item) => {
         const key = item[0];
-
+        const value = model.user;
         switch (key) {
           // case "role":
           //   userData.value[key] = value.roles[0] ? value.roles[0].name : null;
           //   break;
+          case "company_name":
+            userData.value[key] = model.company_name;
+            break;
+          case "tax_identification_number":
+            userData.value[key] = model.tax_identification_number;
+            break;
+            
+          case "trade_type_id":
+            userData.value[key] = model.trade_type ? model.trade_type.id : null;
+            trade_type.value = model.trade_type ? model.trade_type : null;
+            break;
+
           case "status_id":
             userData.value[key] = value.status ? value.status.id : null;
             status.value = value.status ? value.status : null;
@@ -794,12 +904,19 @@ export default {
             wilaya.value = daira.value ? daira.value.wilaya : null;
             break;
 
+          // case "city_id" : 
+          //   userData.value[key] = value.address ? value.address.city_id : null;
+          //   break;
+
           case "address_id":
             userData.value[key] = value.address ? value.address.id : null;
             break;
 
           default:
-            userData.value[key] = value[key];
+
+            if(value.hasOwnProperty(key))
+            userData.value[key] =   value[key] ;
+
             break;
         }
       });
@@ -818,6 +935,7 @@ export default {
       wilaya,
       daira,
       status,
+      trade_type,
       refFormObserver,
       getValidationState,
       resetForm,
@@ -848,14 +966,17 @@ export default {
     ...mapGetters({
       wilayas: "getWilayas",
       types: "getMorphTypes",
+      tradeTypes : 'getMorphTradeTypes',
     }),
     dairas() {
-      if (this.wilaya) return this.wilaya.dairas;
+      
+      if (this.wilaya) return this.wilayas.find(item =>item.id===this.wilaya.id).dairas;
 
       return [];
     },
     cities() {
-      if (this.daira) return this.daira.cities;
+
+      if (this.daira) return this.dairas.find(item => item.id===this.daira.id).cities;
 
       return [];
     },

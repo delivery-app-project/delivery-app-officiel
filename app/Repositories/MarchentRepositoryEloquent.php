@@ -12,6 +12,7 @@ use App\Criteria\MarchentRepositoryCriteria;
 use App\Entities\TypeMorph;
 use App\Traits\BaseRepositoryTrait;
 
+use Illuminate\Container\Container as Application;
 /**
  * Class MarchentRepositoryEloquent.
  *
@@ -21,8 +22,19 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
 {
     use BaseRepositoryTrait;
 
+    
+    protected $type_morph_repository;
+
+    
+    public function __construct(Application $app,TypeMorphRepository $type_morph_repository)
+    {
+
+        parent::__construct($app);
+        $this->type_morph_repository = $type_morph_repository;
+    }
+
     protected $relations = [
-        'packages','orders','user.address.city.daira.wilaya','user.status'
+        'packages','orders','user.address.city.daira.wilaya','user.status','trade_type'
     ];
 
     protected $fieldSearchable = [
@@ -102,7 +114,36 @@ class MarchentRepositoryEloquent extends BaseRepository implements MarchentRepos
 
      public function store($data)
     {
+        
+
         $model = $this->create($data);
+
+        $trade_type_id  = key_exists('trade_type_id', $data) ? $data['trade_type_id'] : null;
+
+        if ($trade_type_id)
+            $trade_type = $this->type_morph_repository->find($trade_type_id);
+        else $trade_type = $this->type_morph_repository->findWhere(['name' => 'private', 'type' => 'TradeType'])->get()->first();
+
+        
+        // attah trade type
+        $trade_type->marchents()->save($model);
+
+        return $model;
+    }
+
+    public function edit($data,$id){
+        // dd($data);
+        $model = $this->update($data,$id);
+
+        $trade_type_id  = key_exists('trade_type_id', $data) ? $data['trade_type_id'] : null;
+
+        if ($trade_type_id)
+            $trade_type = $this->type_morph_repository->find($trade_type_id);
+        else $trade_type = $this->type_morph_repository->findWhere(['name' => 'private', 'type' => 'TradeType'])->get()->first();
+
+        
+        // attah trade type
+        $trade_type->marchents()->save($model);
 
         return $model;
     }

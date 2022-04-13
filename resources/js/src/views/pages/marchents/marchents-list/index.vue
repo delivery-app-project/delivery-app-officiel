@@ -274,6 +274,10 @@ export default {
       type: "UserStatus",
     });
 
+    store.dispatch("_UPDATE_MORPH_TRADE_TYEPS",{
+          type: "TradeType",
+      });
+
   },
   data() {
     return {
@@ -285,9 +289,9 @@ export default {
        this.selectedUser = user;
        this.isUpdateUserSidebarActive = true;
 
-       this.selectedUser = user.user;
+      //  this.selectedUser = user.user;
        
-       console.log(this.selectedUser);
+      //  console.log(this.selectedUser);
      }
   },
   computed: {

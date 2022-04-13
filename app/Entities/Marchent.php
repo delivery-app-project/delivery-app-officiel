@@ -24,7 +24,6 @@ class Marchent extends Model implements Transformable
         'company_name',
         'address_id',
         'tax_identification_number',
-        'trade_type',
         'user_id'
     ];
 
@@ -46,4 +45,7 @@ class Marchent extends Model implements Transformable
         return $this->hasManyThrough(Order::class,Package::class);
     }
 
+    public function trade_type(){
+        return $this->morphTo();
+    }
 }

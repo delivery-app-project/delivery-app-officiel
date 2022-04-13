@@ -37,5 +37,9 @@ class TypeMorph extends Model implements Transformable
         return $this->morphMany(User::class,'status');
     }
 
+    public function marchents(){
+        return $this->morphMany(User::class,'trade_type');
+    }
+
 
 }

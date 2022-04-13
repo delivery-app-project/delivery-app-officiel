@@ -367,7 +367,7 @@
           </validation-provider>
 
           <!--commercial registration no -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="commercial registration no"
             rules="required"
@@ -387,9 +387,9 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
           <!--Insurance number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Insurance number"
             rules="required"
@@ -409,10 +409,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--birth_certifcate_number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Birth Certificate number"
             rules="required"
@@ -432,10 +432,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--car_registration_number -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Car registration number"
             rules="required"
@@ -455,10 +455,10 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--joining_amount -->
-          <validation-provider
+          <!-- <validation-provider
             #default="validationContext"
             name="Joining amount"
             rules="required"
@@ -478,7 +478,7 @@
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
-          </validation-provider>
+          </validation-provider> -->
 
           <!--Password -->
           <validation-provider
@@ -498,6 +498,76 @@
               />
 
               <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+          <!-- company name -->
+          <validation-provider
+            #default="validationContext"
+            name="Company name"
+            rules=""
+           >
+            <b-form-group
+              label="Company name"
+              label-for="company_name"
+            >
+              <b-form-input
+                id="company_name"
+                v-model="userData.company_name"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+          <!-- Tax identification number -->
+          <validation-provider
+            #default="validationContext"
+            name="Tax identification number"
+            rules=""
+           >
+            <b-form-group
+              label="Tax identification number"
+              label-for="tax_identification_number"
+            >
+              <b-form-input
+                id="tax_identification_number"
+                v-model="userData.tax_identification_number"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+
+          <!-- Trade type -->
+          <validation-provider
+            #default="validationContext"
+            name="Trade type"
+            rules=""
+            >
+            <b-form-group
+              label="Trade type"
+              label-for="trade_type"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                        v-model="trade_type"
+                        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                        label="name"
+                        :options="tradeTypes"
+                        placeholder="Trade type"
+              />
+              <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
@@ -648,6 +718,9 @@ export default {
   created() {
     // get wilayas
       store.dispatch("_UPDATE_WILAYAS");
+      // store.dispatch("_UPDATE_MORPH_TRADE_TYEPS",{
+      //     type: "TradeType",
+      // });
   },
   components: {
     BSidebar,
@@ -675,6 +748,9 @@ export default {
     },
     status(value){
       this.userData.status_id = value ?  value.id : null;
+    },
+    trade_type(value){
+      this.userData.trade_type_id = value ?  value.id : null;
     },
     // watch when user data email change turn this to false
     'userData.email' (value){
@@ -714,6 +790,7 @@ export default {
       wilaya : null,
       daira : null,
       status : null,
+      trade_type : null,
       required,
       alphaNum,
       email,
@@ -748,6 +825,9 @@ export default {
       car_registration_number : '',
       joining_amount  : '',
       permanent_employee : '',
+      tax_identification_number : '',
+      trade_type_id : null,
+      company_name : '',
       password : '',
       isMarchent: true,
       
@@ -818,7 +898,8 @@ export default {
   computed: {
     ...mapGetters({
       wilayas: "getWilayas",
-      types : 'getMorphTypes'
+      types : 'getMorphTypes',
+      tradeTypes : 'getMorphTradeTypes',
     }),
     dairas() {
       if (this.wilaya) return this.wilaya.dairas;

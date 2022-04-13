@@ -33,20 +33,37 @@ return [
                             ],
                     'user' => [
                         'seed' => [
-                            [
-                                'name' => 'active',
-                                'type' => 'UserStatus'
-                            ],
-                            [
-                                'name' => 'deactivate',
-                                'type' => 'UserStatus'
-                            ],
-                            [
-                                'name' => 'pending',
-                                'type' => 'UserStatus'
-                            ]
+                            'status' => [
+                                [
+                                    'name' => 'active',
+                                    'type' => 'UserStatus'
+                                ],
+                                [
+                                    'name' => 'deactivate',
+                                    'type' => 'UserStatus'
+                                ],
+                                [
+                                    'name' => 'pending',
+                                    'type' => 'UserStatus'
+                                ]
+                                ],
+                            
                         ]
-                    ]                            
+                            ],
+                            'marchent' => [
+                                'seed' => [
+                                    'trade_type' => [
+                                        [
+                                            'name' => 'private',
+                                            'type' => 'TradeType'
+                                        ],
+                                        [
+                                            'name' => 'public',
+                                            'type' => 'TradeType'
+                                        ],
+                                    ]
+                                ]
+                            ]                            
         ] ,
         "wilayas" => [
                 // wilaya 1

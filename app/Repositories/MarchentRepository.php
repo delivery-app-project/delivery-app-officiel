@@ -18,5 +18,5 @@ interface MarchentRepository extends RepositoryInterface, BaseRepositoryInterfac
 
     public function store($data);
 
-    // public function edit($data,$id);
+    public function edit($data,$id);
 }

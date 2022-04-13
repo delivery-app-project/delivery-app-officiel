@@ -163,6 +163,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             // if employee
             $isEmployee = key_exists('isEmployee', $data) ? $data['isEmployee'] : null;
             $isMarchent = key_exists('isMarchent', $data) ? $data['isMarchent'] : null;
+            // dd($isMarchent);
 
             if ($isEmployee) {
                 // update the employee
@@ -170,9 +171,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
                     'user_id' => $model->id
                 ]),$model->employee->id);
             } else if($isMarchent){
-                
                 // update the marchent
-               $marchent =  $this->marchent_repository->update(array_merge($data, [
+               $marchent =  $this->marchent_repository->edit(array_merge($data, [
                     'user_id' => $model->id
                 ]),$model->marchent->id);
             }

@@ -5,6 +5,8 @@ export default {
   state: {
       
       morph_types : [],
+      morph_trade_types : [],
+
       wilayas : [],
       employees : [],
       stocks : []
@@ -12,6 +14,9 @@ export default {
   getters: {
       getMorphTypes (state){
           return state.morph_types;
+      },
+      getMorphTradeTypes (state){
+          return state.morph_trade_types;
       },
       getWilayas(state) {
           return state.wilayas;
@@ -29,6 +34,9 @@ export default {
   mutations: {
       UPDATE_MORPH_TYEPS(state,val){
           state.morph_types = val;
+      },
+      UPDATE_MORPH_TRADE_TYEPS(state,val){
+          state.morph_trade_types = val;
       },
       UPDATE_WILAYAS(state,val){
           state.wilayas = val;
@@ -58,6 +66,25 @@ export default {
               .get('/type-morph'+cond)
               .then(response => {
                   commit("UPDATE_MORPH_TYEPS",response.data);
+                  resolve(response);
+              })
+              .catch(error => reject(error))
+          })
+      },
+      _UPDATE_MORPH_TRADE_TYEPS({ commit},params){
+        let cond = "?"
+        Object.entries(params).map(item => {
+                const key = item[0]
+                const value = item[1]
+                cond +=`${key}=${value}&&`
+
+        });
+
+         return new Promise((resolve, reject) => {
+            axios
+              .get('/type-morph'+cond)
+              .then(response => {
+                  commit("UPDATE_MORPH_TRADE_TYEPS",response.data);
                   resolve(response);
               })
               .catch(error => reject(error))
