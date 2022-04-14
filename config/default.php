@@ -63,7 +63,25 @@ return [
                                         ],
                                     ]
                                 ]
-                            ]                            
+                                    ],
+                                    'order' => [
+                                        'seed' => [
+                                            'etat' => [
+                                                [
+                                                    'name' => 'glass',
+                                                    'type' => 'OrderEtat'
+                                                ],
+                                                [
+                                                    'name' => 'solid',
+                                                    'type' => 'OrderEtat'
+                                                ],
+                                                [
+                                                    'name' => 'liquid',
+                                                    'type' => 'OrderEtat'
+                                                ],
+                                            ]
+                                        ]
+                                    ]                            
         ] ,
         "wilayas" => [
                 // wilaya 1

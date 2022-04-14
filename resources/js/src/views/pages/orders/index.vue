@@ -26,7 +26,7 @@
           />
           <b-button
             variant="primary"
-            :to="{ name: 'apps-invoice-add'}"
+            :to="{ name: 'order-add'}"
           >
             Add Record
           </b-button>

@@ -22,11 +22,13 @@ class TypeMorphSeeder extends Seeder
         $type_stocks = config('default.general.stock.seed');
         $type_user_status = config('default.general.user.status.seed');
         $type_marchent_trade_type = config('default.general.marchent.seed.trade_type');
+        $type_order_etat = config('default.general.order.seed.etat');
         
         DB::table($this->table)->insert($types);
         DB::table($this->table)->insert($type_stocks);
         DB::table($this->table)->insert($type_user_status);
         DB::table($this->table)->insert($type_marchent_trade_type);
+        DB::table($this->table)->insert($type_order_etat);
         
     }
 }

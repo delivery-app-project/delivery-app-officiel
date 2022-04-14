@@ -71,4 +71,9 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
 
         return $model->paginate($perPage);
     }
+
+
+    // public function store($data){
+
+    // }
 }

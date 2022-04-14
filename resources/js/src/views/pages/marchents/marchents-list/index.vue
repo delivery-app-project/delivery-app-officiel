@@ -276,7 +276,7 @@ export default {
 
     store.dispatch("_UPDATE_MORPH_TRADE_TYEPS",{
           type: "TradeType",
-      });
+    });
 
   },
   data() {

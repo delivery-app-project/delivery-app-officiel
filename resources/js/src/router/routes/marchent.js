@@ -30,6 +30,24 @@ export default [
         //   },
         // ],
       },
+      
+    },
+    
+    {
+      path: '/orders/add',
+      name: 'order-add',
+      component: () => import('@/views/pages/orders/order-add/index.vue'),
+      meta: {
+        pageTitle: 'Order add',
+        resource : 'Orders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
     },
   ]
   
