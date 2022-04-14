@@ -43,6 +43,37 @@ Route::group([
     //     'update'
     // );
 
+    
+//api/stock
+Route::resource('stocks', StockController::class)->only(
+    'index','show','store','update'
+);
+Route::resource('employee', EmployeeController::class)->only(
+    'index','show'
+);
+Route::resource('marchent', MarchentController::class)->only(
+    'index','show'
+);
+Route::resource('role', RoleController::class)->only(
+    'index'
+);
+Route::resource('user', UserController::class)->only(
+    'update','store','show'
+);
+
+Route::resource('type-morph', TypeMorphController::class)->only(
+    'index'
+);
+
+
+Route::resource('agency', AgencyController::class)->only(
+    'index','show','store','update'
+);
+
+Route::resource('wilaya', wilayaController::class)->only(
+    'index'
+);
+
 });
 
 
@@ -68,32 +99,4 @@ Route::group([
     //     'index','show'
     // );
 
-    Route::resource('type-morph', TypeMorphController::class)->only(
-        'index'
-    );
-
-
-    Route::resource('agency', AgencyController::class)->only(
-        'index','show','store','update'
-    );
-
-    Route::resource('wilaya', wilayaController::class)->only(
-        'index'
-    );
-
-//api/stock
-Route::resource('stocks', StockController::class)->only(
-    'index','show','store','update'
-);
-Route::resource('employee', EmployeeController::class)->only(
-    'index','show'
-);
-Route::resource('marchent', MarchentController::class)->only(
-    'index','show'
-);
-Route::resource('role', RoleController::class)->only(
-    'index'
-);
-Route::resource('user', UserController::class)->only(
-    'update','store','show'
-);
+    
