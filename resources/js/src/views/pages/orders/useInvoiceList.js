@@ -17,7 +17,7 @@ export default function useInvoicesList() {
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
     { key: 'receiver', sortable: true },
-    { key: 'receiver_type', sortable: true },
+    { label : 'Reveiver type' ,key: 'receiver_type.name', sortable: true },
     { key: 'phone', sortable: true, formatter: val => `$${val}` },
     { key: 'code_postal', sortable: true },
     { key: 'weight', sortable: true },
@@ -25,7 +25,7 @@ export default function useInvoicesList() {
     { key: 'length' },
     { key: 'width' },
     { key: 'quatity' },
-    { key: 'etat' },
+    { label : 'Etat' ,key: 'etat.name' },
     { key: 'actions' },
   ]
   const perPage = ref(10)

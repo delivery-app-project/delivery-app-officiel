@@ -2,11 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Criteria\OrderCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OrderRepository;
 use App\Entities\Order;
 use App\Providers\RouteServiceProvider;
+use App\Traits\BaseRepositoryTrait;
+use App\Traits\repositoriesCrud;
 use App\Validators\OrderValidator;
 use PDO;
 use Illuminate\Container\Container as Application;
@@ -18,8 +21,14 @@ use Illuminate\Container\Container as Application;
  */
 class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 {
+    use BaseRepositoryTrait;
+
     protected $type_morph_repository;
     protected $package_repository;
+
+    public  $relations = [
+        'package.marchent','receiver_type','etat'
+    ];
 
 
     public function __construct(Application $app, PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
@@ -63,6 +72,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(OrderCriteria::class));
     }
 
 

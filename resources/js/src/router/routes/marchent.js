@@ -49,5 +49,21 @@ export default [
         // ],
       },
     },
+    {
+      path: '/orders/preview/:id',
+      name: 'order-preview',
+      component: () => import('@/views/pages/orders/order-view/index.vue'),
+      meta: {
+        pageTitle: 'Order preview',
+        resource : 'Orders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
   ]
   

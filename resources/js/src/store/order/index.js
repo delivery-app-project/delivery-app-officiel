@@ -3,17 +3,17 @@ import axios from '@axios'
 export default {
   namespaced: false,
   state: {
-      // roles : []
+      order : null
   },
   getters: {
-        // getRoles(state) {
-        //         return state.roles;
-        // }
+        getOrder(state) {
+                return state.order;
+        }
   },
   mutations: {
-    // UPDATE_ROLES(state, val) {
-    //   state.roles = val
-    // },
+    UPDATE_ORDER(state, val) {
+      state.order = val
+    },
   },
   actions: {
     _STORE_ORDER({ commit},params){
@@ -24,6 +24,19 @@ export default {
               .post('/order',params)
               .then(response => {
                   // commit("UPDATE_ROLES",response.data);
+                  resolve(response);
+              })
+              .catch(error => reject(error))
+          })
+      },
+    _GET_ORDER({ commit},params){
+        // const cond = getCond(params);
+
+         return new Promise((resolve, reject) => {
+            axios
+              .get('/order/'+params.id)
+              .then(response => {
+                  commit("UPDATE_ORDER",response.data);
                   resolve(response);
               })
               .catch(error => reject(error))

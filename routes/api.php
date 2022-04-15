@@ -45,7 +45,7 @@ Route::group([
 
     
 Route::resource('order', OrderController::class)->only(
-    'index','store'
+    'index','store','show'
 );
 Route::resource('stocks', StockController::class)->only(
     'index','show','store','update'
