@@ -49,8 +49,8 @@ return [
                                 ],
                             
                         ]
-                            ],
-                            'marchent' => [
+                    ],
+                    'marchent' => [
                                 'seed' => [
                                     'trade_type' => [
                                         [
@@ -63,25 +63,35 @@ return [
                                         ],
                                     ]
                                 ]
+                    ],
+                    'order' => [
+                                'seed' => [
+                                    'etat' => [
+                                        [
+                                            'name' => 'glass',
+                                            'type' => 'OrderEtat'
+                                        ],
+                                        [
+                                            'name' => 'solid',
+                                            'type' => 'OrderEtat'
+                                        ],
+                                        [
+                                            'name' => 'liquid',
+                                            'type' => 'OrderEtat'
+                                        ],
                                     ],
-                                    'order' => [
-                                        'seed' => [
-                                            'etat' => [
-                                                [
-                                                    'name' => 'glass',
-                                                    'type' => 'OrderEtat'
-                                                ],
-                                                [
-                                                    'name' => 'solid',
-                                                    'type' => 'OrderEtat'
-                                                ],
-                                                [
-                                                    'name' => 'liquid',
-                                                    'type' => 'OrderEtat'
-                                                ],
-                                            ]
-                                        ]
-                                    ]                            
+                                    'receiver_type' => [
+                                        [
+                                            'name' => 'trader',
+                                            'type' => 'OrderReceiverType'
+                                        ],
+                                        [
+                                            'name' => 'company',
+                                            'type' => 'OrderReceiverType'
+                                        ],
+                                    ]
+                                ]
+                            ]                            
         ] ,
         "wilayas" => [
                 // wilaya 1

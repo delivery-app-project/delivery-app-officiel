@@ -40,6 +40,14 @@ class TypeMorph extends Model implements Transformable
     public function marchents(){
         return $this->morphMany(User::class,'trade_type');
     }
+    
+    public function order_receiver_types(){
+        // dd('check');
+        return $this->morphMany(Order::class,'receiver_type');
+    }
+    public function order_etats(){
+        return $this->morphMany(Order::class,'etat');
+    }
 
 
 }

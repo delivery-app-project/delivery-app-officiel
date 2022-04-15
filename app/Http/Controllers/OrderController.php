@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assistant\ResponseFormatter;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,10 @@ class OrderController extends Controller
 
     public function index(Request $request){
             return response()->json($this->repository->index($request->all()));
+    }
+
+    public function store(Request $request){
+        return ResponseFormatter::response($this->repository->store($request->all()));
     }
 
 }

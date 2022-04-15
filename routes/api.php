@@ -38,13 +38,15 @@ Route::group([
     Route::get('package', [PackageController::class, 'index'])->name('package.index');
     Route::get('package-type', [PackageTypeController::class, 'index'])->name('package-type.index');
     Route::get('order-status', [OrderStatusController::class, 'index'])->name('package-status.index');
-    Route::get('order', [OrderController::class, 'index'])->name('order.index');
+    // Route::get('order', [OrderController::class, 'index'])->name('order.index');
     // Route::resource('user', UserController::class)->only(
     //     'update'
     // );
 
     
-//api/stock
+Route::resource('order', OrderController::class)->only(
+    'index','store'
+);
 Route::resource('stocks', StockController::class)->only(
     'index','show','store','update'
 );

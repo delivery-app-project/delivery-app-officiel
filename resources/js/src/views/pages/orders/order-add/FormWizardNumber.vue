@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <form-wizard
       color="#7367F0"
@@ -132,11 +132,18 @@
                   name="receiver_type"
                   rules="required"
                 >
-                  <b-form-input
+                  <!-- <b-form-input
                     id="receiver_type"
                     v-model="order.receiver_type"
                     :state="errors.length > 0 ? false : null"
                     placeholder="Type"
+                  /> -->
+                  <v-select
+                    id="receiver_type"
+                    v-model="order.receiver_type"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    :options="receiverTypesVT"
+                    label="text"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -451,7 +458,7 @@
                   /> -->
                   <b-form-datepicker
                     id="send_date"
-                    v-model="address"
+                    v-model="order.send_date"
                     class="mb-1"
                   />
                         <small class="text-danger">{{ errors[0] }}</small>
@@ -467,7 +474,7 @@
                 >
                    <b-form-datepicker
                     id="receive_date"
-                    v-model="landMark"
+                    v-model="order.receive_date"
                     class="mb-1"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -513,7 +520,7 @@
                   /> -->
                   <b-form-timepicker
                     id="time_receive_date"
-                    v-model="city"
+                    v-model="order.time_receive_date"
                     locale="en"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -547,6 +554,7 @@ import {
   BFormTimepicker
 } from "bootstrap-vue";
 import { required, email } from "@validations";
+import {getUserData} from '@/auth/utils'
 
 export default {
   components: {
@@ -573,12 +581,20 @@ export default {
       //App\Entities\Agency
       type: "OrderEtat",
     });
+
+    store.dispatch("_UPDATE_MORPH_TRADE_TYEPS", {
+      //App\Entities\Agency
+      type: "OrderReceiverType"
+    });
+
+  
   },
   computed: {
     
      ...mapGetters({
         // roles : 'getRoles',
-        etats : 'getMorphTypes'
+        etats : 'getMorphTypes',
+        receiverTypes: 'getMorphTradeTypes',
      }),
      etatsVT(){
 
@@ -587,11 +603,15 @@ export default {
          item.value = item.id;
          return item;
        })
-      //  list.push(
-      //   { value: "select_value", text: "Select Value" },
-      //  );
-      //  return list;
-     }
+     },
+      receiverTypesVT(){
+
+       return this.receiverTypes.map(item => {
+         item.text = item.name;
+         item.value = item.id;
+         return item;
+       })
+      }
   },
   data() {
     return {
@@ -599,6 +619,7 @@ export default {
       packageData: {
         name: "",
         description: "",
+        marchent_id : getUserData().marchent.id
       },
       order: {
         // order
@@ -615,7 +636,7 @@ export default {
         receive_date: null,
         time_receive_date: null,
         etat: null,
-        quatity: null,
+        quatity: null
       },
 
       selectedContry: "",
@@ -681,6 +702,13 @@ export default {
         { value: "6", text: "6" },
         { value: "10", text: "10" },
       ],
+      objectsKeys : [
+        'height',
+        'width',
+        'length',
+        'receiver_type',
+        'etat',
+      ],
       // languageName: [
       //   { value: "nothing_selected", text: "Nothing Selected" },
       //   { value: "English", text: "English" },
@@ -695,7 +723,68 @@ export default {
   },
   methods: {
     formSubmitted() {
+      // this.order = {
+      //   // order
+      //   receiver: "daffd",
+      //   receiver_type: this.receiverTypesVT[0],
+      //   phone: "fadfdsf",
+      //   second_phone: "fadf",
+      //   code_postal: "fadfsd",
+      //   weight: "fadsfd",
+      //   height: this.heightValues[2],
+      //   width: this.widthValues[2],
+      //   length: this.lengthValues[3],
+      //   send_date: 'fadfdsf',
+      //   receive_date: 'fadsfdf',
+      //   time_receive_date: 'fadsfsd',
+      //   etat: this.etatsVT[0],
+      //   quatity: this.quantityValues[0],
+      // };
+      let orderdata = Object.entries(this.order).map(item => {
+        // const key = item[0];
+        const value = item[1];
+        if(typeof value === 'object' && value!=null){
+          item[1] = value['value'];
+        }
+        return item;
+      })
+
+      orderdata = Object.fromEntries(orderdata);
+      const data = {
+        order : orderdata,
+        package : this.packageData
+      };
+
+      console.log(data);
+      // const data = [
+      //   ,
+      //   packageData
+      // ]
       
+      // console.log(data);
+      store.dispatch('_STORE_ORDER',data).then(res => {
+        
+      this.$toast({
+        component: ToastificationContent,
+        props: {
+          title: "Order created",
+          icon: "EditIcon",
+          variant: "success",
+        },
+      });
+      
+      this.$router.push('/orders')
+
+      }).catch(error => {
+         this.$toast({
+        component: ToastificationContent,
+        props: {
+          title: "Form Not Submitted",
+          icon: "EditIcon",
+          variant: "success",
+        },
+      });
+      })
       this.$toast({
         component: ToastificationContent,
         props: {

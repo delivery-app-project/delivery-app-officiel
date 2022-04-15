@@ -73,7 +73,10 @@ class PackageRepositoryEloquent extends BaseRepository implements PackageReposit
     }
 
 
-    // public function store($data){
+    public function store($data){
+        
+            $model =$this->create($data);
 
-    // }
+            return $model;
+    }
 }

@@ -22,7 +22,7 @@ class Order extends Model implements Transformable
      */
     protected $fillable = [
         'receiver',
-        'receiver_type',
+        // 'receiver_type',
         'phone',
         'second_phone',
         'email',
@@ -47,5 +47,13 @@ class Order extends Model implements Transformable
     public function order_statuses(){
         return $this->belongsToMany(OrderStatus::class,'order_status_order');
     }
+
+    public function receiver_type(){
+        return $this->morphTo();
+    }
+    public function etat(){
+        return $this->morphTo();
+    }
+
     
 }

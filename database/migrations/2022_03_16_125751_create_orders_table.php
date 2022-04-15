@@ -19,7 +19,8 @@ class CreateOrdersTable extends Migration
 		Schema::create('orders', function(Blueprint $table) {
             $table->id();
 			$table->string('receiver');
-			$table->enum('receiver_type',['company','user']);
+			// $table->enum('receiver_type',['company','user']);
+
 			$table->string('phone');
 			$table->string('second_phone')->nullable();
 			$table->string('code_postal')->nullable();
@@ -30,8 +31,8 @@ class CreateOrdersTable extends Migration
 			$table->string('length')->nullable();
 			$table->date('send_date')->nullable();
 			$table->date('receive_date')->nullable();
-			$table->date('time_receive_date')->nullable();
-			$table->string('etat')->nullable();
+			$table->time('time_receive_date')->nullable();
+			// $table->string('etat')->nullable();
 			$table->bigInteger('quatity');
 			// package
             $table->unsignedBigInteger('package_id');

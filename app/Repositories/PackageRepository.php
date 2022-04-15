@@ -14,4 +14,5 @@ interface PackageRepository extends RepositoryInterface
     //
 
    public function index($data);
+   public function store($data);
 }

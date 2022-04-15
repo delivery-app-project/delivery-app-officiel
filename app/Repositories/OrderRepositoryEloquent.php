@@ -9,6 +9,7 @@ use App\Entities\Order;
 use App\Providers\RouteServiceProvider;
 use App\Validators\OrderValidator;
 use PDO;
+use Illuminate\Container\Container as Application;
 
 /**
  * Class OrderRepositoryEloquent.
@@ -17,6 +18,18 @@ use PDO;
  */
 class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 {
+    protected $type_morph_repository;
+    protected $package_repository;
+
+
+    public function __construct(Application $app, PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
+    {
+
+        parent::__construct($app);
+        $this->package_repository = $package_repository;
+        $this->type_morph_repository = $type_morph_repository;
+    }
+
 
     protected $fieldSearchable = [
         'receiver' => 'like'
@@ -83,5 +96,36 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
 
         return $model->with(['package'])->paginate($perPage);
+    }
+
+
+    public function store($data)
+    {
+
+        $packageData = $data['package'];
+        $orderData = $data['order'];
+
+        // create the package
+        $package = $this->package_repository->store($packageData);
+        // dd($order);
+        // create the order
+        $order = $this->create(array_merge(
+            [
+                'package_id' => $package->id
+            ],
+            $orderData
+        ));
+        // dd($orderData);
+        // dd($order['receiver_type']);
+        $re_type = $this->type_morph_repository->find($orderData['receiver_type']);
+        
+        $etat = $this->type_morph_repository->find($orderData['etat']);
+
+        // attach the receiver type 
+        $re_type->order_receiver_types()->save($order);
+        // attach the etat 
+        $etat->order_etats()->save($order);
+
+        return $order;
     }
 }
