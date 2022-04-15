@@ -66,7 +66,7 @@ export default function useInvoicesList() {
         sortBy: sortBy.value,
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
-        id : userData.marchent.id
+        id : router.currentRoute.params.id ? router.currentRoute.params.id : userData.marchent.id 
 
       })
       .then(response => {

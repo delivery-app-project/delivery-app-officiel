@@ -135,5 +135,24 @@ export default [
         },
       },
 
+      
+    {
+      path: '/orders/:id',
+      name: 'orders-marchent',
+      component: () => import('@/views/pages/orders/index.vue'),
+      meta: {
+        pageTitle: 'Order of marchent',
+        resource : 'Agencies',
+    
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+      
+    },
+
 
 ];

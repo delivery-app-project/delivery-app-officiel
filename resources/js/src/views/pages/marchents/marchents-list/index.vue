@@ -155,8 +155,8 @@
               <feather-icon icon="FileTextIcon" />
               <span class="align-middle ml-50">Details</span>
             </b-dropdown-item>
-            
-            <b-dropdown-item :to="{ name: 'orders', params: { id: data.item.id } }">
+
+            <b-dropdown-item :to="{ name: 'orders-marchent', params: { id: data.item.id } }">
               <feather-icon icon="FileTextIcon" />
               <span class="align-middle ml-50">View Orders</span>
             </b-dropdown-item>
