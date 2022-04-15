@@ -17,7 +17,7 @@ export default function useInvoicesList() {
     { key: 'id', label: '#', sortable: true },
     { key: 'name', sortable: true },
     { key: 'description', sortable: true },
-    { key: 'type', sortable: true, formatter: val => `$${val}` },
+    // { key: 'type', sortable: true, formatter: val => `$${val}` },
     { key: 'created_at', sortable: true },
     { key: 'actions' },
   ]
