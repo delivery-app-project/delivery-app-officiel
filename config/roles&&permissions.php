@@ -46,9 +46,11 @@ return [
             'view agencies',
             'view stocks',
             'view employees',
-            'view marchents'
+            'view marchents',
+            'view orders'
         ],
         'agency head' => [
+            
         ]
     ]
 

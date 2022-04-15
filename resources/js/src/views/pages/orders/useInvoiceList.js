@@ -5,7 +5,7 @@ import store from '@/store'
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import {  getUserData } from '@/auth/utils'
-
+import router from '@/router'
 export default function useInvoicesList() {
   
   // Use toast
