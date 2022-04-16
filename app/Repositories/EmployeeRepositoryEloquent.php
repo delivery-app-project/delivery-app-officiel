@@ -70,7 +70,7 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : null;
         $role = key_exists('role',$data)? $data['role'] : null;
         $status = key_exists('status',$data) ? $data['status'] : null;
-        // dd($role);
+        $stock_id = key_exists('stock_id',$data) ? $data['stock_id'] : null;
 
         $model = $this;
 
@@ -88,6 +88,11 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
                 $q->whereHasMorph('status',[TypeMorph::class],function ($quiry) use ($status){
                     $quiry->where('name',$status);
                 });
+            });
+        }
+        if($stock_id){
+            $model = $model->whereHas('stocks',function ($q) use ($stock_id){
+                $q->where('stocks.id',$stock_id);
             });
         }
 

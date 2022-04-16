@@ -61,7 +61,7 @@ export default [
       {
         path: '/stocks/preview/:id',
         name: 'stocks-preview',
-        component: () => import('@/views/pages/stocks/stocks-preview/stocksPreview.vue'),
+        component: () => import('@/views/pages/stocks/stocks-preview/index.vue'),
         meta : {
           pageTitle : "Stocks preview",
           resource : "Stocks"

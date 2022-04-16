@@ -269,15 +269,23 @@ export default {
 
     vSelect,
   },
+  
+  props: {
+    stock: {
+      type: Object,
+      required: false
+    },
+  },
   created() {
     store.dispatch('_UPDATE_ROLES');
-    
+
     store.dispatch("_UPDATE_MORPH_TYEPS", {
       //App\Entities\Agency
       type: "UserStatus",
     });
 
   },
+
   data() {
     return {
       //  selectedUser : null
@@ -290,7 +298,6 @@ export default {
 
        this.selectedUser = user.user;
        
-       console.log(this.selectedUser);
      }
   },
   computed: {
@@ -298,6 +305,7 @@ export default {
         roles : 'getRoles',
         types : 'getMorphTypes'
      })
+     
      ,
       roleOptions (){
         return this.roles ? this.roles.map(item => {
@@ -314,49 +322,9 @@ export default {
         }) : [];
       }
   },
+  setup(props) {
 
-  setup(context) {
-    const USER_APP_STORE_MODULE_NAME = 'app-user'
-
-    // Register module
-    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
-
-    // UnRegister on leave
-    onUnmounted(() => {
-      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
-    })
-
-    const isAddNewUserSidebarActive = ref(false)
-    const isUpdateUserSidebarActive = ref(false)
-
-    const selectedUser = ref(null);
-
-    // watch this value if it's false make the selecteduser null
-     watch(isUpdateUserSidebarActive, () => {
-          if(!isUpdateUserSidebarActive.value) selectedUser.value = null;
-    });
-
-
-    // const roleOptions = [
-    //   { label: 'Admin', value: 'admin' },
-    //   { label: 'Maintainer', value: 'maintainer' },
-    //   { label: 'Subscriber', value: 'subscriber' },
-    // ]
-
-    const planOptions = [
-      { label: 'Basic', value: 'basic' },
-      { label: 'Company', value: 'company' },
-      { label: 'Enterprise', value: 'enterprise' },
-      { label: 'Team', value: 'team' },
-    ]
-
-    // const statusOptions = [
-    //   { label: 'Pending', value: 'pending' },
-    //   { label: 'Active', value: 'active' },
-    //   { label: 'Inactive', value: 'inactive' },
-    // ]
-
-    const {
+      const {
       fetchUsers,
       tableColumns,
       perPage,
@@ -379,7 +347,54 @@ export default {
       roleFilter,
       planFilter,
       statusFilter,
+      stock_id
     } = useUsersList()
+
+    const USER_APP_STORE_MODULE_NAME = 'app-user'
+
+    // Register module
+    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
+
+    // UnRegister on leave
+    onUnmounted(() => {
+      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
+    })
+
+    const isAddNewUserSidebarActive = ref(false)
+    const isUpdateUserSidebarActive = ref(false)
+
+    const selectedUser = ref(null);
+
+    // watch this value if it's false make the selecteduser null
+     watch(isUpdateUserSidebarActive, () => {
+          if(!isUpdateUserSidebarActive.value) selectedUser.value = null;
+    });
+
+    // const roleOptions = [
+    //   { label: 'Admin', value: 'admin' },
+    //   { label: 'Maintainer', value: 'maintainer' },
+    //   { label: 'Subscriber', value: 'subscriber' },
+    // ]
+    // watch(store.getters.getStock,() => {
+    //     console.log('check');
+    // });
+    if(props.stock) stock_id.value = props.stock.id;
+    
+
+    const planOptions = [
+      { label: 'Basic', value: 'basic' },
+      { label: 'Company', value: 'company' },
+      { label: 'Enterprise', value: 'enterprise' },
+      { label: 'Team', value: 'team' },
+    ]
+
+    // const statusOptions = [
+    //   { label: 'Pending', value: 'pending' },
+    //   { label: 'Active', value: 'active' },
+    //   { label: 'Inactive', value: 'inactive' },
+    // ]
+
+  
 
     return {
       // Sidebar
@@ -414,7 +429,8 @@ export default {
       roleFilter,
       planFilter,
       statusFilter,
-      selectedUser
+      selectedUser,
+      stock_id
     }
   },
 }

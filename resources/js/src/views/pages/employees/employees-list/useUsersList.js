@@ -38,6 +38,7 @@ export default function useUsersList() {
   const roleFilter = ref(null)
   const planFilter = ref(null)
   const statusFilter = ref(null)
+  const stock_id = ref(null)
 
   const dataMeta = computed(() => {
     const localItemsCount = refUserListTable.value ? refUserListTable.value.localItems.length : 0
@@ -68,6 +69,7 @@ export default function useUsersList() {
         role: roleFilter.value,
         plan: planFilter.value,
         status: statusFilter.value,
+        stock_id : stock_id.value ? stock_id.value : null
       })
       // this one need be switch to data
       .then(response => {
@@ -75,6 +77,8 @@ export default function useUsersList() {
 
         callback(data)
         totalUsers.value = total
+        store.commit('UPDATE_STOCK',null)
+        
       })
       .catch(() => {
         toast({
@@ -139,5 +143,7 @@ export default function useUsersList() {
     roleFilter,
     planFilter,
     statusFilter,
+
+    stock_id
   }
 }
