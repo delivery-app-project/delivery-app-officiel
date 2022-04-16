@@ -34,7 +34,7 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
     }
 
     protected $relations = [
-        'director.user','agencies','main_agency','employees','secondary_stocks','address.city.daira.wilaya','type'
+        'director.user','agencies','main_agency','employees.user','secondary_stocks','address.city.daira.wilaya','type'
     ];
     // shearce filed
     protected $fieldSearchable = [
@@ -121,6 +121,18 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
 
     public function edit($data, $id)
     {
+
+        // attaching employees 
+        $employee_ids = key_exists('employee_ids',$data) ? $data['employee_ids'] : null;
+        
+        if($employee_ids) {
+            $agency = $this->find($id);
+            $agency->employees()->sync($employee_ids,true);
+            $agency->load('employees');
+            return $agency;
+        }
+
+
         $model = $this->update($data,$id);
 
         $type = $this->type_morph_repository->find($data['type_id']);

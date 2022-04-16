@@ -39,7 +39,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     }
 
     protected $relations = [
-        'director.user', 'address.city.daira.wilaya', 'main_stock', 'type','employees'
+        'director.user', 'address.city.daira.wilaya', 'main_stock', 'type','employees.user'
     ];
 
 
@@ -129,6 +129,16 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
     public function edit($data, $id)
     {
+        // attaching employees 
+        $employee_ids = key_exists('employee_ids',$data) ? $data['employee_ids'] : null;
+        
+        if($employee_ids) {
+            $agency = $this->find($id);
+            $agency->employees()->sync($employee_ids,true);
+            $agency->load('employees');
+            return $agency;
+        }
+
         $agency = $this->update($data,$id);
 
         $type = $this->type_morph_repository->find($data['type_id']);

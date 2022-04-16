@@ -56,8 +56,8 @@
           <user-view-user-permissions-card />
         </b-col>
       </b-row> -->
-      
-      <employees-list :stock="modelData"/>
+
+      <employees-list :stock="modelData" @refetchStock="refetchStock"/>
 
     </template>
 
@@ -109,7 +109,9 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
+    const refetchStock = () => {
+      
+      store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
       .then(response => { 
         modelData.value = response.data; 
         
@@ -119,9 +121,15 @@ export default {
           modelData.value = undefined
         }
       })
+    }
+
+
+    refetchStock();
+
 
     return {
       modelData,
+      refetchStock
     }
   },
 }

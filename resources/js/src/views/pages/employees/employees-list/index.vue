@@ -9,6 +9,22 @@
       @refetch-data="refetchData"
     />
     
+    <user-list-attach-agency-new 
+      v-if="agency"
+      :is-add-new-user-sidebar-agency-active.sync="isAddNewUserSidebarAgencyActive"
+      :agency="agency"
+      @refetch-data="refetchData"
+      @refetch-agency="$emit('refetchAgency')"
+    />
+
+    <user-list-attach-stock-new
+      v-if="stock"
+      :is-add-new-user-sidebar-stock-active.sync="isAddNewUserSidebarStockActive"
+      :stock="stock"
+      @refetch-data="refetchData"
+      @refetch-stock="$emit('refetchStock')"
+    />
+    
     <user-list-update
       v-if="selectedUser"
       :is-update-user-sidebar-active.sync="isUpdateUserSidebarActive"
@@ -62,18 +78,38 @@
             cols="12"
             md="6"
           >
-            <div class="d-flex align-items-center justify-content-end">
+            <div  class="d-flex align-items-center justify-content-end">
               <b-form-input
                 v-model="searchQuery"
                 class="d-inline-block mr-1"
                 placeholder="Search..."
               />
               <b-button
+                v-if="!agency && !stock"
                 variant="primary"
                 @click="isAddNewUserSidebarActive = true"
                 >
-                <span class="text-nowrap">Add User</span>
+
+                <span  class="text-nowrap">Add User</span>
               </b-button>
+              
+              <b-button
+                v-else-if="agency"
+                variant="primary"
+                @click="isAddNewUserSidebarAgencyActive = true"
+                >
+
+                <span  class="text-nowrap">Attach new User</span>
+              </b-button>
+              <b-button
+                v-else-if="stock"
+                variant="primary"
+                @click="isAddNewUserSidebarStockActive = true"
+                >
+
+                <span  class="text-nowrap">Attach new User</span>
+              </b-button>
+
             </div>
           </b-col>
         </b-row>
@@ -246,6 +282,8 @@ import UsersListFilters from './UsersListFilters.vue'
 import useUsersList from './useUsersList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
+import UserListAttachStockNew from './UserListAttachStockNew.vue'
+import UserListAttachAgencyNew from './UserListAttachAgencyNew.vue'
 import UserListUpdate from './UserListUpdate.vue'
 
 export default {
@@ -266,6 +304,8 @@ export default {
     BDropdown,
     BDropdownItem,
     BPagination,
+    UserListAttachAgencyNew,
+    UserListAttachStockNew,
 
     vSelect,
   },
@@ -282,6 +322,8 @@ export default {
   },
   created() {
     store.dispatch('_UPDATE_ROLES');
+    
+    store.dispatch('_UPDATE_EMPLOYEES');
 
     store.dispatch("_UPDATE_MORPH_TYEPS", {
       //App\Entities\Agency
@@ -366,6 +408,8 @@ export default {
     })
 
     const isAddNewUserSidebarActive = ref(false)
+    const isAddNewUserSidebarAgencyActive = ref(false)
+    const isAddNewUserSidebarStockActive = ref(false)
     const isUpdateUserSidebarActive = ref(false)
 
     const selectedUser = ref(null);
@@ -437,7 +481,9 @@ export default {
       statusFilter,
       selectedUser,
       stock_id,
-      agency_id
+      agency_id,
+      isAddNewUserSidebarAgencyActive,
+      isAddNewUserSidebarStockActive
     }
   },
 }

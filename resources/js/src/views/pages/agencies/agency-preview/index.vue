@@ -57,7 +57,7 @@
         </b-col>
       </b-row> -->
       
-      <employees-list :agency="modelData"/>
+      <employees-list :agency="modelData" @refetchAgency="refetchAgency"/>
 
     </template>
 
@@ -109,7 +109,9 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
+    const refetchAgency = () => {
+      
+      store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
       .then(response => { 
         modelData.value = response.data; 
         
@@ -119,9 +121,13 @@ export default {
           modelData.value = undefined
         }
       })
+    }
+
+    refetchAgency();
 
     return {
       modelData,
+      refetchAgency
     }
   },
 }

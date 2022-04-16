@@ -38,5 +38,21 @@ export default {
           .catch(error => reject(error))
       })
     },
+    attachUserAgency(ctx, data) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch('/agency/'+data.agency_id, data )
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
+    attachUserStock(ctx, data) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch('/stocks/'+data.stock_id, data )
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
   },
 }

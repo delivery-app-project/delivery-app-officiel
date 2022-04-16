@@ -27,7 +27,7 @@
             </div>
             <div class="d-flex flex-wrap">
               <b-button
-                :to="{ name: 'apps-users-edit', params: { id: modelData.id } }"
+                :to="{ name: 'stock-update', params: { id: modelData.id } }"
                 variant="primary"
                  >
                 Edit

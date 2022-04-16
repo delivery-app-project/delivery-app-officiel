@@ -33,11 +33,11 @@ class AgencyValidator extends LaravelValidator
         ],
         ValidatorInterface::RULE_UPDATE => [
             
-            'name' => 'required',
+            'name' => '',
             // 'address_id'  => 'min:3',
-            'employee_id'=> 'required',
-            'phone' => 'required|unique:agencies',
-            'email' => 'required|unique:agencies'
+            'employee_id'=> '',
+            'phone' => '|unique:agencies',
+            'email' => '|unique:agencies'
         ],
     ];
 }
