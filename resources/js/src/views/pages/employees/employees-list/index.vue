@@ -275,6 +275,10 @@ export default {
       type: Object,
       required: false
     },
+    agency: {
+      type: Object,
+      required: false
+    },
   },
   created() {
     store.dispatch('_UPDATE_ROLES');
@@ -347,7 +351,8 @@ export default {
       roleFilter,
       planFilter,
       statusFilter,
-      stock_id
+      stock_id,
+      agency_id
     } = useUsersList()
 
     const USER_APP_STORE_MODULE_NAME = 'app-user'
@@ -379,6 +384,7 @@ export default {
     //     console.log('check');
     // });
     if(props.stock) stock_id.value = props.stock.id;
+    if(props.agency) agency_id.value = props.agency.id;
     
 
     const planOptions = [
@@ -430,7 +436,8 @@ export default {
       planFilter,
       statusFilter,
       selectedUser,
-      stock_id
+      stock_id,
+      agency_id
     }
   },
 }

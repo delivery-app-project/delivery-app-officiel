@@ -71,6 +71,7 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         $role = key_exists('role',$data)? $data['role'] : null;
         $status = key_exists('status',$data) ? $data['status'] : null;
         $stock_id = key_exists('stock_id',$data) ? $data['stock_id'] : null;
+        $agency_id = key_exists('agency_id',$data) ? $data['agency_id'] : null;
 
         $model = $this;
 
@@ -93,6 +94,11 @@ class EmployeeRepositoryEloquent extends BaseRepository implements EmployeeRepos
         if($stock_id){
             $model = $model->whereHas('stocks',function ($q) use ($stock_id){
                 $q->where('stocks.id',$stock_id);
+            });
+        }
+        if($agency_id){
+            $model = $model->whereHas('agencies',function ($q) use ($agency_id){
+                $q->where('agencies.id',$agency_id);
             });
         }
 

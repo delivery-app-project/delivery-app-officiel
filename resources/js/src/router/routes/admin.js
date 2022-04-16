@@ -18,7 +18,7 @@ export default [
       {
         path: '/agencies/preview/:id',
         name: 'agency-preview',
-        component: () => import('@/views/pages/agencies/agency-preview/agencyPreview.vue'),
+        component: () => import('@/views/pages/agencies/agency-preview/index.vue'),
         meta : {
           pageTitle : "Agency Add",
           resource : "Agencies"

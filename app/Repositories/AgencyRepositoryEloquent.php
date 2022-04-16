@@ -39,7 +39,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
     }
 
     protected $relations = [
-        'director.user', 'address.city.daira.wilaya', 'main_stock', 'type'
+        'director.user', 'address.city.daira.wilaya', 'main_stock', 'type','employees'
     ];
 
 
@@ -132,6 +132,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
         $agency = $this->update($data,$id);
 
         $type = $this->type_morph_repository->find($data['type_id']);
+        
         $address = key_exists('address_id',$data) ? ($data['address_id'] ? $this->address_repository->find($data['address_id']) : null ): null;   
         
         // use (district and city_id)
