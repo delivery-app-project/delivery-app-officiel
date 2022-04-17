@@ -7,7 +7,7 @@
       layout="vertical"
       back-button-text="Previous"
       class="wizard-vertical mb-3"
-      
+
     >
 
       <!-- account datails tab -->
@@ -73,6 +73,116 @@
             </b-form-group>
           </b-col> -->
         </b-row>
+      </tab-content>
+
+      
+      <!-- Source and destination info -->
+      <tab-content
+
+        title="Source and destin..."
+         >
+          <b-row>
+            <b-col cols="12" class="mb-2">
+              <h6 class="mb-0">Source and destination</h6>
+            </b-col>
+            <!-- source   -->
+
+            <h5 class="mb-2 col-12">Source</h5>
+
+            <b-col md="3">
+              <b-form-group label="Wilaya" label-for="name-wilaya">
+                <!-- Wilaya -->
+                  <b-form-input
+                    v-model="orderData.address_source.city.daira.wilaya.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="Wilaya"
+                    disabled
+                  />
+
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="Daira" label-for="Daira">
+
+                 <b-form-input
+                    v-model="orderData.address_source.city.daira.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="Daira"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="City" label-for="City">
+                <!-- City -->
+                <b-form-input
+                    v-model="orderData.address_source.city.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="City"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="District" label-for="s-district">
+                  <b-form-input
+                    id="s-district"
+                    v-model="orderData.address_source.district"
+                    placeholder="District"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+
+            <!-- destination -->
+
+            <h5 class="mb-2 col-12">Destination info</h5>
+            <b-col md="3">
+              <b-form-group label="Wilaya" label-for="name-wilaya">
+                <!-- Wilaya -->
+                  <b-form-input
+                    v-model="orderData.address_destination.city.daira.wilaya.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="Wilaya"
+                    disabled
+                  />
+
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="Daira" label-for="Daira">
+
+                 <b-form-input
+                    v-model="orderData.address_destination.city.daira.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="Daira"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="City" label-for="City">
+                <!-- City -->
+                <b-form-input
+                    v-model="orderData.address_destination.city.name"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    placeholder="City"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="District" label-for="s-district">
+                  <b-form-input
+                    id="s-district"
+                    v-model="orderData.address_destination.district"
+                    placeholder="District"
+                    disabled
+                  />
+              </b-form-group>
+            </b-col>
+
+          </b-row>
       </tab-content>
 
       <!-- Receiver Details -->
@@ -388,6 +498,28 @@ export default {
       },
       orderD: {
         // order
+        address_source : {
+            city : {
+               name : "",
+               daira  : {
+                  name : "",
+                  wilaya : {
+                    name : ""
+                  }
+               }
+            }
+        },
+        address_destination : {
+            city : {
+               name : "",
+               daira  : {
+                  name : "",
+                  wilaya : {
+                    name : ""
+                  }
+               }
+            }
+        },
         receiver: "",
         receiver_type: {
           name : ''

@@ -40,6 +40,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\UserRepository::class, \App\Repositories\UserRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\TypeMorphRepository::class, \App\Repositories\TypeMorphRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\RoleRepository::class, \App\Repositories\RoleRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\AgencyOrderRepository::class, \App\Repositories\AgencyOrderRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\AgencyOrderRepository::class, \App\Repositories\AgencyOrderRepositoryEloquent::class);
         //:end-bindings:
     }
 }

@@ -97,6 +97,223 @@
         </validation-observer>
       </tab-content>
 
+      
+      <!-- Source and destination info -->
+      <tab-content
+        title="Source and destination info"
+        :before-change="validationFormSocial"
+        >
+        <validation-observer ref="sourceDestRules" tag="form">
+          <b-row>
+            <b-col cols="12" class="mb-2">
+              <h5 class="mb-0">Source and destination info</h5>
+              <small class="text-muted"
+                >Enter Your Source and destination info</small
+              >
+            </b-col>
+            <!-- source   -->
+
+            <h5 class="mb-2 col-12">Source info</h5>
+
+            <b-col md="3">
+              <b-form-group label="Wilaya" label-for="name-wilaya">
+                <!-- Wilaya -->
+                <validation-provider
+                  #default="{ errors }"
+                  name="ًWilaya"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="source.wilaya"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="wilayas"
+                    placeholder="Wilaya"
+                  />
+
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="Daira" label-for="Daira">
+                <validation-provider
+                  #default="{ errors }"
+                  name="Daira"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="source.daira"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="s_dairas"
+                    placeholder="Daira"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="City" label-for="City">
+                <!-- City -->
+                <validation-provider
+                  #default="{ errors }"
+                  name="City"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="source.city"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="s_cities"
+                    placeholder="City"
+                  />
+
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="District" label-for="s-district">
+                <validation-provider
+                  #default="{ errors }"
+                  name="District"
+                  rules="required"
+                >
+                  <b-form-input
+                    id="s-district"
+                    v-model="source.district"
+                    :state="errors.length > 0 ? false : null"
+                    placeholder="District"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+
+            <!-- destination -->
+
+            <h5 class="mb-2 col-12">Destination info</h5>
+            <b-col md="3">
+              <b-form-group label="Wilaya" label-for="name-wilaya">
+                <!-- Wilaya -->
+                <validation-provider
+                  #default="{ errors }"
+                  name="ًWilaya"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="destination.wilaya"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="wilayas"
+                    placeholder="Wilaya"
+                  />
+
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="Daira" label-for="Daira">
+                <validation-provider
+                  #default="{ errors }"
+                  name="Daira"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="destination.daira"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="d_dairas"
+                    placeholder="Daira"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="City" label-for="City">
+                <!-- City -->
+                <validation-provider
+                  #default="{ errors }"
+                  name="City"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="destination.city"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="name"
+                    :options="d_cities"
+                    placeholder="City"
+                  />
+
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="District" label-for="s-district">
+                <validation-provider
+                  #default="{ errors }"
+                  name="District"
+                  rules="required"
+                >
+                  <b-form-input
+                    id="s-district"
+                    v-model="destination.district"
+                    :state="errors.length > 0 ? false : null"
+                    placeholder="District"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <!-- </b-col>
+            <b-col md="6">
+              <b-form-group
+                label="Google+"
+                label-for="google-plus"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Google+"
+                  rules="required|url"
+                >
+                  <b-form-input
+                    id="google-plus"
+                    v-model="googleUrl"
+                    :state="errors.length > 0 ? false:null"
+                    placeholder="https://plus.google.com/abc"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <b-col md="6">
+              <b-form-group
+                label="LinkedIn"
+                label-for="linked-in"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="LinkedIn"
+                  rules="required|url"
+                >
+                  <b-form-input
+                    id="linked-in"
+                    v-model="linkedinUrl"
+                    :state="errors.length > 0 ? false:null"
+                    placeholder="https://linkedin.com/abc"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col> -->
+          </b-row>
+        </validation-observer>
+      </tab-content>
+      
       <!-- Receiver details tab -->
       <tab-content title="Receiver Details" :before-change="validationForm">
         <validation-observer ref="accountRules" tag="form">
@@ -461,7 +678,7 @@
                     v-model="order.send_date"
                     class="mb-1"
                   />
-                        <small class="text-danger">{{ errors[0] }}</small>
+                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -472,7 +689,7 @@
                   name="Receive Date"
                   rules="required"
                 >
-                   <b-form-datepicker
+                  <b-form-datepicker
                     id="receive_date"
                     v-model="order.receive_date"
                     class="mb-1"
@@ -530,6 +747,8 @@
           </b-row>
         </validation-observer>
       </tab-content>
+
+      
     </form-wizard>
   </div>
 </template>
@@ -537,9 +756,9 @@
 <script>
 import { FormWizard, TabContent } from "vue-form-wizard";
 import vSelect from "vue-select";
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 
-import store from '@/store'
+import store from "@/store";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
@@ -551,10 +770,10 @@ import {
   BFormInvalidFeedback,
   BFormTextarea,
   BFormDatepicker,
-  BFormTimepicker
+  BFormTimepicker,
 } from "bootstrap-vue";
 import { required, email } from "@validations";
-import {getUserData} from '@/auth/utils'
+import { getUserData } from "@/auth/utils";
 
 export default {
   components: {
@@ -576,7 +795,10 @@ export default {
   },
   created() {
     // store.dispatch('_UPDATE_ROLES');
-    
+
+    // get wilayas
+    store.dispatch("_UPDATE_WILAYAS");
+
     store.dispatch("_UPDATE_MORPH_TYEPS", {
       //App\Entities\Agency
       type: "OrderEtat",
@@ -584,42 +806,93 @@ export default {
 
     store.dispatch("_UPDATE_MORPH_TRADE_TYEPS", {
       //App\Entities\Agency
-      type: "OrderReceiverType"
+      type: "OrderReceiverType",
     });
-
-  
+  },
+  watch: {
+    "source.wilaya"(value) {
+      this.source.daira = null;
+    },
+    "source.daira"(value) {
+      this.source.city = null;
+    },
+    // for the city id
+    "source.city"(value) {
+      // this.userData.city_id = value ?  value.id : null;
+    },
+    "destination.wilaya"(value) {
+      this.destination.daira = null;
+    },
+    "destination.daira"(value) {
+      this.destination.city = null;
+    },
+    // for the city id
+    "destination.city"(value) {
+      // this.userData.city_id = value ?  value.id : null;
+    },
   },
   computed: {
-    
-     ...mapGetters({
-        // roles : 'getRoles',
-        etats : 'getMorphTypes',
-        receiverTypes: 'getMorphTradeTypes',
-     }),
-     etatsVT(){
+    ...mapGetters({
+      // roles : 'getRoles',
+      etats: "getMorphTypes",
+      wilayas: "getWilayas",
+      receiverTypes: "getMorphTradeTypes",
+    }),
 
-       return this.etats.map(item => {
-         item.text = item.name;
-         item.value = item.id;
-         return item;
-       })
-     },
-      receiverTypesVT(){
+    s_dairas() {
+      if (this.source.wilaya) return this.source.wilaya.dairas;
 
-       return this.receiverTypes.map(item => {
-         item.text = item.name;
-         item.value = item.id;
-         return item;
-       })
-      }
+      return [];
+    },
+    s_cities() {
+      if (this.source.daira) return this.source.daira.cities;
+
+      return [];
+    },
+    d_dairas() {
+      if (this.destination.wilaya) return this.destination.wilaya.dairas;
+
+      return [];
+    },
+    d_cities() {
+      if (this.destination.daira) return this.destination.daira.cities;
+
+      return [];
+    },
+    etatsVT() {
+      return this.etats.map((item) => {
+        item.text = item.name;
+        item.value = item.id;
+        return item;
+      });
+    },
+    receiverTypesVT() {
+      return this.receiverTypes.map((item) => {
+        item.text = item.name;
+        item.value = item.id;
+        return item;
+      });
+    },
   },
   data() {
     return {
+      source: {
+        city: null,
+        wilaya: null,
+        daira: null,
+        district: null,
+      },
+      destination: {
+        city: null,
+        wilaya: null,
+        daira: null,
+        district: null,
+      },
       // package
       packageData: {
         name: "",
         description: "",
-        marchent_id : getUserData().marchent.id
+        marchent_id: getUserData().marchent.id,
       },
       order: {
         // order
@@ -636,7 +909,7 @@ export default {
         receive_date: null,
         time_receive_date: null,
         etat: null,
-        quatity: null
+        quatity: null,
       },
 
       selectedContry: "",
@@ -702,13 +975,7 @@ export default {
         { value: "6", text: "6" },
         { value: "10", text: "10" },
       ],
-      objectsKeys : [
-        'height',
-        'width',
-        'length',
-        'receiver_type',
-        'etat',
-      ],
+      objectsKeys: ["height", "width", "length", "receiver_type", "etat"],
       // languageName: [
       //   { value: "nothing_selected", text: "Nothing Selected" },
       //   { value: "English", text: "English" },
@@ -740,51 +1007,59 @@ export default {
       //   etat: this.etatsVT[0],
       //   quatity: this.quantityValues[0],
       // };
-      let orderdata = Object.entries(this.order).map(item => {
+      let orderdata = Object.entries(this.order).map((item) => {
         // const key = item[0];
         const value = item[1];
-        if(typeof value === 'object' && value!=null){
-          item[1] = value['value'];
+        if (typeof value === "object" && value != null) {
+          item[1] = value["value"];
         }
         return item;
-      })
+      });
 
       orderdata = Object.fromEntries(orderdata);
       const data = {
-        order : orderdata,
-        package : this.packageData
+        order: orderdata,
+        package: this.packageData,
+        source : {
+          city_id : this.source.city.id,
+          district : this.source.district
+        },
+        destination : {
+          city_id : this.destination.city.id,
+          district : this.destination.district
+        }
       };
 
-      console.log(data);
       // const data = [
       //   ,
       //   packageData
       // ]
-      
-      // console.log(data);
-      store.dispatch('_STORE_ORDER',data).then(res => {
-        
-      this.$toast({
-        component: ToastificationContent,
-        props: {
-          title: "Order created",
-          icon: "EditIcon",
-          variant: "success",
-        },
-      });
-      
-      this.$router.push('/orders')
 
-      }).catch(error => {
-         this.$toast({
-        component: ToastificationContent,
-        props: {
-          title: "Form Not Submitted",
-          icon: "EditIcon",
-          variant: "success",
-        },
-      });
-      })
+      // console.log(data);
+      store
+        .dispatch("_STORE_ORDER", data)
+        .then((res) => {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: "Order created",
+              icon: "EditIcon",
+              variant: "success",
+            },
+          });
+
+          this.$router.push("/orders");
+        })
+        .catch((error) => {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: "Form Not Submitted",
+              icon: "EditIcon",
+              variant: "success",
+            },
+          });
+        });
       this.$toast({
         component: ToastificationContent,
         props: {

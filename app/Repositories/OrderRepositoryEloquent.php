@@ -24,18 +24,20 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     use BaseRepositoryTrait;
 
     protected $type_morph_repository;
+    protected $address_repository;
     protected $package_repository;
 
     public  $relations = [
-        'package.marchent','receiver_type','etat'
+        'package.marchent','receiver_type','etat','address_destination.city.daira.wilaya','address_source.city.daira.wilaya'
     ];
 
 
-    public function __construct(Application $app, PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
+    public function __construct(Application $app,AddressRepository $address_repository,PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
     {
 
         parent::__construct($app);
         $this->package_repository = $package_repository;
+        $this->address_repository = $address_repository;
         $this->type_morph_repository = $type_morph_repository;
     }
 
@@ -111,7 +113,6 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
     public function store($data)
     {
-
         $packageData = $data['package'];
         $orderData = $data['order'];
 
@@ -135,6 +136,19 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $re_type->order_receiver_types()->save($order);
         // attach the etat 
         $etat->order_etats()->save($order);
+
+        // for address (source)
+        $source = $data['source'];
+        $this->address_repository->create(array_merge(
+            ['model_type' => Order::class, 'model_id' => $order->id,'type' => 'source'],
+            $source
+        ));
+        // for address destination
+        $destination = $data['destination'];
+         $this->address_repository->create(array_merge(
+            ['model_type' => Order::class, 'model_id' => $order->id,'type' => 'destination'],
+            $destination
+        ));
 
         return $order;
     }

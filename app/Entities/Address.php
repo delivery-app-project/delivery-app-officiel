@@ -24,7 +24,8 @@ class Address extends Model implements Transformable
         'district',
         'city_id',
         'model_type',
-        'model_id'
+        'model_id',
+        'type'
     ];
 
 

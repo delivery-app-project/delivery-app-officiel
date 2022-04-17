@@ -51,8 +51,17 @@ class Order extends Model implements Transformable
     public function receiver_type(){
         return $this->morphTo();
     }
+
     public function etat(){
         return $this->morphTo();
+    }
+
+    // for address 
+    public function address_source(){
+        return $this->morphOne(Address::class,'model')->where('type','source');
+    }
+    public function address_destination(){
+        return $this->morphOne(Address::class,'model')->where('type','destination');
     }
 
     

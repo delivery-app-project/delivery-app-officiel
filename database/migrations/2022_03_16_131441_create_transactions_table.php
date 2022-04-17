@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
 	public function up()
 	{
 		Schema::create('transactions', function(Blueprint $table) {
+			
             $table->id();
 			
 			$table->date('send_date')->nullable();
