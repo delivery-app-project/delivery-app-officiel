@@ -36,7 +36,7 @@ class Stock extends Model implements Transformable
     }
     // secondary agencies 
     public function agencies(){
-        return $this->belongsTo(Agency::class,'agency_stock');
+        return $this->belongsToMany(Agency::class,'agency_stock');
     }
 
     public function director(){

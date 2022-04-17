@@ -42,6 +42,11 @@ class Agency extends Model implements Transformable
         return $this->belongsToMany(Employee::class,'agency_employee');
     }
 
+    
+    // stocks 
+    public function stocks(){
+        return $this->belongsToMany(Stock::class,'agency_stock');
+    }
 
     
     public function address(){

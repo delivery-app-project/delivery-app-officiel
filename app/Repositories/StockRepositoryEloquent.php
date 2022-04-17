@@ -81,8 +81,11 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
         $status = key_exists('status', $data) ? $data['status'] : null;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
-
+       
         $model = $this;
+
+        
+        
 
 
         if ($status) $model =  $this->where('type',$status);
@@ -124,12 +127,20 @@ class StockRepositoryEloquent extends BaseRepository implements StockRepository
 
         // attaching employees 
         $employee_ids = key_exists('employee_ids',$data) ? $data['employee_ids'] : null;
+        $agency_ids = key_exists('agency_ids',$data) ? $data['agency_ids'] : null;
         
         if($employee_ids) {
-            $agency = $this->find($id);
-            $agency->employees()->sync($employee_ids,true);
-            $agency->load('employees');
-            return $agency;
+            $model = $this->find($id);
+            $model->employees()->sync($employee_ids,true);
+            $model->load('employees');
+            return $model;
+        }
+        
+        if($agency_ids) {
+            $model = $this->find($id);
+            $model->agencies()->sync($agency_ids,true);
+            $model->load('agencies');
+            return $model;
         }
 
 

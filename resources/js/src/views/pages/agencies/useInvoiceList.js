@@ -31,6 +31,7 @@ export default function useInvoicesList() {
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
 
+  const stock_id = ref(null)
   
 
   const dataMeta = computed(() => {
@@ -62,7 +63,8 @@ export default function useInvoicesList() {
         sortDesc: isSortDirDesc.value,
         status: statusFilter.value,
         // id : userData.employee.id,
-        paginated: true
+        paginated: true,
+        stock_id : stock_id.value ? stock_id.value : null,
 
       })
       .then(response => {
@@ -126,5 +128,6 @@ export default function useInvoicesList() {
     resolveClientAvatarVariant,
 
     refetchData,
+    stock_id
   }
 }

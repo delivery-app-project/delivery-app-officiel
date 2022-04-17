@@ -21,6 +21,7 @@
       </div>
     </b-alert>
 
+
     <template v-if="modelData">
       <!-- First Row -->
       <b-row>
@@ -57,8 +58,17 @@
         </b-col>
       </b-row> -->
       
-      <employees-list :agency="modelData" @refetchAgency="refetchAgency"/>
-
+      
+      <!-- card collapsible  -->
+      <b-col md="12">
+        <b-card-actions
+          title="Employees of the agency"
+          action-collapse
+          >
+        <employees-list :agency="modelData" @refetchAgency="refetchAgency"/>
+        </b-card-actions>
+      </b-col>
+      
     </template>
 
   </div>
@@ -69,8 +79,10 @@ import store from '@/store'
 import router from '@/router'
 import { ref, onUnmounted } from '@vue/composition-api'
 import {
-  BRow, BCol, BAlert, BLink,
+  BRow, BCol, BAlert, BLink,BCollapse,BCardText
 } from 'bootstrap-vue'
+
+import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
 import employeesList from '@/views/pages/employees/employees-list/index.vue'
 import userStoreModule from '../invoiceStoreModule'
 import UserViewUserInfoCard from './UserViewUserInfoCard.vue'
@@ -84,7 +96,9 @@ export default {
     BCol,
     BAlert,
     BLink,
-
+    BCollapse,
+    BCardActions,
+    BCardText,
     // Local Components
     UserViewUserInfoCard,
     UserViewUserPlanCard,
@@ -94,8 +108,17 @@ export default {
 
     // InvoiceList,
   },
-  // created() {
-  // },
+  data(){
+    return {
+        parentID : '',
+        content_visible : false
+    }
+  },
+  created() {
+    
+    this.parentID = String(Math.floor(Math.random() * 10) + 1)
+  },
+  
   setup() {
     const modelData = ref(null)
 
@@ -110,7 +133,7 @@ export default {
     })
 
     const refetchAgency = () => {
-      
+
       store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
       .then(response => { 
         modelData.value = response.data; 

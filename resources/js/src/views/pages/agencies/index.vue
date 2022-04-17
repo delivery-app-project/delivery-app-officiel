@@ -3,9 +3,17 @@
   <!-- Table Container Card -->
   <b-card
     no-body
-  >
+      >
 
     <div class="m-2">
+
+       <user-list-attach-stock-new
+      v-if="stock"
+      :is-add-new-user-sidebar-stock-active.sync="isAddNewUserSidebarStockActive"
+      :stock="stock"
+      @refetch-data="refetchData"
+      @refetch-stock="$emit('refetchStock')"
+    />
 
       <!-- Table Top -->
       <b-row>
@@ -25,12 +33,22 @@
             class="per-page-selector d-inline-block ml-50 mr-1"
           />
           <b-button
+            v-if="!stock"
             variant="primary"
             :to="{ name: 'agency-add'}"
           >
-            Add Record
+            Add record
+          </b-button>
+          <b-button
+            v-else-if="stock"
+            @click="isAddNewUserSidebarStockActive = true"
+            variant="primary"
+          >
+            Add Agency to Stock
           </b-button>
         </b-col>
+
+
 
         <!-- Search -->
         <b-col
@@ -276,10 +294,11 @@ import {
 import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
-import { onUnmounted } from '@vue/composition-api'
+import { onUnmounted,ref } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
 // import { Can } from '@casl/vue';
+import UserListAttachStockNew from './UserListAttachStockNew.vue'
 import invoiceStoreModule from './invoiceStoreModule'
 
 // import { codeMessageBox } from './code'
@@ -291,6 +310,7 @@ export default {
     BRow,
     BCol,
     BFormInput,
+    UserListAttachStockNew,
     BButton,
     BTable,
     BMedia,
@@ -322,6 +342,10 @@ export default {
   
   created() {
     // this.fetchStatuses();
+    
+    store.dispatch('_UPDATE_AGENCIES',{
+      paginated : false
+    });
   },
   data() {
     return {
@@ -335,9 +359,18 @@ export default {
     //   });
     // }
   },
-  setup() {
-    const INVOICE_APP_STORE_MODULE_NAME = 'app-agency'
+    props: {
+    stock: {
+      type: Object,
+      required: false
+    }
+  },
+  setup(props) {
 
+    const isAddNewUserSidebarStockActive = ref(false)
+
+    const INVOICE_APP_STORE_MODULE_NAME = 'app-agency'
+    
     // Register module
     if (!store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
       store.registerModule(INVOICE_APP_STORE_MODULE_NAME, invoiceStoreModule)
@@ -347,17 +380,7 @@ export default {
       if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME)) store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME)
     })
 
-    // const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
-
-    // const  fetchInvoices = [
-    //     {
-    //       id : 5036,
-    //       client : "Andrew Burns",
-    //       total : "3171",
-    //       issuedDate : "19 Apr 2019",
-    //       balance : "205"
-    //     }
-    // ] ; 
+    
     const {
       fetchInvoices,
       tableColumns,
@@ -377,7 +400,22 @@ export default {
 
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
+      
+      stock_id,
     } = useInvoicesList()
+    console.log(props.stock);
+    if(props.stock) stock_id.value = props.stock.id;
+    // const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
+
+    // const  fetchInvoices = [
+    //     {
+    //       id : 5036,
+    //       client : "Andrew Burns",
+    //       total : "3171",
+    //       issuedDate : "19 Apr 2019",
+    //       balance : "205"
+    //     }
+    // ] ; 
 
     return {
       fetchInvoices,
@@ -397,6 +435,7 @@ export default {
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
+      isAddNewUserSidebarStockActive,
     }
   },
 }

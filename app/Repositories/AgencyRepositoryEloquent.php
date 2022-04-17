@@ -82,6 +82,15 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
     public function index($data)
     {
+        $model = $this;
+
+        $stock_id = key_exists('stock_id',$data) ? $data['stock_id'] : null;
+        
+        if($stock_id){
+            $model = $model->whereHas('stocks',function ($q) use ($stock_id){
+                $q->where('stocks.id',$stock_id);
+            });
+        }
 
         // $id = key_exists('id', $data) ? $data['id'] : null;
 
@@ -99,7 +108,7 @@ class AgencyRepositoryEloquent extends BaseRepository implements AgencyRepositor
 
         // return $model->all();
 
-        return $this->handleIndex($data);
+        return $this->handleIndex($data,$model);
 
     }
 

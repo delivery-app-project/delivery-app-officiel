@@ -57,7 +57,24 @@
         </b-col>
       </b-row> -->
 
-      <employees-list :stock="modelData" @refetchStock="refetchStock"/>
+      <b-col md="12">
+        <b-card-actions
+          title="Employees of the Stock"
+          action-collapse
+          >
+         <employees-list :stock="modelData" @refetchStock="refetchStock"/>
+         </b-card-actions>
+      </b-col>
+      
+
+      <b-col md="12">
+        <b-card-actions
+          title="Agencies of the Stock"
+          action-collapse
+          >
+          <agencies-list :stock="modelData" @refetchStock="refetchStock"/>
+         </b-card-actions>
+      </b-col>
 
     </template>
 
@@ -69,10 +86,12 @@ import store from '@/store'
 import router from '@/router'
 import { ref, onUnmounted } from '@vue/composition-api'
 import {
-  BRow, BCol, BAlert, BLink,
+  BRow, BCol, BAlert, BLink,BCollapse
 } from 'bootstrap-vue'
 import employeesList from '@/views/pages/employees/employees-list/index.vue'
+import agenciesList from '@/views/pages/agencies/index.vue'
 import userStoreModule from '../invoiceStoreModule'
+import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
 import UserViewUserInfoCard from './UserViewUserInfoCard.vue'
 import UserViewUserPlanCard from './UserViewUserPlanCard.vue'
 // import UserViewUserTimelineCard from './UserViewUserTimelineCard.vue'
@@ -84,7 +103,9 @@ export default {
     BCol,
     BAlert,
     BLink,
-
+    BCollapse,
+    BCardActions,
+    agenciesList,
     // Local Components
     UserViewUserInfoCard,
     UserViewUserPlanCard,
@@ -113,6 +134,7 @@ export default {
       
       store.dispatch('app-invoice/fetchInvoice', { id: router.currentRoute.params.id })
       .then(response => { 
+        console.log("check");
         modelData.value = response.data; 
         
         })

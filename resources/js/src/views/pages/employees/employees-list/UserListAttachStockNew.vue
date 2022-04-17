@@ -8,7 +8,7 @@
     backdrop
     no-header
     right
-    @hidden="resetForm"
+    @hidden="handleResetForm"
     @change="(val) => $emit('update:is-add-new-user-sidebar-stock-active', val)"
   >
     <template #default="{ hide }">
@@ -233,6 +233,10 @@ export default {
     }
   },
   methods: {
+    handleResetForm(){
+          this.resetForm()
+          this.userData.employees = this.stock.employees;
+      }
   },
   computed: {
     ...mapGetters({

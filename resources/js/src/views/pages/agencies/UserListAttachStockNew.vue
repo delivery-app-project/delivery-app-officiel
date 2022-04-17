@@ -1,7 +1,7 @@
 <template>
   <b-sidebar
     id="add-new-user-sidebar"
-    :visible="isAddNewUserSidebarAgencyActive"
+    :visible="isAddNewUserSidebarStockActive"
     bg-variant="white"
     sidebar-class="sidebar-lg"
     shadow
@@ -9,13 +9,13 @@
     no-header
     right
     @hidden="handleResetForm"
-    @change="(val) => $emit('update:is-add-new-user-sidebar-agency-active', val)"
+    @change="(val) => $emit('update:is-add-new-user-sidebar-stock-active', val)"
   >
     <template #default="{ hide }">
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Attach  New User to Agency
+          Attach  New User to Stock
         </h5>
 
         <feather-icon
@@ -42,20 +42,20 @@
           <!-- City -->
           <validation-provider
             #default="validationContext"
-            name="Employee"
+            name="Agency"
             rules="required"
             >
             <b-form-group
-              label="Employee"
-              label-for="Employee"
+              label="Agency"
+              label-for="Agency"
               :state="getValidationState(validationContext)"
              >
               <v-select
-                        v-model="userData.employees"
+                        v-model="userData.agencies"
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
-                        :options="employees"
-                        placeholder="Select employee"
+                        :options="agencies"
+                        placeholder="Select Agency"
                         multiple
                         
               />
@@ -101,7 +101,7 @@
               class="mr-2"
               type="submit"
             >
-              Add Employees
+              Add agencies
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -127,7 +127,6 @@ import { required, alphaNum, email } from '@validations'
 import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
-import countries from './countries'
 import store from '@/store'
 import {mapGetters} from 'vuex'
 
@@ -136,7 +135,7 @@ export default {
     // get wilayas
       store.dispatch("_UPDATE_WILAYAS");
 
-      // this.userData.employees = this.agency.employees;
+      // this.userData.agencies = this.stock.agencies;
   },
   components: {
     BSidebar,
@@ -157,20 +156,20 @@ export default {
     Ripple,
   },
   model: {
-    prop: 'isAddNewUserSidebarAgencyActive',
-    event: 'update:is-add-new-user-sidebar-agency-active',
+    prop: 'isAddNewUserSidebarStockActive',
+    event: 'update:is-add-new-user-sidebar-stock-active',
   },
   watch : {
-     'agency.employees' (value){
-        this.userData.employees = value;
+     'stock.agencies' (value){
+        this.userData.agencies = value;
      }
   },
   props: {
-    isAddNewUserSidebarAgencyActive: {
+    isAddNewUserSidebarStockActive: {
       type: Boolean,
       required: true,
     },
-    agency: {
+    stock: {
       type: Object,
       required: true,
     },
@@ -185,7 +184,6 @@ export default {
       required,
       alphaNum,
       email,
-      countries,
       //  duplicateErrors : {
       //   email : false,
       //   phone : false
@@ -195,7 +193,7 @@ export default {
   setup(props, { emit }) {
     
     const blankUserData = {
-      employees : props.agency.employees
+      agencies : props.stock.agencies
     }
 
 
@@ -207,15 +205,15 @@ export default {
 
     const onSubmit = () => {
       const data = {
-        employee_ids : userData.value.employees.map(item => item.id),
-        agency_id : props.agency.id
+        agency_ids : userData.value.agencies.map(item => item.id),
+        stock_id : props.stock.id
       };
 
-      store.dispatch('app-user/attachUserAgency', data).then((res) => {
+      store.dispatch('app-user/attachUserStock', data).then((res) => {
 
             emit('refetch-data')
-            emit('refetch-agency')
-            emit('update:is-add-new-user-sidebar-agency-active', false)
+            emit('refetch-stock')
+            emit('update:is-add-new-user-sidebar-stock-active', false)
         
       })
     }
@@ -233,17 +231,16 @@ export default {
     }
   },
   methods: {
-    
-    handleResetForm(){
+      handleResetForm(){
           this.resetForm()
-          this.userData.employees = this.agency.employees;
+          this.userData.agencies = this.stock.agencies;
       }
   },
   computed: {
     ...mapGetters({
       // wilayas: "getWilayas",
       // types : 'getMorphTypes'
-      employees: "getEmployees"
+      agencies: "getAgencies"
     }),
 
     // dairas() {
