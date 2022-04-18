@@ -36,6 +36,11 @@ export default function useInvoicesList() {
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
+  const wilaya_id = ref(null)
+  const daira_id = ref(null)
+  const city_id = ref(null)
+  const for_accepted = ref(null)
+
 
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
@@ -50,25 +55,36 @@ export default function useInvoicesList() {
     refInvoiceListTable.value.refresh()
   }
 
-  watch([currentPage, perPage, searchQuery, statusFilter], () => {
+  watch([currentPage, perPage, searchQuery, statusFilter,wilaya_id,daira_id,city_id,for_accepted], () => {
     refetchData()
   })
 
   const fetchInvoices = (ctx, callback) => {
     
     const userData = getUserData()
-    
+    let data = !for_accepted.value ? 
+    {
+      search: searchQuery.value,
+      perPage: perPage.value,
+      page: currentPage.value,
+      sortBy: sortBy.value,
+      sortDesc: isSortDirDesc.value,
+      status: statusFilter.value, 
+      wilaya_id : wilaya_id.value,
+      city_id : city_id.value,
+      daira_id : daira_id.value
+    }
+    : {
+      search: searchQuery.value,
+      perPage: perPage.value,
+      page: currentPage.value,
+      sortBy: sortBy.value,
+      sortDesc: isSortDirDesc.value,
+      status: statusFilter.value,
+      agency_id : router.currentRoute.params.id
+    }
     store
-      .dispatch('app-order/fetchInvoices', {
-        search: searchQuery.value,
-        perPage: perPage.value,
-        page: currentPage.value,
-        sortBy: sortBy.value,
-        sortDesc: isSortDirDesc.value,
-        status: statusFilter.value,
-        id : router.currentRoute.params.id ? router.currentRoute.params.id : userData.marchent.id 
-        
-      })
+      .dispatch('app-order/fetchInvoices', data)
       .then(response => {
         const { data, total } = response.data
 
@@ -130,5 +146,10 @@ export default function useInvoicesList() {
     resolveClientAvatarVariant,
 
     refetchData,
+
+    wilaya_id,
+    daira_id,
+    city_id,
+    for_accepted
   }
 }

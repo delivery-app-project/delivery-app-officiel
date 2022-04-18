@@ -153,6 +153,23 @@ export default [
       },
       
     },
+    {
+      path: '/agency/orders/:id',
+      name: 'orders-agency',
+      component: () => import('@/views/pages/agencies/orders/index.vue'),
+      meta: {
+        pageTitle: 'Orders of the Agency',
+        resource : 'viewMarchentOrders',
+    
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+      
+    }
 
 
 ];

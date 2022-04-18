@@ -28,11 +28,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     protected $package_repository;
 
     public  $relations = [
-        'package.marchent','receiver_type','etat','address_destination.city.daira.wilaya','address_source.city.daira.wilaya'
+        'package.marchent', 'receiver_type', 'etat', 'address_destination.city.daira.wilaya', 'address_source.city.daira.wilaya'
     ];
 
 
-    public function __construct(Application $app,AddressRepository $address_repository,PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
+    public function __construct(Application $app, AddressRepository $address_repository, PackageRepository $package_repository, TypeMorphRepository $type_morph_repository)
     {
 
         parent::__construct($app);
@@ -92,6 +92,29 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $id = key_exists('id', $data) ? $data['id'] : null;
 
         $perPage = key_exists('perPage', $data) ? $data['perPage'] : RouteServiceProvider::PERPAGE;
+        $agency_id = key_exists('agency_id', $data) ? $data['agency_id'] : null;
+        $wilaya_id = key_exists('wilaya_id', $data) ? $data['wilaya_id'] : null;
+        $daira_id = key_exists('daira_id', $data) ? $data['daira_id'] : null;
+        $city_id = key_exists('city_id', $data) ? $data['city_id'] : null;
+
+        if ($wilaya_id) $model =  $this->whereDoesntHave("agencies")->whereHas('address_source', function ($q) use ($wilaya_id,$daira_id,$city_id) {
+            
+            if($city_id)
+            $q->where('city_id',$city_id);
+
+            $q->orWhereHas('city', function ($q) use ($wilaya_id,$daira_id) {
+                
+                if($daira_id)
+                $q->where('cities.daira_id',$daira_id);
+
+                $q->orWhereHas('daira', function ($q) use ($wilaya_id) {
+
+                    $q->whereHas('wilaya', function ($q) use ($wilaya_id) {
+                        $q->where('wilayas.id', $wilaya_id);
+                    });
+                });
+            });
+        });
 
 
         $model = $this;
@@ -104,6 +127,10 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
         if ($id) $model =  $this->whereHas('package', function ($q) use ($id) {
             $q->where('marchent_id', $id);
+        });
+
+        if ($agency_id) $model =  $model->whereHas('agencies', function ($q) use ($agency_id) {
+            $q->where('agencies.id', $agency_id);
         });
 
 
@@ -129,7 +156,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         // dd($orderData);
         // dd($order['receiver_type']);
         $re_type = $this->type_morph_repository->find($orderData['receiver_type']);
-        
+
         $etat = $this->type_morph_repository->find($orderData['etat']);
 
         // attach the receiver type 
@@ -140,13 +167,13 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         // for address (source)
         $source = $data['source'];
         $this->address_repository->create(array_merge(
-            ['model_type' => Order::class, 'model_id' => $order->id,'type' => 'source'],
+            ['model_type' => Order::class, 'model_id' => $order->id, 'type' => 'source'],
             $source
         ));
         // for address destination
         $destination = $data['destination'];
-         $this->address_repository->create(array_merge(
-            ['model_type' => Order::class, 'model_id' => $order->id,'type' => 'destination'],
+        $this->address_repository->create(array_merge(
+            ['model_type' => Order::class, 'model_id' => $order->id, 'type' => 'destination'],
             $destination
         ));
 

@@ -5,7 +5,7 @@ let routes = getUserData().marchent ? [
       title: 'Packages',
       route: 'packages',
       icon: 'FileTextIcon', 
-      resource : 'Package', 
+      resource : 'Packages', 
       action : 'read'
     },
   {
@@ -30,7 +30,7 @@ let routes = getUserData().marchent ? [
           title: 'Add',
           route: { name: 'order-add' },
           resource: 'addOrder',
-          action: 'add'
+          action: 'read'
         },
       ],
     }

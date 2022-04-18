@@ -33,7 +33,6 @@ class Order extends Model implements Transformable
         'send_date',
         'receive_date',
         'time_receive_date',
-        'etat',
         'quatity',
         'package_id'
     ];
@@ -64,5 +63,9 @@ class Order extends Model implements Transformable
         return $this->morphOne(Address::class,'model')->where('type','destination');
     }
 
+
+    public function agencies(){
+        return $this->belongsToMany(Agency::class,'agency_orders');
+    }
     
 }

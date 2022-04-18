@@ -33,6 +33,13 @@
                 Edit
               </b-button>
               <b-button
+                :to="{ name: 'orders-agency', params: { id: modelData.id } }"
+                variant="success"
+                class="ml-1"
+                 >
+                Orders
+              </b-button>
+              <b-button
                 variant="outline-danger"
                 class="ml-1"
               >
