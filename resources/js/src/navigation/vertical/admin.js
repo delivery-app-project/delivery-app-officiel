@@ -20,7 +20,7 @@ export default [
       {
         title: 'Add',
         route: { name: 'agency-add' },
-        resource: 'Agencies',
+        resource: 'addAgency',
         action: 'read'
       },
     ],
@@ -47,7 +47,7 @@ export default [
       {
         title: 'Add',
         route: { name: 'stock-add' },
-        resource: 'Agencies',
+        resource: 'addStock',
         action: 'read'
       },
     ],

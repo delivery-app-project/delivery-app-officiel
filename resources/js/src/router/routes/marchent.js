@@ -5,7 +5,7 @@ export default [
       component: () => import('@/views/pages/packages/index.vue'),
       meta: {
         pageTitle: 'Packages',
-        resource : 'Package',
+        resource : 'Packages',
         
         // breadcrumb: [
         //   {
@@ -39,7 +39,7 @@ export default [
       component: () => import('@/views/pages/orders/order-add/index.vue'),
       meta: {
         pageTitle: 'Order add',
-        resource : 'Orders',
+        resource : 'addOrder',
         
         // breadcrumb: [
         //   {

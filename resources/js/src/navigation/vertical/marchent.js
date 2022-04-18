@@ -29,8 +29,8 @@ let routes = getUserData().marchent ? [
         {
           title: 'Add',
           route: { name: 'order-add' },
-          resource: 'Orders',
-          action: 'read'
+          resource: 'addOrder',
+          action: 'add'
         },
       ],
     }

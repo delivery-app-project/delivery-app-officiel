@@ -20,8 +20,8 @@ export default [
         name: 'agency-preview',
         component: () => import('@/views/pages/agencies/agency-preview/index.vue'),
         meta : {
-          pageTitle : "Agency Add",
-          resource : "Agencies"
+          pageTitle : "Agency preview",
+          resource : "viewAgency"
         }
       }, 
       {
@@ -30,7 +30,7 @@ export default [
         component: () => import('@/views/pages/agencies/agency-update/agencyUpdate.vue'),
         meta : {
           pageTitle : "Agency Update",
-          resource : "Agencies"
+          resource : "updateAgency"
         } 
       },
       {
@@ -38,8 +38,8 @@ export default [
         name: 'agency-add',
         component: () => import('@/views/pages/agencies/agency-add/agencyAdd.vue'),
         meta : {
-          pageTitle : "Agency preview",
-          resource : "Agencies"
+          pageTitle : "Agency add",
+          resource : "addAgency"
         }
       },
     {
@@ -64,7 +64,7 @@ export default [
         component: () => import('@/views/pages/stocks/stocks-preview/index.vue'),
         meta : {
           pageTitle : "Stocks preview",
-          resource : "Stocks"
+          resource : "viewStock"
         }
       },
       {
@@ -72,8 +72,8 @@ export default [
         name: 'stock-add',
         component: () => import('@/views/pages/stocks/stock-add/stockAdd.vue'),
         meta : {
-          pageTitle : "Stock preview",
-          resource : "Agencies"
+          pageTitle : "Stock add",
+          resource : "addStock"
         }
       },
       {
@@ -82,7 +82,7 @@ export default [
         component: () => import('@/views/pages/stocks/stock-update/stockUpdate.vue'),
         meta : {
           pageTitle : "Stock Update",
-          resource : "Agencies"
+          resource : "updateStock"
         } 
       },
 
@@ -142,7 +142,7 @@ export default [
       component: () => import('@/views/pages/orders/index.vue'),
       meta: {
         pageTitle: 'Order of marchent',
-        resource : 'Agencies',
+        resource : 'viewMarchentOrders',
     
         // breadcrumb: [
         //   {

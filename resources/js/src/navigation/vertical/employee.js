@@ -12,7 +12,7 @@ import { getUserData } from "@/auth/utils"
       title: 'Employee agencies',
       icon: 'HomeIcon',
       route: { name: 'employee-agencies', params: { id: getUserData().employee.id  }},
-      resource : 'Transactions',
+      resource : 'viewEmployeeAgencies',
       action : 'read'
     }
   ] : [];

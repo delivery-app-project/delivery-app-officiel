@@ -23,7 +23,7 @@ export default [
       component: () => import('@/views/pages/agencies/index.vue'),
       meta: {
         pageTitle: 'Employee Agencies',
-        resource : 'Transactions',
+        resource : 'viewEmployeeAgencies',
         
         // breadcrumb: [
         //   {

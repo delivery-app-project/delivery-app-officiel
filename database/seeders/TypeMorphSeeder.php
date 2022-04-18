@@ -20,7 +20,7 @@ class TypeMorphSeeder extends Seeder
 
         $types = config('default.general.agency.seed');
         $type_stocks = config('default.general.stock.seed');
-        $type_user_status = config('default.general.user.status.seed');
+        $type_user_status = config('default.general.user.seed.status');
         $type_marchent_trade_type = config('default.general.marchent.seed.trade_type');
         $type_order_etat = config('default.general.order.seed.etat');
         $type_order_receiver_type = config('default.general.order.seed.receiver_type');

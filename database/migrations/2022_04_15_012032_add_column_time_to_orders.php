@@ -15,7 +15,7 @@ class AddColumnTimeToOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->time('time_receive_date')->nullable();
+            // $table->time('time_receive_date')->nullable();
         });
     }
 
