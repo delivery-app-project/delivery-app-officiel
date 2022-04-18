@@ -116,6 +116,9 @@
           <b-badge
             pill
             variant="light-success"
+            v-ripple.400="'rgba(40, 199, 111, 0.15)'"
+            v-b-tooltip.hover.v-success
+            title="Your are director"
             >
             {{data.value.name}}
           </b-badge>
@@ -304,6 +307,7 @@ import {
   BDropdownItem,
   BPagination,
   BTooltip,
+  VBTooltip
 } from 'bootstrap-vue'
 
 import {getUserData} from '@/auth/utils';
@@ -316,6 +320,7 @@ import useInvoicesList from './useInvoiceList'
 // import { Can } from '@casl/vue';
 import UserListAttachStockNew from './UserListAttachStockNew.vue'
 import invoiceStoreModule from './invoiceStoreModule'
+import Ripple from 'vue-ripple-directive'
 
 // import { codeMessageBox } from './code'
 
@@ -337,8 +342,14 @@ export default {
     BDropdownItem,
     BPagination,
     BTooltip,
+    Ripple,
 
     vSelect,
+  },
+  
+  directives: {
+    'b-tooltip': VBTooltip,
+    Ripple,
   },
   methods: {
      showMsgBoxOne(id) {
