@@ -20,7 +20,7 @@ export default function useInvoicesList() {
     { label : 'Name' ,key: 'name', sortable: true },
     { label : 'Address' ,key: 'address.district', sortable: true },
     { label :'Stock' ,key: 'main_stock.name', sortable: true },
-    { label : 'Director' ,key: 'director.user.name', sortable: true },
+    { label : 'Director' ,key: 'director', sortable: true },
     { key: 'actions' },
   ]
   const perPage = ref(10)

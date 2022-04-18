@@ -110,6 +110,21 @@
         </b-link>
       </template>
 
+       <!-- Column: Balance -->
+      <template #cell(director)="data">
+        <template v-if="data.value.name === userData.name">
+          <b-badge
+            pill
+            variant="light-success"
+            >
+            {{data.value.name}}
+          </b-badge>
+        </template>
+        <template v-else>
+          {{ data.value.name }}
+        </template>
+      </template>
+
       <!-- Column: Invoice Status -->
       <template #cell(invoiceStatus)="data">
         <b-avatar
@@ -291,6 +306,7 @@ import {
   BTooltip,
 } from 'bootstrap-vue'
 
+import {getUserData} from '@/auth/utils';
 import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
@@ -353,6 +369,9 @@ export default {
     }
   },
   computed: {
+    userData(){
+      return getUserData();
+    }
     // stOptions(){
     //   return this.statusOptions.map(item => {
     //     return item.name
