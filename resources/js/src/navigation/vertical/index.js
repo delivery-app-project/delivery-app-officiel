@@ -2,8 +2,7 @@
 import admin from './admin'
 import employee from './employee'
 import marchent from './marchent'
-
-export default [
+let routes = [
   {
     title: 'Home',
     route: 'home',
@@ -28,4 +27,8 @@ export default [
   ...marchent,
   ...employee,
   ...admin
-]
+];
+
+
+
+export default routes;

@@ -5,6 +5,7 @@ import store from '@/store'
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import {  getUserData } from '@/auth/utils'
+import router from '@/router'
 
 export default function useInvoicesList() {
 
@@ -54,19 +55,22 @@ export default function useInvoicesList() {
   const fetchInvoices = (ctx, callback) => {
 
     const userData = getUserData()
-    store
-      .dispatch('app-agency/fetchAgencies', {
-        search: searchQuery.value,
-        perPage: perPage.value,
-        page: currentPage.value,
-        sortBy: sortBy.value,
-        sortDesc: isSortDirDesc.value,
-        status: statusFilter.value,
-        // id : userData.employee.id,
-        paginated: true,
-        stock_id : stock_id.value ? stock_id.value : null,
 
-      })
+    let data = {
+      search: searchQuery.value,
+      perPage: perPage.value,
+      page: currentPage.value,
+      sortBy: sortBy.value,
+      sortDesc: isSortDirDesc.value,
+      status: statusFilter.value,
+      paginated: true,
+      stock_id : stock_id.value ? stock_id.value : null,
+      employee_id : router.currentRoute.params.id ? router.currentRoute.params.id : null,
+      
+    };
+
+    store
+      .dispatch('app-agency/fetchAgencies', data)
       .then(response => {
         const { data, total } = response.data
 

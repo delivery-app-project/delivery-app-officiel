@@ -1,3 +1,4 @@
+
 export default [
     {
       path: '/transactions',
@@ -15,5 +16,22 @@ export default [
         // ],
       },
     },
+    {
+      
+      path: '/agencies/:id',
+      name: 'employee-agencies',
+      component: () => import('@/views/pages/agencies/index.vue'),
+      meta: {
+        pageTitle: 'Employee Agencies',
+        resource : 'Transactions',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    }
   ]
   
