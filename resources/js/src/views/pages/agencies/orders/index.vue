@@ -2,7 +2,7 @@
   <b-row>
        <b-col md="12" v-if="modelData">
         <b-card-actions
-          title="Orders accepted "
+          title="Orders accepted"
           action-collapse
           >
           <orders-index :forAccepted="true" :agency="modelData"/>
@@ -10,7 +10,7 @@
       </b-col>
        <b-col md="12" v-if="modelData">
         <b-card-actions
-          title="Orders waiting "
+          title="Orders waiting"
           action-collapse
           >
           <orders-index :forAccepted="false" :agency="modelData" />
