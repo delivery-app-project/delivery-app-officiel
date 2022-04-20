@@ -1,15 +1,41 @@
 <template>
-
   <!-- Table Container Card -->
-  <b-card
-    no-body
-  >
-
+  <b-card no-body>
     <div class="m-2">
-
       <!-- Table Top -->
+      <b-row v-if="!forAccepted" class="mb-2">
+        <b-col md="3" class="justify-content-end">
+          <label>Wilayas</label>
+          <v-select
+            v-model="wilaya"
+            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+            :options="wilayas"
+            :clearable="false"
+            label="name"
+          />
+        </b-col>
+        <b-col md="3" class="justify-content-end">
+          <label>Dairas</label>
+          <v-select
+            v-model="daira"
+            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+            :options="dairas"
+            :clearable="true"
+            label="name"
+          />
+        </b-col>
+        <b-col md="3" class="justify-content-end">
+          <label>Cities</label>
+          <v-select
+            v-model="city"
+            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+            :options="cities"
+            :clearable="true"
+            label="name"
+          />
+        </b-col>
+      </b-row>
       <b-row>
-
         <!-- Per Page -->
         <b-col
           cols="12"
@@ -27,10 +53,7 @@
         </b-col>
 
         <!-- Search -->
-        <b-col
-          cols="12"
-          md="6"
-        >
+        <b-col cols="12" md="6">
           <div class="d-flex align-items-center justify-content-end">
             <b-form-input
               v-model="searchQuery"
@@ -53,7 +76,6 @@
           </div>
         </b-col>
       </b-row>
-
     </div>
 
     <b-table
@@ -68,18 +90,14 @@
       :sort-desc.sync="isSortDirDesc"
       class="position-relative"
     >
-
       <template #head(invoiceStatus)>
-        <feather-icon
-          icon="TrendingUpIcon"
-          class="mx-auto"
-        />
+        <feather-icon icon="TrendingUpIcon" class="mx-auto" />
       </template>
 
       <!-- Column: Id -->
       <template #cell(id)="data">
         <b-link
-          :to="{ name: 'apps-invoice-preview', params: { id: data.item.id }}"
+          :to="{ name: 'apps-invoice-preview', params: { id: data.item.id } }"
           class="font-weight-bold"
         >
           #{{ data.value }}
@@ -91,25 +109,22 @@
         <b-avatar
           :id="`invoice-row-${data.item.id}`"
           size="32"
-          :variant="`light-${resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).variant}`"
+          :variant="`light-${
+            resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).variant
+          }`"
         >
           <feather-icon
-            :icon="resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).icon"
+            :icon="
+              resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).icon
+            "
           />
         </b-avatar>
-        <b-tooltip
-          :target="`invoice-row-${data.item.id}`"
-          placement="top"
-        >
+        <b-tooltip :target="`invoice-row-${data.item.id}`" placement="top">
           <p class="mb-0">
             {{ data.item.invoiceStatus }}
           </p>
-          <p class="mb-0">
-            Balance: {{ data.item.balance }}
-          </p>
-          <p class="mb-0">
-            Due Date: {{ data.item.dueDate }}
-          </p>
+          <p class="mb-0">Balance: {{ data.item.balance }}</p>
+          <p class="mb-0">Due Date: {{ data.item.dueDate }}</p>
         </b-tooltip>
       </template>
 
@@ -121,7 +136,9 @@
               size="32"
               :src="data.item.avatar"
               :text="avatarText(data.item.client.name)"
-              :variant="`light-${resolveClientAvatarVariant(data.item.invoiceStatus)}`"
+              :variant="`light-${resolveClientAvatarVariant(
+                data.item.invoiceStatus
+              )}`"
             />
           </template>
           <span class="font-weight-bold d-block text-nowrap">
@@ -141,12 +158,7 @@
       <!-- Column: Balance -->
       <template #cell(balance)="data">
         <template v-if="data.value === 0">
-          <b-badge
-            pill
-            variant="light-success"
-          >
-            Paid
-          </b-badge>
+          <b-badge pill variant="light-success"> Paid </b-badge>
         </template>
         <template v-else>
           {{ data.value }}
@@ -155,26 +167,40 @@
 
       <!-- Column: Actions -->
       <template #cell(actions)="data">
-
         <div class="text-nowrap">
           <feather-icon
-            :id="`invoice-row-${data.item.id}-send-icon`"
-            icon="SendIcon"
+            v-if="!forAccepted"
+            id="checkId"
+            icon="CheckIcon"
             class="cursor-pointer"
             size="16"
+            @click="showMsgBoxOne(data,'attach')"
           />
-          <b-tooltip
+          <feather-icon
+            v-else-if="forAccepted"
+            id="checkId"
+            icon="DeleteIcon"
+            class="cursor-pointer"
+            size="16"
+            @click="showMsgBoxOne(data,'detach')"
+          />
+          <!-- <b-tooltip
             title="Send Invoice"
             class="cursor-pointer"
-            :target="`invoice-row-${data.item.id}-send-icon`"
-          />
+            :target="'checkId'"
+          /> -->
 
           <feather-icon
             :id="`invoice-row-${data.item.id}-preview-icon`"
             icon="EyeIcon"
             size="16"
             class="mx-1"
-            @click="$router.push({ name: 'order-preview', params: { id: data.item.id }})"
+            @click="
+              $router.push({
+                name: 'order-preview',
+                params: { id: data.item.id },
+              })
+            "
           />
           <b-tooltip
             title="Preview Invoice"
@@ -188,7 +214,6 @@
             no-caret
             :right="$store.state.appConfig.isRTL"
           >
-
             <template #button-content>
               <feather-icon
                 icon="MoreVerticalIcon"
@@ -200,7 +225,9 @@
               <feather-icon icon="DownloadIcon" />
               <span class="align-middle ml-50">Download</span>
             </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }">
+            <b-dropdown-item
+              :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }"
+            >
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">Edit</span>
             </b-dropdown-item>
@@ -215,25 +242,33 @@
           </b-dropdown>
         </div>
       </template>
-
     </b-table>
     <div class="mx-2 mb-2">
       <b-row>
-
         <b-col
           cols="12"
           sm="6"
-          class="d-flex align-items-center justify-content-center justify-content-sm-start"
+          class="
+            d-flex
+            align-items-center
+            justify-content-center justify-content-sm-start
+          "
         >
-          <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+          <span class="text-muted"
+            >Showing {{ dataMeta.from }} to {{ dataMeta.to }} of
+            {{ dataMeta.of }} entries</span
+          >
         </b-col>
         <!-- Pagination -->
         <b-col
           cols="12"
           sm="6"
-          class="d-flex align-items-center justify-content-center justify-content-sm-end"
+          class="
+            d-flex
+            align-items-center
+            justify-content-center justify-content-sm-end
+          "
         >
-
           <b-pagination
             v-model="currentPage"
             :total-rows="totalInvoices"
@@ -245,25 +280,16 @@
             next-class="next-item"
           >
             <template #prev-text>
-              <feather-icon
-                icon="ChevronLeftIcon"
-                size="18"
-              />
+              <feather-icon icon="ChevronLeftIcon" size="18" />
             </template>
             <template #next-text>
-              <feather-icon
-                icon="ChevronRightIcon"
-                size="18"
-              />
+              <feather-icon icon="ChevronRightIcon" size="18" />
             </template>
           </b-pagination>
-
         </b-col>
-
       </b-row>
     </div>
   </b-card>
-
 </template>
 
 <script>
@@ -282,12 +308,13 @@ import {
   BDropdownItem,
   BPagination,
   BTooltip,
-} from 'bootstrap-vue'
-import { avatarText } from '@core/utils/filter'
-import vSelect from 'vue-select'
-import { onUnmounted } from '@vue/composition-api'
-import store from '@/store'
-import useInvoicesList from './useInvoiceList'
+} from "bootstrap-vue";
+import { avatarText } from "@core/utils/filter";
+import vSelect from "vue-select";
+import { onUnmounted } from "@vue/composition-api";
+import store from "@/store";
+import useInvoicesList from "./useInvoiceList";
+import { mapGetters } from "vuex";
 // import { Can } from '@casl/vue';
 // import invoiceStoreModule from './invoiceStoreModule'
 
@@ -310,57 +337,152 @@ export default {
 
     vSelect,
   },
-  
+
   props: {
     forAccepted: {
       type: Boolean,
-      required: false
+      required: false,
     },
     agency: {
       type: Object,
-      required: false
+      required: false,
     },
   },
   methods: {
-    fetchStatuses(){
-    store
-    .dispatch('app-order/fetchStatuses',{})
-    .then(response => {
+    showMsgBoxOne(data,target) {
+      this.boxOne = ''
+      this.$bvModal
+        .msgBoxConfirm('Are you sure?', {
+          cancelVariant: 'outline-secondary',
+        })
+        .then(value => {
+          // this.boxOne = value
+            // console.log(value);
+            if(value)
+            if(target==="attach"){
+                this.attachOrderToAgency(data);
+            }
+            else {
+                this.deattachOrderToAgency(data);
+            }
+        })
 
-      this.statusOptions = response.data;
+        console.log(id);
+    },
+    attachOrderToAgency(data){
+          store.dispatch('_UPDATE_ORDER',{
+            id : data.item.id,
+            agencies_id : [this.agency.id]
+          }).then(() => {
+              this.refetchData();
+              this.$emit('refetchData');
+          })
+          
+    },
+    deattachOrderToAgency(data){
 
-    })
-    .catch(() => {
-      toast({
-        component: ToastificationContent,
-        props: {
-          title: "Error fetching invoices' list",
-          icon: 'AlertTriangleIcon',
-          variant: 'danger',
-        },
-      });    
-    });
+          store.dispatch('_UPDATE_ORDER',{
+            id : data.item.id,
+            agencies_id : []
+          }).then(() => {
+              this.refetchData();
+              this.$emit('refetchData');
+          })
+          
+    },
+    
+    fetchStatuses() {
+      store
+        .dispatch("app-order/fetchStatuses", {})
+        .then((response) => {
+          this.statusOptions = response.data;
+        })
+        .catch(() => {
+          toast({
+            component: ToastificationContent,
+            props: {
+              title: "Error fetching invoices' list",
+              icon: "AlertTriangleIcon",
+              variant: "danger",
+            },
+          });
+        });
     },
   },
-  
+
   created() {
     this.fetchStatuses();
+
+    this.wilaya = this.wilayas.find(
+      (item) => item.id === this.agency.address.city.daira.wilaya_id
+    );
+    this.daira = this.dairas.find(
+      (item) => item.id === this.agency.address.city.daira_id
+    );
+
+    this.city = this.cities.find(
+      (item) => item.id === this.agency.address.city_id
+    );
   },
+
   data() {
     return {
-      statusOptions : []
-    }
+      statusOptions: [],
+      daira: null,
+      city: null,
+      wilaya: null,
+    };
+  },
+  watch: {
+    daira(value, oldV) {
+        console.log("daira watch")
+        console.log(value);
+
+      if (oldV || !value) {
+        this.city = null
+        this.city_id = null
+        this.daira_id = null
+      };
+      if (value) this.daira_id = value.id;
+    },
+    city(value, oldV) {
+      if (value) this.city_id = value.id;
+      else {
+        this.city_id = null;
+      }
+    },
+    wilaya(value, oldV) {
+      if (oldV || !value) {
+        this.daira = null
+        this.daira_id = null;
+      };
+
+      if (value) this.wilaya_id = value.id;
+    },
   },
   computed: {
-    stOptions(){
-      return this.statusOptions.map(item => {
-        return item.name
+    ...mapGetters({
+      wilayas: "getWilayas",
+    }),
+    dairas() {
+      if (this.wilaya) return this.wilaya.dairas;
+
+      return [];
+    },
+    cities() {
+      if (this.daira) return this.daira.cities;
+
+      return [];
+    },
+
+    stOptions() {
+      return this.statusOptions.map((item) => {
+        return item.name;
       });
-    }
+    },
   },
   setup(props) {
-
-     const {
+    const {
       fetchInvoices,
       tableColumns,
       perPage,
@@ -371,10 +493,10 @@ export default {
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refInvoiceListTable, 
+      refInvoiceListTable,
 
       statusFilter,
- 
+
       refetchData,
 
       resolveInvoiceStatusVariantAndIcon,
@@ -382,16 +504,16 @@ export default {
       wilaya_id,
       daira_id,
       city_id,
-      for_accepted
-    } = useInvoicesList()
-
+      for_accepted,
+    } = useInvoicesList();
 
     // if(props.forAccepted) {
-      wilaya_id.value = props.agency.address.city.daira.wilaya.id;
-      daira_id.value = props.agency.address.city.daira.id;
-      city_id.value = props.agency.address.city.id;
-      
-      for_accepted.value = props.forAccepted;
+    wilaya_id.value = props.agency.address.city.daira.wilaya.id;
+    daira_id.value = props.agency.address.city.daira.id;
+    city_id.value = props.agency.address.city.id;
+
+    for_accepted.value = props.forAccepted;
+
     // }
     // const INVOICE_APP_STORE_MODULE_NAME = 'app-order'
 
@@ -407,9 +529,9 @@ export default {
     // const refetchAgency = () => {
 
     //   store.dispatch('app-invoice/fetchAgency', { id: router.currentRoute.params.id })
-    //   .then(response => { 
-    //     modelData.value = response.data; 
-        
+    //   .then(response => {
+    //     modelData.value = response.data;
+
     //     })
     //   .catch(error => {
     //     if (error.response.status === 404) {
@@ -430,8 +552,7 @@ export default {
     //       issuedDate : "19 Apr 2019",
     //       balance : "205"
     //     }
-    // ] ; 
-   
+    // ] ;
 
     return {
       fetchInvoices,
@@ -451,9 +572,12 @@ export default {
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
-    }
+      city_id,
+      wilaya_id,
+      daira_id
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -475,5 +599,5 @@ export default {
 </style>
 
 <style lang="scss">
-@import '~@core/scss/vue/libs/vue-select.scss';
+@import "~@core/scss/vue/libs/vue-select.scss";
 </style>

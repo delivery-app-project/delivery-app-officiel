@@ -29,6 +29,19 @@ export default {
               .catch(error => reject(error))
           })
       },
+    _UPDATE_ORDER({ commit},params){
+        // const cond = getCond(params);
+
+         return new Promise((resolve, reject) => {
+            axios
+              .patch('/order/'+params.id,params)
+              .then(response => {
+                  // commit("UPDATE_ROLES",response.data);
+                  resolve(response);
+              })
+              .catch(error => reject(error))
+          })
+      },
     _GET_ORDER({ commit},params){
         // const cond = getCond(params);
 

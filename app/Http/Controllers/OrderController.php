@@ -31,4 +31,8 @@ class OrderController extends Controller
     public function show($id){
             return ResponseFormatter::response($this->repository->find($id));
     }
+
+    public function update(Request $request,$id){
+            return ResponseFormatter::response($this->repository->edit($request->all(),$id));
+    }
 }

@@ -14,4 +14,6 @@ interface OrderRepository extends RepositoryInterface,BaseRepositoryInterface
     //
 
     public function index($data);
+
+    public function edit($data,$id);
 }

@@ -5,7 +5,7 @@
           title="Orders accepted"
           action-collapse
           >
-          <orders-index :forAccepted="true" :agency="modelData"/>
+          <orders-index :key="keyIndex" :forAccepted="true" :agency="modelData"/>
          </b-card-actions>
       </b-col>
        <b-col md="12" v-if="modelData">
@@ -13,7 +13,7 @@
           title="Orders waiting"
           action-collapse
           >
-          <orders-index :forAccepted="false" :agency="modelData" />
+          <orders-index :forAccepted="false" :agency="modelData" @refetchData="keyIndex++" />
          </b-card-actions>
       </b-col>
   </b-row>
@@ -38,8 +38,16 @@ export default {
     BCollapse,
     BCardActions,
   },
+  data(){
+      return {
+        keyIndex : 0
+      }
+  },
 
   setup() {
+    
+    store.dispatch("_UPDATE_WILAYAS");
+
     const modelData = ref(null)
 
     const USER_APP_STORE_MODULE_NAME = 'app-order'

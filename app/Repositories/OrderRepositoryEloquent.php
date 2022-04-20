@@ -101,18 +101,16 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
             
             if($city_id)
             $q->where('city_id',$city_id);
-
-            $q->orWhereHas('city', function ($q) use ($wilaya_id,$daira_id) {
+            else
+            $q->whereHas('city', function ($q) use ($wilaya_id,$daira_id) {
                 
                 if($daira_id)
                 $q->where('cities.daira_id',$daira_id);
-
-                $q->orWhereHas('daira', function ($q) use ($wilaya_id) {
-
-                    $q->whereHas('wilaya', function ($q) use ($wilaya_id) {
-                        $q->where('wilayas.id', $wilaya_id);
-                    });
-                });
+                else
+                $q->whereHas('daira', function ($q) use ($wilaya_id) {
+                        if($wilaya_id)
+                        $q->where('dairas.wilaya_id',$wilaya_id);
+                        });
             });
         });
 
@@ -178,5 +176,17 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         ));
 
         return $order;
+    }
+
+    public function edit($data,$id){
+            $model = $this->find($id);
+
+            $agencies_id = key_exists('agencies_id',$data) ? $data['agencies_id'] : null;
+            
+            if($agencies_id || count($agencies_id)===0) {
+                $model->agencies()->sync($agencies_id,true);
+            }
+
+            return $model;
     }
 }
