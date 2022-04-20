@@ -5,6 +5,12 @@ return [
         'marchent',
         'transporter',
         'admin',
+        'agency head',
+        'employee'
+    ],
+    'employeeRoles' => [
+        'admin',
+        'transporter',
         'agency head'
     ],
     'permissions' => [
@@ -57,8 +63,13 @@ return [
         ],
         'transporter' => [
                 'view transactions',
+                // 'view employee agencies',
+                // 'view agency'
+        ],
+        'employee' => [
                 'view employee agencies',
-                'view agency'
+                'view agency',
+                'view stocks'
         ],
         'admin' => [
             'view agencies',

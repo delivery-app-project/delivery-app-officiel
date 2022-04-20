@@ -42,5 +42,9 @@ class UserRolesSeeder extends Seeder
         $role_admin = Role::findByName('admin','api');
         // dd($role_transporter);
         $user_admin->assignRole($role_admin->name);
+
+        // $employeeRoles = config('roles&&permissions.employeeRoles');
+        
+        
     }
 }

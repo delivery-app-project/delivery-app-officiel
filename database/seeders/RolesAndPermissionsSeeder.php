@@ -50,6 +50,8 @@ class RolesAndPermissionsSeeder extends Seeder
             $role->givePermissionTo($this->filter_permissions($permissions_by_roles[$value]));
 
         }
+
+        
         
         
     }
