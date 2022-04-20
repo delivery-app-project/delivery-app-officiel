@@ -58,6 +58,7 @@ return [
         'transporter' => [
                 'view transactions',
                 'view employee agencies',
+                'view agency'
         ],
         'admin' => [
             'view agencies',

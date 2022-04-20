@@ -30,7 +30,8 @@ export default [
         component: () => import('@/views/pages/agencies/agency-update/agencyUpdate.vue'),
         meta : {
           pageTitle : "Agency Update",
-          resource : "updateAgency"
+          resource : "updateAgency",
+          action : 'update'
         } 
       },
       {
