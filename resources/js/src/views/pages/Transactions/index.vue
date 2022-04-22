@@ -26,7 +26,7 @@
           />
           <b-button
             variant="primary"
-            :to="{ name: 'order-add'}"
+            :to="{ name: 'stock-add'}"
           >
             Add Record
           </b-button>
@@ -43,7 +43,7 @@
               class="d-inline-block mr-1"
               placeholder="Search..."
             />
-            <v-select
+             <v-select
               v-model="statusFilter"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
               :options="stOptions"
@@ -85,7 +85,7 @@
       <!-- Column: Id -->
       <template #cell(id)="data">
         <b-link
-          :to="{ name: 'apps-invoice-preview', params: { id: data.item.id }}"
+          :to="{ name: 'transaction-preview', params: { id: data.item.id }}"
           class="font-weight-bold"
         >
           #{{ data.value }}
@@ -165,30 +165,41 @@
         <div class="text-nowrap">
           <feather-icon
             :id="`invoice-row-${data.item.id}-send-icon`"
-            icon="SendIcon"
+            icon="EditIcon"
             class="cursor-pointer"
-            size="16"
+            size="16"     
+            @click="$router.push({ name: 'stock-update', params: { id: data.item.id }})"
+      
           />
+        <!--
           <b-tooltip
             title="Send Invoice"
             class="cursor-pointer"
             :target="`invoice-row-${data.item.id}-send-icon`"
           />
-
+        -->
           <feather-icon
-            :id="`invoice-row-${data.item.id}-preview-icon`"
             icon="EyeIcon"
             size="16"
             class="mx-1"
-            @click="$router.push({ name: 'order-preview', params: { id: data.item.id }})"
+            @click="$router.push({ name: 'transaction-preview', params: { id: data.item.id }})"
           />
+          <!--
           <b-tooltip
             title="Preview Invoice"
             :target="`invoice-row-${data.item.id}-preview-icon`"
           />
-
+          -->
+           <feather-icon
+            :id="`invoice-row-${data.item.id}-delete-icon`"
+            icon="DeleteIcon"
+            size="16"
+            class="mx-1"
+          
+           @click="showMsgBoxOne(data.item.id)"
+          />
           <!-- Dropdown -->
-          <b-dropdown
+          <!-- <b-dropdown
             variant="link"
             toggle-class="p-0"
             no-caret
@@ -218,7 +229,7 @@
               <feather-icon icon="CopyIcon" />
               <span class="align-middle ml-50">Duplicate</span>
             </b-dropdown-item>
-          </b-dropdown>
+          </b-dropdown> -->
         </div>
       </template>
 
@@ -289,6 +300,8 @@ import {
   BPagination,
   BTooltip,
 } from 'bootstrap-vue'
+
+import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
@@ -300,6 +313,7 @@ import invoiceStoreModule from './invoiceStoreModule'
 export default {
   components: {
     BCard,
+    BCardCode,
     BRow,
     BCol,
     BFormInput,
@@ -316,63 +330,48 @@ export default {
 
     vSelect,
   },
-  
-  props: {
-    transaction: {
-      type: Object,
-      required: false
-    },
-  },
   methods: {
-    fetchStatuses(){
-    store
-    .dispatch('app-order/fetchStatuses',{})
-    .then(response => {
+     showMsgBoxOne(id) {
+      this.boxOne = ''
+      this.$bvModal
+        .msgBoxConfirm('Are you sure?', {
+          cancelVariant: 'outline-secondary',
+        })
+        .then(value => {
+          this.boxOne = value
 
-      this.statusOptions = response.data;
+        })
 
-    })
-    .catch(() => {
-      toast({
-        component: ToastificationContent,
-        props: {
-          title: "Error fetching invoices' list",
-          icon: 'AlertTriangleIcon',
-          variant: 'danger',
-        },
-      });    
-    });
+        console.log(id);
     },
   },
-  
+
   created() {
-    this.fetchStatuses();
+    // this.fetchStatuses();
   },
   data() {
     return {
-      statusOptions : []
+    //   statusOptions : []
     }
   },
   computed: {
-    stOptions(){
-      return this.statusOptions.map(item => {
-        return item.name
-      });
-    }
+     stOptions(){
+       return this.statusOptions;
+     }
   },
-  setup(props) {
-    const INVOICE_APP_STORE_MODULE_NAME = 'app-order'
+  setup() {
+    const MODULE_NAME = 'app-transactions'
 
     // Register module
-    if (!store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
-      store.registerModule(INVOICE_APP_STORE_MODULE_NAME, invoiceStoreModule)
+    if (!store.hasModule(MODULE_NAME))
+      store.registerModule(MODULE_NAME, invoiceStoreModule)
 
     // UnRegister on leave
     onUnmounted(() => {
-      if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME)) store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME)
+      if (store.hasModule(MODULE_NAME)) store.unregisterModule(MODULE_NAME)
     })
 
-    // const statusOptions = ['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']
+     const statusOptions = ['central', 'secondary']
 
     // const  fetchInvoices = [
     //     {
@@ -382,7 +381,7 @@ export default {
     //       issuedDate : "19 Apr 2019",
     //       balance : "205"
     //     }
-    // ] ; 
+    // ] ;
     const {
       fetchInvoices,
       tableColumns,
@@ -394,18 +393,15 @@ export default {
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refInvoiceListTable, 
+      refInvoiceListTable,
 
       statusFilter,
- 
+
       refetchData,
 
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
-      transaction_id
     } = useInvoicesList()
-    console.log(props.transaction);
-    if(props.transaction) transaction_id.value = props.transaction.id;
 
     return {
       fetchInvoices,
@@ -421,7 +417,7 @@ export default {
       refInvoiceListTable,
       statusFilter,
       refetchData,
-      // statusOptions,
+      statusOptions,
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,

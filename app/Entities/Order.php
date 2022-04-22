@@ -68,4 +68,7 @@ class Order extends Model implements Transformable
         return $this->belongsToMany(Agency::class,'agency_orders');
     }
     
+    public function transactions(){
+        return $this->belongsToMany(Transaction::class,'transaction_order');
+    }
 }

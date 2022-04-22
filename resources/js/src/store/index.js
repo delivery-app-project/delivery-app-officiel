@@ -13,6 +13,7 @@ import stock from './stock';
 import role from './role'; 
 import user from './user';
 import order from './order';
+import transaction from './transaction';
 
 Vue.use(Vuex)
 
@@ -26,7 +27,8 @@ export default new Vuex.Store({
     role,
     agency,
     user,
-    order
+    order,
+    transaction
   },
   strict: process.env.DEV,
 })

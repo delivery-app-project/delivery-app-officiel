@@ -17,13 +17,13 @@ class CreateTransactionsTable extends Migration
 	public function up()
 	{
 		Schema::create('transactions', function(Blueprint $table) {
-			
+
             $table->id();
 			
 			$table->date('send_date')->nullable();
-			$table->date('time_send_date')->nullable();
+			$table->time('time_send_date')->nullable();
 			$table->date('receive_date')->nullable();
-			$table->date('time_receive_date')->nullable();
+			$table->time('time_receive_date')->nullable();
 
 			$table->nullableMorphs('source');
 			$table->nullableMorphs('destination');

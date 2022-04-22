@@ -5,9 +5,9 @@ import store from '@/store'
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import {  getUserData } from '@/auth/utils'
-import router from '@/router'
+
 export default function useInvoicesList() {
-  
+
   // Use toast
   const toast = useToast()
 
@@ -16,17 +16,11 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'receiver', sortable: true },
-    { label : 'Reveiver type' ,key: 'receiver_type.name', sortable: true },
-    { key: 'phone', sortable: true, formatter: val => `$${val}` },
-    { key: 'code_postal', sortable: true },
-    // { key: 'weight', sortable: true },
-    // { key: 'height' },
-    // { key: 'length' },
-    // { key: 'width' },
-    { key: 'quatity' },
-    { label : 'Etat' ,key: 'etat.name' },
+    { key: 'send_date', label: 'Send Date', sortable: true },
+    { key: 'time_send_date', label: 'Time send Date', sortable: true },
+    { key: 'receive_date', label: 'Receive date', sortable: true },
     { key: 'actions' },
+
   ]
   const perPage = ref(10)
   const totalInvoices = ref(0)
@@ -36,7 +30,6 @@ export default function useInvoicesList() {
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
-  const transaction_id = ref(null)
 
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
@@ -56,29 +49,20 @@ export default function useInvoicesList() {
   })
 
   const fetchInvoices = (ctx, callback) => {
-    
-    const userData = getUserData()
-    const data = transaction_id.value ? {
-      search: searchQuery.value,
-      perPage: perPage.value,
-      page: currentPage.value,
-      sortBy: sortBy.value,
-      sortDesc: isSortDirDesc.value,
-      status: statusFilter.value,
-      transaction_id : transaction_id.value
-    } : 
-    {
-      search: searchQuery.value,
-      perPage: perPage.value,
-      page: currentPage.value,
-      sortBy: sortBy.value,
-      sortDesc: isSortDirDesc.value,
-      status: statusFilter.value,
-      id : router.currentRoute.params.id ? router.currentRoute.params.id : userData.marchent.id  
-    }
 
-    store 
-      .dispatch('app-order/fetchInvoices', data)
+    const userData = getUserData()
+    store
+      .dispatch('app-transactions/fetchInvoices', {
+        search: searchQuery.value,
+        perPage: perPage.value,
+        page: currentPage.value,
+        sortBy: sortBy.value,
+        sortDesc: isSortDirDesc.value,
+        status: statusFilter.value,
+        employee_id : userData.employee.id,
+        paginated : true
+
+      })
       .then(response => {
         const { data, total } = response.data
 
@@ -140,6 +124,5 @@ export default function useInvoicesList() {
     resolveClientAvatarVariant,
 
     refetchData,
-    transaction_id
   }
 }

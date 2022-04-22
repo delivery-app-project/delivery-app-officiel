@@ -110,6 +110,41 @@ let routes = [
     path: '*',
     redirect: 'error-404',
   },
+  //order
+    {
+      path: '/orders/preview/:id',
+      name: 'order-preview',
+      component: () => import('@/views/pages/orders/order-view/index.vue'),
+      meta: {
+        pageTitle: 'Order preview',
+        resource : 'viewOrder',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
+    // transaction
+    {
+      
+      path: '/transactions/add/:type/:id',
+      name: 'transaction-add',
+      component: () => import('@/views/pages/transactions/transaction-add/index.vue'),
+      meta: {
+        pageTitle: 'Add Transaction',
+        resource : 'viewAgency',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
   ...admin
 ];
 

@@ -40,6 +40,13 @@
                 Orders
               </b-button>
               <b-button
+                :to="{ name: 'transaction-add', params: { id: modelData.id,type:'agency' } }"
+                variant="secondary"
+                class="ml-1"
+                 >
+                add
+              </b-button>
+              <b-button
                 variant="outline-danger"
                 class="ml-1"
               >

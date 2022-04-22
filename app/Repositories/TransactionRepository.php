@@ -9,7 +9,14 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface TransactionRepository extends RepositoryInterface
+interface TransactionRepository extends RepositoryInterface , BaseRepositoryInterface
 {
     //
+
+    public function index($data);
+
+    public function show($id);
+    
+    public function store($data);
+    
 }

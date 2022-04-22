@@ -4,7 +4,7 @@ import axios from '@axios'
 export default {
   state: {
       
-        stock : null,
+        stock : null
     },
   getters: {
     getStock(state){

@@ -96,7 +96,9 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $wilaya_id = key_exists('wilaya_id', $data) ? $data['wilaya_id'] : null;
         $daira_id = key_exists('daira_id', $data) ? $data['daira_id'] : null;
         $city_id = key_exists('city_id', $data) ? $data['city_id'] : null;
-
+        $transaction_id = key_exists('transaction_id', $data) ? $data['transaction_id'] : null;
+        $paginated = key_exists('paginated', $data) ? ($data['paginated']==="false" ? false : true) : true;
+        
         if ($wilaya_id) $model =  $this->whereDoesntHave("agencies")->whereHas('address_source', function ($q) use ($wilaya_id,$daira_id,$city_id) {
             
             if($city_id)
@@ -131,8 +133,14 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
             $q->where('agencies.id', $agency_id);
         });
 
+        if ($transaction_id) $model =  $model->whereHas('transactions', function ($q) use ($transaction_id) {
+            $q->where('transactions.id', $transaction_id);
+        });
 
+        if($paginated)
         return $model->with(['package'])->paginate($perPage);
+    
+        return $model->with(['package'])->all();
     }
 
 

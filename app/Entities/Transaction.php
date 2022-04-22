@@ -37,5 +37,18 @@ class Transaction extends Model implements Transformable
         return $this->belongsTo(Employee::class,'employee_id');
     }
 
+
+    public function source(){
+        return $this->morphTo('source');
+    }
+
+    
+    public function destination(){
+            return $this->morphTo('destination');
+    }
+
+
+
+
     
 }

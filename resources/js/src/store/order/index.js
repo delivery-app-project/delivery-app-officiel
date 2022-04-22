@@ -1,18 +1,26 @@
 import axios from '@axios'
+import { getCond } from '@/utils/helpers';
 
 export default {
   namespaced: false,
   state: {
-      order : null
+      order : null,
+      orders : []
   },
   getters: {
         getOrder(state) {
                 return state.order;
+        },
+        getOrders(state) {
+                return state.orders;
         }
   },
   mutations: {
     UPDATE_ORDER(state, val) {
       state.order = val
+    },
+    UPDATE_ORDERS(state, val) {
+      state.orders = val
     },
   },
   actions: {
@@ -50,6 +58,19 @@ export default {
               .get('/order/'+params.id)
               .then(response => {
                   commit("UPDATE_ORDER",response.data);
+                  resolve(response);
+              })
+              .catch(error => reject(error))
+          })
+      },
+    _UPDATE_ORDERS({ commit},params){
+        const cond = getCond(params);
+
+         return new Promise((resolve, reject) => {
+            axios
+              .get('/order'+cond)
+              .then(response => {
+                  commit("UPDATE_ORDERS",response.data);
                   resolve(response);
               })
               .catch(error => reject(error))

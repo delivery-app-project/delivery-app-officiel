@@ -24,10 +24,15 @@ trait repositoriesCrud {
         // if ($director_id) $model =  $this->where('employee_id', $director_id);
         if($employee_id){
 
-        
+        if(method_exists($model,'employees'))
          $model =  $model->where('employee_id',$employee_id)->orWhereHas('employees', function ($q) use($employee_id){
             $q->where('employees.id',$employee_id);
          });
+         else if(method_exists($model,'employee')){
+            $model =  $model->whereHas('employee',function ($q) use ($employee_id){
+                    $q->where('employees.id',$employee_id);
+            });
+         }
 
         }
 
@@ -41,4 +46,8 @@ trait repositoriesCrud {
         return $model->all();
     }
 
+
+    public function handleShow($id){
+        return $this->find($id);
+    }
 }

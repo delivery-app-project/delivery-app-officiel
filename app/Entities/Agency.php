@@ -59,7 +59,12 @@ class Agency extends Model implements Transformable
     }
 
 
-
+    public function transactions_source(){
+        return $this->morphMany(Transaction::class,'source');
+    }
+    public function transactions_destination(){
+        return $this->morphMany(Transaction::class,'destination');
+    }
      /**
      * Specify Validator class name
      *

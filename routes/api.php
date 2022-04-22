@@ -11,6 +11,7 @@ use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeMorphController;
 use App\Http\Controllers\wilayaController;
 use Illuminate\Http\Request;
@@ -46,6 +47,9 @@ Route::group([
     
 Route::resource('order', OrderController::class)->only(
     'index','store','show','update'
+);
+Route::resource('transaction', TransactionController::class)->only(
+    'index','show','store'
 );
 Route::resource('stocks', StockController::class)->only(
     'index','show','store','update'
