@@ -170,7 +170,88 @@ export default [
         // ],
       },
       
+    },
+    {
+      path: '/stock/orders/:id',
+      name: 'orders-stock',
+      component: () => import('@/views/pages/stocks/orders/index.vue'),
+      meta: {
+        pageTitle: 'Orders of the Stock',
+        resource : 'viewMarchentOrders',
+    
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+      
+    },
+    
+    {
+      path: '/transactions/agency/:type/:agency_id',
+      name: 'transactions-source-agency',
+      component: () => import('@/views/pages/transactions/index.vue'),
+      meta: {
+        pageTitle: 'Transactions',
+        resource : 'viewMarchentOrders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
+    {
+      path: '/transactions/stock/:type/:stock_id',
+      name: 'transactions-source-stock',
+      component: () => import('@/views/pages/transactions/index.vue'),
+      meta: {
+        pageTitle: 'Transactions',
+        resource : 'viewMarchentOrders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
+    {
+      path: '/transactions/stock/:type/:stock_id',
+      name: 'transactions-destination-stock',
+      component: () => import('@/views/pages/transactions/index.vue'),
+      meta: {
+        pageTitle: 'Transactions',
+        resource : 'viewMarchentOrders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
+    },
+    {
+      path: '/transactions/agency/:type/:agency_id',
+      name: 'transactions-destination-agency',
+      component: () => import('@/views/pages/transactions/index.vue'),
+      meta: {
+        pageTitle: 'Transactions',
+        resource : 'viewMarchentOrders',
+        
+        // breadcrumb: [
+        //   {
+        //     text: 'Home',
+        //     active: true,
+        //   },
+        // ],
+      },
     }
-
 
 ];

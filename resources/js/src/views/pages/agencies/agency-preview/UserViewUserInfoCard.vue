@@ -25,38 +25,7 @@
               </h4>
               <span class="card-text">{{ modelData.email }}</span>
             </div>
-            <div class="d-flex flex-wrap">
-              <b-button
-                :to="{ name: 'agency-update', params: { id: modelData.id } }"
-                variant="primary"
-                 >
-                Edit
-              </b-button>
-              <b-button
-                :to="{ name: 'orders-agency', params: { id: modelData.id } }"
-                variant="success"
-                class="ml-1"
-                 >
-                Orders
-              </b-button>
-              <b-button
-                :to="{ name: 'transaction-add', params: { id: modelData.id,type:'agency' } }"
-                variant="secondary"
-                class="ml-1"
-                 >
-                add
-              </b-button>
-              <b-button
-                variant="outline-danger"
-                class="ml-1"
-              >
-                Delete
-              </b-button>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Stats -->
+            <!-- User Stats -->
         <div class="d-flex align-items-center mt-2">
           <div class="d-flex align-items-center mr-2">
             <b-avatar
@@ -94,6 +63,10 @@
             </div>
           </div>
         </div>
+          </div>
+        </div>
+
+        
       </b-col>
 
       <!-- Right Col: Table -->
@@ -177,6 +150,44 @@
           
         </table>
       </b-col>
+      <div class="d-flex flex-wrap mt-2">
+              <b-button
+                :to="{ name: 'agency-update', params: { id: modelData.id } }"
+                variant="primary"
+                 >
+                Edit
+              </b-button>
+              <b-button
+                :to="{ name: 'orders-agency', params: { id: modelData.id } }"
+                variant="success"
+                class="ml-1"
+                 >
+                Orders
+              </b-button>
+              <b-button
+                :to="{ name: 'transaction-add', params: { id: modelData.id,type:'agency' } }"
+                variant="secondary"
+                class="ml-1"
+                 >
+                add
+              </b-button>
+              <b-button 
+                :to="{ name: 'transactions-source-agency', params: { type : 'source' , agency_id: modelData.id} }"
+                variant="outline-warning"
+                class="ml-1"
+              >
+                Created Transactions
+              </b-button>
+              
+              <b-button 
+                :to="{ name: 'transactions-destination-agency', params: { type : 'destination', agency_id: modelData.id} }"
+                variant="outline-warning"
+                class="ml-1"
+              >
+                 Transactions destinated
+              </b-button>
+            </div>
+
     </b-row>
   </b-card>
 </template>

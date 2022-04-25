@@ -342,7 +342,6 @@ export default {
 
         })
 
-        console.log(id);
     },
   },
 
@@ -372,6 +371,8 @@ export default {
     })
 
      const statusOptions = ['central', 'secondary']
+
+
 
     // const  fetchInvoices = [
     //     {

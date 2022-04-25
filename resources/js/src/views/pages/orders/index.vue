@@ -404,7 +404,7 @@ export default {
       resolveClientAvatarVariant,
       transaction_id
     } = useInvoicesList()
-    console.log(props.transaction);
+    
     if(props.transaction) transaction_id.value = props.transaction.id;
 
     return {

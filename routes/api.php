@@ -48,9 +48,7 @@ Route::group([
 Route::resource('order', OrderController::class)->only(
     'index','store','show','update'
 );
-Route::resource('transaction', TransactionController::class)->only(
-    'index','show','store'
-);
+
 Route::resource('stocks', StockController::class)->only(
     'index','show','store','update'
 );
@@ -81,6 +79,12 @@ Route::resource('wilaya', wilayaController::class)->only(
 );
 
 });
+
+
+Route::resource('transaction', TransactionController::class)->only(
+    'index','show','store'
+);
+
 
 
 Route::group([

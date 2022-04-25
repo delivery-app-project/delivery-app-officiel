@@ -1,14 +1,13 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
-import router from '@/router'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import {  getUserData } from '@/auth/utils'
-
+import router from '@/router'
 export default function useInvoicesList() {
-
+  
   // Use toast
   const toast = useToast()
 
@@ -17,11 +16,17 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'send_date', label: 'Send Date', sortable: true },
-    { key: 'time_send_date', label: 'Time send Date', sortable: true },
-    { key: 'receive_date', label: 'Receive date', sortable: true },
+    { key: 'receiver', sortable: true },
+    { label : 'Reveiver type' ,key: 'receiver_type.name', sortable: true },
+    { key: 'phone', sortable: true, formatter: val => `$${val}` },
+    { key: 'code_postal', sortable: true },
+    // { key: 'weight', sortable: true },
+    // { key: 'height' },
+    // { key: 'length' },
+    // { key: 'width' },
+    { key: 'quatity' },
+    { label : 'Etat' ,key: 'etat.name' },
     { key: 'actions' },
-
   ]
   const perPage = ref(10)
   const totalInvoices = ref(0)
@@ -31,6 +36,11 @@ export default function useInvoicesList() {
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
   const statusFilter = ref(null)
+  const wilaya_id = ref(null)
+  const daira_id = ref(null)
+  const city_id = ref(null)
+  const for_accepted = ref(null)
+
 
   const dataMeta = computed(() => {
     const localItemsCount = refInvoiceListTable.value ? refInvoiceListTable.value.localItems.length : 0
@@ -45,58 +55,38 @@ export default function useInvoicesList() {
     refInvoiceListTable.value.refresh()
   }
 
-  watch([currentPage, perPage, searchQuery, statusFilter], () => {
+  watch([currentPage, perPage, searchQuery, statusFilter,wilaya_id,daira_id,city_id,for_accepted], () => {
     refetchData()
   })
 
   const fetchInvoices = (ctx, callback) => {
-    const possibleTypes = [
-      'source',
-      'destination'
-    ];
-
-    const indexFor = router.currentRoute.params.stock_id ? router.currentRoute.params.stock_id : (router.currentRoute.params.agency_id ? router.currentRoute.params.agency_id : null);
-    const type = router.currentRoute.params.type;
     
-
-    if(type && !possibleTypes.includes(type)) router.push({
-      name : "not-authorized"
-    })
-    let conds = {
+    const userData = getUserData()
+    let data = !for_accepted.value ? 
+    {
+      search: searchQuery.value,
+      perPage: perPage.value,
+      page: currentPage.value,
+      sortBy: sortBy.value,
+      sortDesc: isSortDirDesc.value,
+      status: statusFilter.value, 
+      wilaya_id : wilaya_id.value,
+      city_id : city_id.value,
+      daira_id : daira_id.value,
+      for_stocks : true
+    }
+    : {
       search: searchQuery.value,
       perPage: perPage.value,
       page: currentPage.value,
       sortBy: sortBy.value,
       sortDesc: isSortDirDesc.value,
       status: statusFilter.value,
-      employee_id : null,
-      stock_id : null,
-      agency_id : null,
-      paginated : true
-    };
-
-    if(!indexFor){
-    const userData = getUserData()
-    conds.employee_id = userData.employee.id;
+      stock_id : router.currentRoute.params.id,
+      for_stocks : true
     }
-    else if(indexFor && router.currentRoute.params.stock_id) {
-      if(type==="source")
-      conds.source = router.currentRoute.params.stock_id;
-      else 
-      conds.destination = router.currentRoute.params.stock_id;
-      
-      conds.for = 'stock'
-    }
-    else if(indexFor && router.currentRoute.params.agency_id) {
-      if(type==="source")
-      conds.source = router.currentRoute.params.agency_id;
-      else 
-      conds.destination = router.currentRoute.params.agency_id;
-    }
-
-    // console.log(conds);
     store
-      .dispatch('app-transactions/fetchInvoices', conds)
+      .dispatch('app-order/fetchInvoices', data)
       .then(response => {
         const { data, total } = response.data
 
@@ -158,5 +148,10 @@ export default function useInvoicesList() {
     resolveClientAvatarVariant,
 
     refetchData,
+
+    wilaya_id,
+    daira_id,
+    city_id,
+    for_accepted
   }
 }

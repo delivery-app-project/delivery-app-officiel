@@ -417,7 +417,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$router.currentRoute.params);
     // get types
     store.dispatch("_UPDATE_MORPH_TYEPS", {
       //App\Entities\Stock
