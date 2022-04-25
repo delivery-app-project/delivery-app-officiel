@@ -161,8 +161,7 @@
                 :to="{ name: 'orders-agency', params: { id: modelData.id } }"
                 variant="success"
                 class="ml-1"
-                 >
-                Orders
+                 > 
               </b-button>
               <b-button
                 :to="{ name: 'transaction-add', params: { id: modelData.id,type:'agency' } }"
