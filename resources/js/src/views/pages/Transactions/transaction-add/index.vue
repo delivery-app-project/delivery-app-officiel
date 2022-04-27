@@ -374,10 +374,6 @@ export default {
   },
   
   props: {
-    // agency: {
-    //   type: Object,
-    //   required: false
-    // },
   },
   data() {
     return {
@@ -561,13 +557,13 @@ export default {
         })
       .catch(error => {
         if (error.response.status === 404) {
-          agency.value = undefined
+          stock.value = undefined
         }
       })
     }
     if(router.currentRoute.params.type==="agency")
     refetchAgency();
-    else (router.currentRoute.params.type==="stock")
+    else if (router.currentRoute.params.type==="stock")
     refetchStock();
 
     return {
