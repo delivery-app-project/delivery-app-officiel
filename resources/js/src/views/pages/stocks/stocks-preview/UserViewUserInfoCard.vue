@@ -168,7 +168,7 @@
               </b-button>
 
               
-              <b-button
+              <!-- <b-button
                 :to="{ name: 'transaction-add', params: { id: modelData.id,type:'stock' } }"
                 variant="secondary"
                 class="ml-1"
@@ -190,7 +190,25 @@
                 class="ml-1"
               >
                  Transactions destinated
-              </b-button>
+              </b-button> -->
+
+              
+              <b-dropdown
+                split
+                text="Transactions"
+                variant="outline-warning"
+                right
+                class="ml-1"
+              >
+                <b-dropdown-item   :to="{ name: 'transaction-add', params: { id: modelData.id,type:'stock' } }"
+                > Add transaction </b-dropdown-item>
+                <b-dropdown-item   :to="{ name: 'transactions-source-stock', params: { type : 'source', stock_id: modelData.id} }"
+              > Created Transactions </b-dropdown-item>
+                <b-dropdown-item  :to="{ name: 'transactions-destination-stock', params: { type : 'destination', stock_id: modelData.id} }"
+               > Transactions destinated </b-dropdown-item>
+                <!-- <b-dropdown-divider />
+              <b-dropdown-item>Separated link</b-dropdown-item> -->
+              </b-dropdown>
             </div>
     </b-row>
   </b-card>
@@ -199,6 +217,8 @@
 <script>
 import {
   BCard, BButton, BAvatar, BRow, BCol,
+  BDropdownItem,
+  BDropdown,
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 // import useUsersList from '../users-list/useUsersList'
@@ -206,6 +226,8 @@ import { avatarText } from '@core/utils/filter'
 export default {
   components: {
     BCard, BButton, BRow, BCol, BAvatar,
+    BDropdownItem,
+    BDropdown,
   },
   props: {
     modelData: {

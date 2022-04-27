@@ -1,8 +1,6 @@
 <template>
   <b-card>
-
     <b-row>
-
       <!-- User Info: Left col -->
       <b-col
         cols="21"
@@ -26,61 +24,37 @@
               <span class="card-text">{{ modelData.email }}</span>
             </div>
             <!-- User Stats -->
-        <div class="d-flex align-items-center mt-2">
-          <div class="d-flex align-items-center mr-2">
-            <b-avatar
-              variant="light-primary"
-              rounded
-            >
-              <feather-icon
-                icon="DollarSignIcon"
-                size="18"
-              />
-            </b-avatar>
-            <div class="ml-1">
-              <h5 class="mb-0">
-                23.3k
-              </h5>
-              <small>Monthly Sales</small>
-            </div>
-          </div>
+            <div class="d-flex align-items-center mt-2">
+              <div class="d-flex align-items-center mr-2">
+                <b-avatar variant="light-primary" rounded>
+                  <feather-icon icon="DollarSignIcon" size="18" />
+                </b-avatar>
+                <div class="ml-1">
+                  <h5 class="mb-0">23.3k</h5>
+                  <small>Monthly Sales</small>
+                </div>
+              </div>
 
-          <div class="d-flex align-items-center">
-            <b-avatar
-              variant="light-success"
-              rounded
-            >
-              <feather-icon
-                icon="TrendingUpIcon"
-                size="18"
-              />
-            </b-avatar>
-            <div class="ml-1">
-              <h5 class="mb-0">
-                $99.87k
-              </h5>
-              <small>Annual Profit</small>
+              <div class="d-flex align-items-center">
+                <b-avatar variant="light-success" rounded>
+                  <feather-icon icon="TrendingUpIcon" size="18" />
+                </b-avatar>
+                <div class="ml-1">
+                  <h5 class="mb-0">$99.87k</h5>
+                  <small>Annual Profit</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-          </div>
-        </div>
-
-        
       </b-col>
 
       <!-- Right Col: Table -->
-      <b-col
-        cols="12"
-        xl="6"
-      >
+      <b-col cols="12" xl="6">
         <table class="mt-2 mt-xl-0 w-100">
           <tr>
             <th class="pb-50">
-              <feather-icon
-                icon="PhoneIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="PhoneIcon" class="mr-75" />
               <span class="font-weight-bold">Phone</span>
             </th>
             <td class="pb-50">
@@ -89,10 +63,7 @@
           </tr>
           <tr>
             <th class="pb-50">
-              <feather-icon
-                icon="CheckIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="CheckIcon" class="mr-75" />
               <span class="font-weight-bold">type</span>
             </th>
             <td class="pb-50 text-capitalize">
@@ -101,10 +72,7 @@
           </tr>
           <tr>
             <th class="pb-50">
-              <feather-icon
-                icon="FlagIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="FlagIcon" class="mr-75" />
               <span class="font-weight-bold">Wilaya</span>
             </th>
             <td class="pb-50 text-capitalize">
@@ -113,10 +81,7 @@
           </tr>
           <tr>
             <th class="pb-50">
-              <feather-icon
-                icon="FlagIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="FlagIcon" class="mr-75" />
               <span class="font-weight-bold">Daira</span>
             </th>
             <td class="pb-50">
@@ -125,10 +90,7 @@
           </tr>
           <tr>
             <th>
-              <feather-icon
-                icon="FlagIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="FlagIcon" class="mr-75" />
               <span class="font-weight-bold">City</span>
             </th>
             <td>
@@ -137,75 +99,116 @@
           </tr>
           <tr>
             <th>
-              <feather-icon
-                icon="MapIcon"
-                class="mr-75"
-              />
+              <feather-icon icon="MapIcon" class="mr-75" />
               <span class="font-weight-bold">Address</span>
             </th>
             <td>
               {{ modelData.address.district }}
             </td>
           </tr>
-          
         </table>
       </b-col>
       <div class="d-flex flex-wrap mt-2">
-              <b-button
-                :to="{ name: 'agency-update', params: { id: modelData.id } }"
-                variant="primary"
-                 >
-                Edit
-              </b-button>
-              <b-button
-                :to="{ name: 'orders-agency', params: { id: modelData.id } }"
-                variant="success"
-                class="ml-1"
-                 > 
-              </b-button>
-              <b-button
-                :to="{ name: 'transaction-add', params: { id: modelData.id,type:'agency' } }"
-                variant="secondary"
-                class="ml-1"
-                 >
-                add
-              </b-button>
-              <b-button 
-                :to="{ name: 'transactions-source-agency', params: { type : 'source' , agency_id: modelData.id} }"
-                variant="outline-warning"
-                class="ml-1"
-              >
-                Created Transactions
-              </b-button>
-              
-              <b-button 
-                :to="{ name: 'transactions-destination-agency', params: { type : 'destination', agency_id: modelData.id} }"
-                variant="outline-warning"
-                class="ml-1"
-              >
-                 Transactions destinated
-              </b-button>
-            </div>
+        <b-button
+          :to="{ name: 'agency-update', params: { id: modelData.id } }"
+          variant="primary"
+        >
+          Edit
+        </b-button>
+        <b-button
+          :to="{ name: 'orders-agency', params: { id: modelData.id } }"
+          variant="success"
+          class="ml-1"
+        >
+          Orders
+        </b-button>
+        <!-- <b-button
+          :to="{
+            name: 'transaction-add',
+            params: { id: modelData.id, type: 'agency' },
+          }"
+          variant="secondary"
+          class="ml-1"
+        >
+          add
+        </b-button>
+        <b-button
+          :to="{
+            name: 'transactions-source-agency',
+            params: { type: 'source', agency_id: modelData.id },
+          }"
+          variant="outline-warning"
+          class="ml-1"
+        >
+          Created Transactions
+        </b-button>
 
+        <b-button
+          :to="{
+            name: 'transactions-destination-agency',
+            params: { type: 'destination', agency_id: modelData.id },
+          }"
+          variant="outline-warning"
+          class="ml-1"
+        >
+          Transactions destinated
+        </b-button> -->
+
+        <!-- primary -->
+        <b-dropdown
+          split
+          text="Transactions"
+          variant="outline-warning"
+          right
+          class="ml-1"
+        >
+          <b-dropdown-item  :to="{
+            name: 'transaction-add',
+            params: { id: modelData.id, type: 'agency' },
+          }"> Add transaction </b-dropdown-item>
+          <b-dropdown-item :to="{
+            name: 'transactions-source-agency',
+            params: { type: 'source', agency_id: modelData.id },
+          }"> Created Transactions </b-dropdown-item>
+          <b-dropdown-item :to="{
+            name: 'transactions-destination-agency',
+            params: { type: 'destination', agency_id: modelData.id },
+          }"> Transactions destinated </b-dropdown-item>
+          <!-- <b-dropdown-divider />
+        <b-dropdown-item>Separated link</b-dropdown-item> -->
+        </b-dropdown>
+      </div>
     </b-row>
   </b-card>
 </template>
 
 <script>
 import {
-  BCard, BButton, BAvatar, BRow, BCol,
-} from 'bootstrap-vue'
-import { avatarText } from '@core/utils/filter'
+  BCard,
+  BButton,
+  BAvatar,
+  BRow,
+  BCol,
+  BDropdownItem,
+  BDropdown,
+} from "bootstrap-vue";
+import { avatarText } from "@core/utils/filter";
 // import useUsersList from '../users-list/useUsersList'
 
 export default {
   components: {
-    BCard, BButton, BRow, BCol, BAvatar,
+    BCard,
+    BButton,
+    BRow,
+    BCol,
+    BAvatar,
+    BDropdownItem,
+    BDropdown,
   },
   props: {
     modelData: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   setup() {
@@ -213,11 +216,10 @@ export default {
     return {
       avatarText,
       // resolveUserRoleVariant,
-    }
+    };
   },
-}
+};
 </script>
 
 <style>
-
 </style>
