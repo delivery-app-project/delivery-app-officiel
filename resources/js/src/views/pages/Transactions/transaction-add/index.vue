@@ -138,7 +138,7 @@
                       v-model="sourceAndDest"
                       :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                       label="label"
-                      :options="fromChoices"
+                      :options="fromChoicesValues"
                       placeholder="Source"
                     />
                   </b-form-group>
@@ -349,6 +349,7 @@ import { mapGetters } from "vuex";
 
 import draggable from "vuedraggable";
 import vSelect from "vue-select";
+import router from "@/router"
 import invoiceStoreModule from "../invoiceStoreModule";
 export default {
   components: {
@@ -438,6 +439,7 @@ export default {
     // fetch agencies
     store.dispatch("_UPDATE_AGENCIES", {
       paginated: false,
+      stock_id : this.type==="stock" ? this.id : null
     });
 
     store.dispatch("_UPDATE_STOCKS", {
@@ -458,12 +460,13 @@ export default {
         this.sourceAndDest.key === "stockToAgency" ||
         this.sourceAndDest.key === "stockToStock"
       )
-        return this.stocks;
+        
+        return this.stocks.filter(item => item.id===this.stock.id);
       else if (
         this.sourceAndDest.key === "agencyToStock" ||
         this.sourceAndDest.key === "agencyToAgency"
       )
-        return this.agencies;
+        return this.agencies.filter(item => item.id===this.agency.id);
 
       return [];
     },
@@ -481,6 +484,13 @@ export default {
 
       return [];
     },
+    fromChoicesValues(){
+       if(this.agency) return this.fromChoices.filter(item => item.key.includes('agency'))
+       else if(this.stock) return this.fromChoices.filter(item => item.key.includes('stock'))
+       
+
+       return this.fromChoices;
+    }
   },
   watch: {
     orders(value) {
@@ -524,33 +534,46 @@ export default {
     },
   },
   setup() {
-    // const INVOICE_APP_STORE_MODULE_NAME = "app-agency";
-    // // Register module
-    // if (!store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
-    //   store.registerModule(INVOICE_APP_STORE_MODULE_NAME, invoiceStoreModule);
-    // // UnRegister on leave
-    // onUnmounted(() => {
-    //   if (store.hasModule(INVOICE_APP_STORE_MODULE_NAME))
-    //     store.unregisterModule(INVOICE_APP_STORE_MODULE_NAME);
-    // });
 
-    // const agency = ref(null);
+    const agency = ref(null);
+    const stock = ref(null);
 
-    // const refetchAgency = () => {
+    const refetchAgency = () => {
 
-    //   store.dispatch('_GET_AGENCY', { id: router.currentRoute.params.id })
-    //   .then(response => { 
-    //     agency.value = response.data; 
+      store.dispatch('_GET_AGENCY', { id: router.currentRoute.params.id })
+      .then(response => { 
+        agency.value = response.data; 
         
-    //     })
-    //   .catch(error => {
-    //     if (error.response.status === 404) {
-    //       agency.value = undefined
-    //     }
-    //   })
-    // }
+        })
+      .catch(error => {
+        if (error.response.status === 404) {
+          agency.value = undefined
+        }
+      })
+    }
 
-    // refetchAgency();
+    const refetchStock = () => {
+
+      store.dispatch('_GET_STOCK', { id: router.currentRoute.params.id })
+      .then(response => { 
+        stock.value = response.data; 
+        
+        })
+      .catch(error => {
+        if (error.response.status === 404) {
+          agency.value = undefined
+        }
+      })
+    }
+    if(router.currentRoute.params.type==="agency")
+    refetchAgency();
+    else (router.currentRoute.params.type==="stock")
+    refetchStock();
+
+    return {
+      stock,
+      agency
+    }
   },
 };
 </script>
