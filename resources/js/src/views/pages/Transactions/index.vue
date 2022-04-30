@@ -161,8 +161,34 @@
 
       <!-- Column: Actions -->
       <template #cell(actions)="data">
+          
+
 
         <div class="text-nowrap">
+
+          <b-dropdown
+            variant="link"
+            no-caret
+            :right="$store.state.appConfig.isRTL"
+            >
+
+            <template #button-content>
+              <feather-icon
+                icon="MoreVerticalIcon"
+                size="16"
+                class="align-middle text-body"
+              />
+            </template>
+
+
+            
+            <b-dropdown-item  v-for="etat in etats" :key="etat.id">
+              <feather-icon icon="FileTextIcon" />
+              <span class="align-middle ml-50">{{etat.name}}</span>
+            </b-dropdown-item>
+
+
+          </b-dropdown>
           <feather-icon
             :id="`invoice-row-${data.item.id}-send-icon`"
             icon="EditIcon"
@@ -304,7 +330,7 @@ import {
 import BCardCode from '@core/components/b-card-code'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
-import { onUnmounted } from '@vue/composition-api'
+import { onUnmounted,ref } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
 // import { Can } from '@casl/vue';
@@ -360,6 +386,13 @@ export default {
   },
   setup() {
     const MODULE_NAME = 'app-transactions'
+    const etats =  ref(null)
+
+    store.dispatch("_UPDATE_MORPH_TYEPS", {
+      type: "TransactionEtat"
+    }).then(res =>{
+        etats.value = res.data
+    });
 
     // Register module
     if (!store.hasModule(MODULE_NAME))
@@ -422,6 +455,7 @@ export default {
       avatarText,
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
+      etats
     }
   },
 }

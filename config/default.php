@@ -91,7 +91,25 @@ return [
                                         ],
                                     ]
                                 ]
-                            ]                            
+                                    ],
+                    'transaction' => [
+                            'seed' => [
+                                'etat' => [
+                                    [
+                                        'name' => 'Accepted',
+                                        'type' => 'TransactionEtat'
+                                    ],
+                                    [
+                                        'name' => 'Denied',
+                                        'type' => 'TransactionEtat'
+                                    ],
+                                    [
+                                        'name' => 'Pending',
+                                        'type' => 'TransactionEtat'
+                                    ],
+                                ]
+                            ]
+                    ]                          
         ] ,
         "wilayas" => [
                 // wilaya 1

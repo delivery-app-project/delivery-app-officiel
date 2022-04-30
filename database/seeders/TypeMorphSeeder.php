@@ -24,6 +24,7 @@ class TypeMorphSeeder extends Seeder
         $type_marchent_trade_type = config('default.general.marchent.seed.trade_type');
         $type_order_etat = config('default.general.order.seed.etat');
         $type_order_receiver_type = config('default.general.order.seed.receiver_type');
+        $type_transaction_etat = config('default.general.transaction.seed.etat');
         
         DB::table($this->table)->insert($types);
         DB::table($this->table)->insert($type_stocks);
@@ -31,6 +32,7 @@ class TypeMorphSeeder extends Seeder
         DB::table($this->table)->insert($type_marchent_trade_type);
         DB::table($this->table)->insert($type_order_etat);
         DB::table($this->table)->insert($type_order_receiver_type);
+        DB::table($this->table)->insert($type_transaction_etat);
         
     }
 }
