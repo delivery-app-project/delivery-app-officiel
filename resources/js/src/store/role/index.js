@@ -18,8 +18,9 @@ export default {
   },
   actions: {
     _UPDATE_ROLES({ commit},params){
-        const cond = getCond(params);
-
+      console.log(params)
+      const cond = getCond(params);
+      // console.log(params)
          return new Promise((resolve, reject) => {
             axios
               .get('/role'+cond)

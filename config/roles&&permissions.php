@@ -2,11 +2,11 @@
 
 return [
     'roles' => [
-        'marchent',
-        'transporter',
-        'admin',
-        'agency head',
-        'employee'
+        ['name' => 'marchent','type' => 'user'],
+        ['name' => 'transporter','type' => 'employee'],
+        ['name' => 'admin','type' => 'employee'],
+        ['name' => 'agency head','type' => 'employee'],
+        ['name' => 'employee','type' => 'employee']
     ],
     'employeeRoles' => [
         'admin',

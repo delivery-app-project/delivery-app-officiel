@@ -75,10 +75,10 @@ trait repositoriesCrud
                         if ($key && $valueCC)
                             // use where not in instead of where in 
                             $q->whereNotIn($key, $valueCC);
-                        else 
+                        else
                             $q = $this->handleWhereDoesntHaveMorph($valueC, $q);
-                        });
-                    }
+                    });
+                }
             }
         }
         return $model;
@@ -87,11 +87,10 @@ trait repositoriesCrud
 
     public function handleWhereDoesntHaveMorph($data, $model)
     {
-
         $whereDoesntHaveMorph = key_exists('whereDoesntHaveMorph', $data) ? $data['whereDoesntHaveMorph'] : null;
         // where dosent't have relations 
         if ($whereDoesntHaveMorph) {
-            
+
             $data = is_string($whereDoesntHaveMorph) ? json_decode($whereDoesntHaveMorph, true) : $whereDoesntHaveMorph;
 
             foreach ($data as $value) {
@@ -112,9 +111,26 @@ trait repositoriesCrud
                             $qu->whereNotIn($key, $valueCC);
                     });
                 }
-
             }
         }
+        return $model;
+    }
+
+    public function handleWhereIn($data, $model)
+    {
+        $whereIn = key_exists('whereIn', $data) ? $data['whereIn'] : null;
+        
+        if ($whereIn) {
+
+            $whereIn = is_string($whereIn) ? json_decode($whereIn, true) : $whereIn;
+            foreach ($whereIn as $value) {
+                $key = key_exists('key', $value) ? $value['key'] : null;
+                $valueC = key_exists('value', $value) ? $value['value'] : null;
+                if ($key && $valueC)
+                    $model = $model->whereIn($key, $valueC);
+            }
+        }
+
         return $model;
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Entities\Role;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\RoleRepository;
-use Spatie\Permission\Models\Role;
+use App\Traits\repositoriesCrud;
 use App\Validators\RoleValidator;
 
 /**
@@ -15,6 +16,7 @@ use App\Validators\RoleValidator;
  */
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
+    use repositoriesCrud;
     /**
      * Specify Model class name
      *
@@ -47,7 +49,9 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 
 
     public function index($data){
-        return $this->all();
+        $model = $this;
+        $model = $this->handleWhereIn($data,$model);
+        return $model->get();
     }
     
 }

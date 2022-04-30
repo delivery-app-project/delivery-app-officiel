@@ -7,7 +7,7 @@ export function getCond(params){
                 if(value!==null){
                     if(!Array.isArray(value))
                     cond +=`${key}=${value}&&`
-                    else {
+                    else  {
                         cond += `${key}=${JSON.stringify(value)}&&`;
                     }
                 }
@@ -33,4 +33,12 @@ export function getWhereDoesntHave(whereDoesntHaveCond,whereDoesntHaveMorphCond)
             ]
         }
     }
+}
+
+export function getWhereIn(keyC,valueC){
+    return  {
+            key : keyC,
+            value : [valueC] 
+          }
+    
 }

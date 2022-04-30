@@ -64,8 +64,7 @@ export default {
           })
       },
     _UPDATE_ORDERS({ commit},params){
-        const cond = getCond(params);
-        
+      const cond = getCond(params);
          return new Promise((resolve, reject) => {
             axios
               .get('/order'+cond)

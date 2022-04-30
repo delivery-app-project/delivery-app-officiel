@@ -285,6 +285,7 @@ import UserListAddNew from './UserListAddNew.vue'
 import UserListAttachStockNew from './UserListAttachStockNew.vue'
 import UserListAttachAgencyNew from './UserListAttachAgencyNew.vue'
 import UserListUpdate from './UserListUpdate.vue'
+import {getWhereIn} from "@/utils/helpers";
 
 export default {
   components: {
@@ -321,7 +322,11 @@ export default {
     },
   },
   created() {
-    store.dispatch('_UPDATE_ROLES');
+    store.dispatch('_UPDATE_ROLES',{
+      whereIn : [
+        getWhereIn("type","employee")
+      ]
+    });
     
     store.dispatch('_UPDATE_EMPLOYEES');
 

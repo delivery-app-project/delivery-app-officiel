@@ -43,11 +43,12 @@ class RolesAndPermissionsSeeder extends Seeder
 
         foreach ($roles as $value) {
             $role = Role::create(
-                [ 'name' => $value]
+                // [ 'name' => $value]
+                $value
             );
 
             $role->givePermissionTo($this->filter_permissions($permissions_by_roles['all_roles']));
-            $role->givePermissionTo($this->filter_permissions($permissions_by_roles[$value]));
+            $role->givePermissionTo($this->filter_permissions($permissions_by_roles[$value['name']]));
 
         }
 
