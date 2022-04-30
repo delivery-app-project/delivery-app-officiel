@@ -344,7 +344,6 @@ import {
   alphaDash,
   length,
 } from "@validations";
-import { codeType } from "./code";
 import { mapGetters } from "vuex";
 
 import draggable from "vuedraggable";
@@ -425,7 +424,25 @@ export default {
     store.dispatch("_UPDATE_ORDERS", {
       paginated: false,
       agency_id : this.type==="agency" ? this.id : null,
-      stock_id : this.type==="stock" ? this.id : null
+      stock_id : this.type==="stock" ? this.id : null,
+      whereDoesntHave : this.type==="stock" ? [
+        {
+        relation : "transactions",
+        value : {
+            whereDoesntHaveMorph : [
+              {
+              relation : "source",
+              'class' :  "stock",
+              value : {
+                key : "stocks.id",
+                value : [parseInt(this.id)],
+              }
+            }
+            ]
+        }
+        }
+      ]
+       : null
     });
     // get employees
     store.dispatch("_UPDATE_EMPLOYEES",{

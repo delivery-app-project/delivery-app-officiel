@@ -7,6 +7,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OrderRepository;
 use App\Entities\Order;
+use App\Entities\Stock;
 use App\Providers\RouteServiceProvider;
 use App\Traits\BaseRepositoryTrait;
 use App\Traits\repositoriesCrud;
@@ -22,6 +23,7 @@ use Illuminate\Container\Container as Application;
 class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 {
     use BaseRepositoryTrait;
+    use repositoriesCrud;
 
     protected $type_morph_repository;
     protected $address_repository;
@@ -145,10 +147,12 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
             $q->where('transactions.id', $transaction_id);
         });
 
+        $model = $this->handleWhereDoesntHave($data,$model);
+        
         if($paginated)
         return $model->with(['package'])->paginate($perPage);
     
-        return $model->with(['package'])->all();
+        return $model->with(['package'])->get();
     }
 
 
@@ -195,7 +199,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     }
 
     public function edit($data,$id){
-        
+
             $model = $this->find($id);
 
             $agencies_id = key_exists('agencies_id',$data) ? $data['agencies_id'] : null;
