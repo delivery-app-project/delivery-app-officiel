@@ -314,6 +314,7 @@ import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 import { ref, onUnmounted } from "@vue/composition-api";
 import store from "@/store";
+import {getWhereDoesntHave} from '@/utils/helpers'
 
 import Prism from "vue-prism-component";
 import {
@@ -425,24 +426,19 @@ export default {
       paginated: false,
       agency_id : this.type==="agency" ? this.id : null,
       stock_id : this.type==="stock" ? this.id : null,
-      whereDoesntHave : this.type==="stock" ? [
-        {
-        relation : "transactions",
-        value : {
-            whereDoesntHaveMorph : [
-              {
-              relation : "source",
-              'class' :  "stock",
-              value : {
-                key : "stocks.id",
-                value : [parseInt(this.id)],
-              }
-            }
-            ]
-        }
-        }
+      whereDoesntHave : [
+        getWhereDoesntHave({
+          relation : "transactions",
+          },
+          {
+          relation : "source",
+          class : this.type==="stock" ? "stock" : "agency",
+          value : {
+            key : this.type==="stock" ? "stocks.id" : "agencies.id",
+            value : parseInt(this.id)
+          }
+        })
       ]
-       : null
     });
     // get employees
     store.dispatch("_UPDATE_EMPLOYEES",{
@@ -452,11 +448,12 @@ export default {
     // fetch agencies
     store.dispatch("_UPDATE_AGENCIES", {
       paginated: false,
-      stock_id : this.type==="stock" ? this.id : null
+      // stock_id : this.type==="stock" ? this.id : null
     });
 
     store.dispatch("_UPDATE_STOCKS", {
       paginated: false,
+      
     });
   },
   computed: {

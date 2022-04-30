@@ -15,3 +15,22 @@ export function getCond(params){
 
     return cond;
 }
+
+
+export function getWhereDoesntHave(whereDoesntHaveCond,whereDoesntHaveMorphCond){
+    return {
+        relation : whereDoesntHaveCond.relation,
+        value : {
+            whereDoesntHaveMorph : [
+              {
+              relation : whereDoesntHaveMorphCond.relation,
+              'class' :  whereDoesntHaveMorphCond.class,
+              value : {
+                key : whereDoesntHaveMorphCond.value.key,
+                value : [whereDoesntHaveMorphCond.value.value],
+              }
+            }
+            ]
+        }
+    }
+}
