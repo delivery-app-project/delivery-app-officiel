@@ -57,7 +57,7 @@ export default function useInvoicesList() {
 
     const indexFor = router.currentRoute.params.stock_id ? router.currentRoute.params.stock_id : (router.currentRoute.params.agency_id ? router.currentRoute.params.agency_id : null);
     const type = router.currentRoute.params.type;
-    
+
 
     if(type && !possibleTypes.includes(type)) router.push({
       name : "not-authorized"
@@ -68,7 +68,7 @@ export default function useInvoicesList() {
       page: currentPage.value,
       sortBy: sortBy.value,
       sortDesc: isSortDirDesc.value,
-      status: statusFilter.value,
+      etat_id : statusFilter.value.value,
       employee_id : null,
       stock_id : null,
       agency_id : null,

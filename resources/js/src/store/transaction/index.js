@@ -18,5 +18,18 @@ export default {
           .catch(error => reject(error))
       })
     },
+    _UPDATE_TRANSACTION({ commit},params){
+      // const cond = getCond(params);
+
+       return new Promise((resolve, reject) => {
+          axios
+            .patch('/transaction/'+params.id,params)
+            .then(response => {
+                // commit("UPDATE_ROLES",response.data);
+                resolve(response);
+            })
+            .catch(error => reject(error))
+        })
+    },
   },
 }

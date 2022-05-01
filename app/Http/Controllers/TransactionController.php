@@ -32,4 +32,8 @@ class TransactionController extends Controller
     
     }
 
+    public function update(Request $request,$id){
+        return ResponseFormatter::response($this->repository->edit($request->all(),$id));
+    }
+
 }

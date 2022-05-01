@@ -49,5 +49,9 @@ class TypeMorph extends Model implements Transformable
         return $this->morphMany(Order::class,'etat');
     }
 
+    public function transaction_etats(){
+        return $this->morphMany(Transaction::class,'etat');
+    }
+
 
 }

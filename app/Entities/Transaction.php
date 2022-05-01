@@ -47,6 +47,9 @@ class Transaction extends Model implements Transformable
             return $this->morphTo('destination');
     }
 
+    public function etat(){
+        return $this->morphTo('etat');
+    }
 
 
 

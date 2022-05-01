@@ -184,7 +184,7 @@
             
             <b-dropdown-item  v-for="etat in etats" :key="etat.id">
               <feather-icon icon="FileTextIcon" />
-              <span class="align-middle ml-50">{{etat.name}}</span>
+              <span @click="showMsgBoxOne(data.item.id,etat)" class="align-middle ml-50">{{etat.name}}</span>
             </b-dropdown-item>
 
 
@@ -357,14 +357,23 @@ export default {
     vSelect,
   },
   methods: {
-     showMsgBoxOne(id) {
+     showMsgBoxOne(id,etat) {
       this.boxOne = ''
       this.$bvModal
         .msgBoxConfirm('Are you sure?', {
           cancelVariant: 'outline-secondary',
         })
         .then(value => {
+
           this.boxOne = value
+          if(value && etat) {
+            store.dispatch('_UPDATE_TRANSACTION',{
+              id : id,
+              etat_id : etat.id 
+            });
+            this.statusFilter = etat;
+            this.fetchInvoices();
+          }
 
         })
 
@@ -381,7 +390,13 @@ export default {
   },
   computed: {
      stOptions(){
-       return this.statusOptions;
+       if(this.etats)
+       return this.etats.map(item => {
+             item.value = item.id;
+             item.label = item.name;
+             return item;
+       });
+       return [];
      }
   },
   setup() {
@@ -392,6 +407,7 @@ export default {
       type: "TransactionEtat"
     }).then(res =>{
         etats.value = res.data
+        statusFilter.value = etats.value.find(item => item.default);
     });
 
     // Register module

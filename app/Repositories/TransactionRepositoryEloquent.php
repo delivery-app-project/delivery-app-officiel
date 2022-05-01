@@ -10,6 +10,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\TransactionRepository;
 use App\Entities\Transaction;
+use App\Entities\TypeMorph;
 use App\Providers\RouteServiceProvider;
 use App\Traits\BaseRepositoryTrait;
 use App\Traits\repositoriesCrud;
@@ -28,19 +29,21 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
 
     protected $agency_repository;
     protected $stock_repository;
+    protected $type_morph_repository;
 
-    public function __construct(Application $app, StockRepository $stock_repository, AgencyRepository $agency_repository)
+    public function __construct(Application $app, StockRepository $stock_repository, AgencyRepository $agency_repository,TypeMorphRepository $type_morph_repository)
     {
 
         parent::__construct($app);
         $this->agency_repository = $agency_repository;
         $this->stock_repository = $stock_repository;
+        $this->type_morph_repository = $type_morph_repository;
     }
 
 
 
     protected $relations = [
-        'employee.user', 'orders', 'source', 'destination'
+        'employee.user', 'orders', 'source', 'destination','etat'
     ];
     /**
      * Specify Model class name
@@ -79,6 +82,8 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
     {
         $source = key_exists('source', $data) ? $data['source'] : null;
         $destination = key_exists('destination', $data) ? $data['destination'] : null;
+        $etat_id = key_exists('etat_id', $data) ? $data['etat_id'] : null;
+        
         $for = key_exists('for', $data) ? $data['for'] : 'agency';
 
         $for = $for==='agency' ? [Agency::class] : [Stock::class];
@@ -100,6 +105,16 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
                     $q->where('id', $destination);
                 }
             );
+            
+        if ($etat_id)
+            $this->whereHasMorph(
+                'etat',
+                TypeMorph::class,
+                function ($q) use ($etat_id) {
+                    $q->where('id', $etat_id);
+                }
+            );
+        
 
         return $this->handleIndex($data, $this);
     }
@@ -147,7 +162,27 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
 
         if ($orders)   $model->orders()->sync($orders, true);
 
+        $etat = $this->type_morph_repository->where('default',true)->get()->first();
+        // sync the etat
+        $etat->transaction_etats()->save($model);
 
+
+        return $model;
+    }
+
+
+    public function edit($data,$id){
+
+        $etat_id = key_exists('etat_id',$data) ? $data['etat_id'] : null;
+
+        $model = $this->update($data,$id);
+
+
+        $etat  = $this->type_morph_repository->find($etat_id);
+        
+        if($etat)
+        $etat->transaction_etats()->save($model);
+        
         return $model;
     }
 }

@@ -107,6 +107,10 @@ return [
                                         'name' => 'Pending',
                                         'type' => 'TransactionEtat'
                                     ],
+                                    [
+                                        'name' => 'Delivered',
+                                        'type' => 'TransactionEtat'
+                                    ],
                                 ]
                             ]
                     ]                          

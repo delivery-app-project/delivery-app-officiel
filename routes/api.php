@@ -82,7 +82,7 @@ Route::resource('wilaya', wilayaController::class)->only(
 
 
 Route::resource('transaction', TransactionController::class)->only(
-    'index','show','store'
+    'index','show','store','update'
 );
 
 

@@ -18,5 +18,7 @@ interface TransactionRepository extends RepositoryInterface , BaseRepositoryInte
     public function show($id);
     
     public function store($data);
+
+    public function edit($data,$id);
     
 }
