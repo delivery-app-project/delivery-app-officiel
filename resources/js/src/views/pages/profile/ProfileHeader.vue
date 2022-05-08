@@ -65,7 +65,7 @@
                 active
                 class="font-weight-bold"
               >
-                <span class="d-none d-md-block">Feed</span>
+                <span class="d-none d-md-block">{{ $t("Feed") }}</span>
                 <feather-icon
                   icon="RssIcon"
                   class="d-block d-md-none"
@@ -75,7 +75,7 @@
                 role="presentation"
                 class="font-weight-bold"
               >
-                <span class="d-none d-md-block">About</span>
+                <span class="d-none d-md-block">{{ $t("About") }}</span>
                 <feather-icon
                   icon="InfoIcon"
                   class="d-block d-md-none"
@@ -85,7 +85,7 @@
                 role="presentation"
                 class="font-weight-bold"
               >
-                <span class="d-none d-md-block">Photos</span>
+                <span class="d-none d-md-block">{{ $t("Photos") }}</span>
                 <feather-icon
                   icon="ImageIcon"
                   class="d-block d-md-none"
@@ -95,7 +95,7 @@
                 role="presentation"
                 class="font-weight-bold"
               >
-                <span class="d-none d-md-block">Friends</span>
+                <span class="d-none d-md-block">{{ $t("Friends") }}</span>
                 <feather-icon
                   icon="UsersIcon"
                   class="d-block d-md-none"
@@ -113,7 +113,7 @@
                   icon="EditIcon"
                   class="d-block d-md-none"
                 />
-                <span class="font-weight-bold d-none d-md-block">Edit</span>
+                <span class="font-weight-bold d-none d-md-block">{{ $t("Edit") }}</span>
               </b-button>
             </template>
             <!-- edit buttons -->

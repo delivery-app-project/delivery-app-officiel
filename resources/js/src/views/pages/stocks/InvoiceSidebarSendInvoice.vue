@@ -12,7 +12,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Send Invoice
+          {{ $t("Send Invoice") }}
         </h5>
 
         <feather-icon
@@ -32,7 +32,7 @@
 
         <!-- From -->
         <b-form-group
-          label="From"
+          :label="$t('From')"
           label-for="from"
         >
           <b-form-input
@@ -58,7 +58,7 @@
 
         <!-- Subject -->
         <b-form-group
-          label="Subject"
+          :label="$t('Subject')"
           label-for="subject"
         >
           <b-form-input
@@ -70,7 +70,7 @@
 
         <!-- Message -->
         <b-form-group
-          label="Message"
+          :label="$t('Message')"
           label-for="message"
         >
           <b-form-textarea
@@ -84,7 +84,7 @@
         <!-- ? File/Attachement -->
         <b-badge variant="light-primary">
           <feather-icon icon="LinkIcon" />
-          <span class="ml-50">Invoice Attached</span>
+          <span class="ml-50">{{ $t("Invoice Attached") }}</span>
         </b-badge>
 
         <!-- Form Actions -->
@@ -96,14 +96,14 @@
             type="submit"
             @click="hide"
           >
-            Send
+            {{ $t("Send") }}
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
             variant="outline-secondary"
             @click="hide"
           >
-            Cancel
+            {{ $t("Cancel") }}
           </b-button>
         </div>
       </b-form>

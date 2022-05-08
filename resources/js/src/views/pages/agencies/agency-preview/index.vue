@@ -7,17 +7,17 @@
       :show="modelData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching user data
+        {{ $t("Error fetching user data") }}
       </h4>
       <div class="alert-body">
-        No user found with this user id. Check
+        {{ $t("No user found with this user id. Check") }}
         <b-link
           class="alert-link"
           :to="{ name: 'apps-users-list'}"
         >
-          User List
+          {{ $t("User List") }}
         </b-link>
-        for other users.
+        {{ $t("for other users") }}
       </div>
     </b-alert>
 
@@ -62,7 +62,7 @@
       <!-- card collapsible  -->
       <b-col md="12">
         <b-card-actions
-          title="Employees of the agency"
+          :title="$t('Employees of the agency')"
           action-collapse
           >
         <employees-list :agency="modelData" @refetchAgency="refetchAgency"/>

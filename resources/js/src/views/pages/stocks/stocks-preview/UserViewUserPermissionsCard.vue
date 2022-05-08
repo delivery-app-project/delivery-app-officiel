@@ -3,8 +3,8 @@
     no-body
   >
     <b-card-body>
-      <b-card-title>Permissions</b-card-title>
-      <b-card-sub-title>Permission according to roles</b-card-sub-title>
+      <b-card-title>{{ $t("Permissions") }}</b-card-title>
+      <b-card-sub-title>{{ $t("Permission according to roles") }}</b-card-sub-title>
     </b-card-body>
     <b-table
       striped

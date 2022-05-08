@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <h5 class="mb-0">
-      Latest Photos
+      {{ $t("Latest Photos") }}
     </h5>
     <b-row>
       <!-- latest photo loop -->

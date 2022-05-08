@@ -73,7 +73,8 @@
               />
             </b-avatar-group>
             <b-link class="text-muted text-nowrap mt-50 ml-50">
-              +{{ data.likedCount }} more
+              +{{ data.likedCount }} {{ $t("more") }}
+
             </b-link>
           </div>
         </b-col>
@@ -136,7 +137,7 @@
       <b-form-group>
         <b-form-textarea
           rows="3"
-          placeholder="Add Comment"
+          :placeholder="$t('Add Comment')"
         />
       </b-form-group>
       <!--/ comment box -->

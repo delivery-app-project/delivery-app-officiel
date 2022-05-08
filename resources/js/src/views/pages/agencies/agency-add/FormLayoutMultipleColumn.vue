@@ -83,7 +83,7 @@
               name="checkbox-10" 
               value="Remember_me"
             >
-              Remember me
+              {{ $t("Remember me") }}
             </b-form-checkbox>
           </b-form-group>
         </b-col>
@@ -96,14 +96,14 @@
             variant="primary"
             class="mr-1"
           >
-            Submit
+            {{ $t("Submit") }}
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
             type="reset"
             variant="outline-secondary"
           >
-            Reset
+            {{ $t("Reset") }}
           </b-button>
         </b-col>
       </b-row>

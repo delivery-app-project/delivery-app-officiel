@@ -1,12 +1,12 @@
 <template>
-  <b-card-code title="Add Transaction">
+  <b-card-code :title="$t('Add Transaction')">
     <validation-observer ref="simpleRules">
       <b-form>
         <b-row>
           <!--  This field is required-->
           <b-col md="6">
             <b-form-group>
-              <b-form-group label="Send Date" label-for="send_date">
+              <b-form-group :label="$t('Send Date')" label-for="send_date">
                 <validation-provider
                   #default="{ errors }"
                   name="Send Date"
@@ -32,7 +32,7 @@
           <!--Enter Number between 10 & 20 -->
           <b-col md="6">
             <b-form-group>
-              <b-form-group label="Receive Date" label-for="receive_date">
+              <b-form-group :label="$t('Receive Date')" label-for="receive_date">
                 <validation-provider
                   #default="{ errors }"
                   name="Receive Date"
@@ -53,7 +53,7 @@
           <b-col md="6">
             <b-form-group>
               <b-form-group
-                label="Time Receive Date"
+                :label="$t('Time Receive Date')"
                 label-for="time_receive_date"
               >
                 <validation-provider
@@ -80,7 +80,7 @@
 
           <!-- Must be a valid email -->
           <b-col md="6"
-            ><b-form-group label="Time Send Date" label-for="time_send_date">
+            ><b-form-group :label="$t('Time Send Date')" label-for="time_send_date">
               <validation-provider
                 #default="{ errors }"
                 name="Time Send Date"
@@ -104,7 +104,7 @@
 
           <b-col md="6">
             <b-form-group>
-              <label>Employee</label>
+              <label>{{ $t("Employee") }}</label>
               <validation-provider
                 #default="{ errors }"
                 name="Employee"
@@ -116,7 +116,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="employees"
-                    placeholder="Employee"
+                    :placeholder="$t('Employee')"
                   />
                 </b-form-group>
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -126,7 +126,7 @@
 
           <b-col md="12">
             <b-col md="6">
-              <b-form-group label="Source" label-for="Source">
+              <b-form-group :label="$t('Source')" label-for="Source">
                 <!-- <b-form-input id="Source" type="number" placeholder="32" /> -->
                 <validation-provider
                   #default="{ errors }"
@@ -139,7 +139,7 @@
                       :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                       label="label"
                       :options="fromChoicesValues"
-                      placeholder="Source"
+                      :placeholder="$t('Source')"
                     />
                   </b-form-group>
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -151,7 +151,7 @@
             <b-row ref="row">
               <!-- Cost -->
               <b-col md="6">
-                <b-form-group label="Source" label-for="Source">
+                <b-form-group :label="$t('Source')" label-for="Source">
                   <!-- <b-form-input id="Source" type="number" placeholder="32" /> -->
                   <validation-provider
                     #default="{ errors }"
@@ -164,7 +164,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="sourceValues"
-                        placeholder="Source"
+                        :placeholder="$t('Source')"
                       />
                     </b-form-group>
                     <small class="text-danger">{{ errors[0] }}</small>
@@ -174,7 +174,7 @@
 
               <!-- Cost -->
               <b-col md="6">
-                <b-form-group label="Destination" label-for="Destination">
+                <b-form-group :label="$t('Destination')" label-for="Destination">
                   <!-- <b-form-input id="Destination" type="number" placeholder="32" /> -->
                   <validation-provider
                     #default="{ errors }"
@@ -187,7 +187,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="destinationValues"
-                        placeholder="Destination"
+                        :placeholder="$t('Destination')"
                       />
                     </b-form-group>
                     <small class="text-danger">{{ errors[0] }}</small>
@@ -222,7 +222,7 @@
           <b-col md="6" class="mt-3 mb-3">
             <!-- people group 1 -->
             <b-col md="6">
-              <h6 class="text-primary font-weight-bold mb-2">List of orders</h6>
+              <h6 class="text-primary font-weight-bold mb-2">{{ $t("List of orders") }}</h6>
 
               <draggable
                 :list="listOrders"
@@ -261,7 +261,7 @@
           <b-col md="6" class="mt-3 mb-3">
             <!-- people group 2 -->
             <b-col md="6" class="mt-sm-2 mt-md-0">
-              <h6 class="text-primary font-weight-bold mb-2">All Orders</h6>
+              <h6 class="text-primary font-weight-bold mb-2">{{ $t("All Orders") }}</h6>
 
               <!-- draggable -->
               <draggable
@@ -299,7 +299,7 @@
               type="submit"
               @click.prevent="validationForm"
             >
-              Submit
+              {{ $t("Submit") }}
             </b-button>
           </b-col>
         </b-row>

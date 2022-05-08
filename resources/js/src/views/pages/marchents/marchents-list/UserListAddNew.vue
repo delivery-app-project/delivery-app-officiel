@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          {{ $t("Add New User") }}
         </h5>
 
         <feather-icon
@@ -71,7 +71,7 @@
             rules="required"
           >
             <b-form-group
-              label="First name"
+              :label="$t('First name')"
               label-for="first-name"
             >
               <b-form-input
@@ -80,8 +80,8 @@
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
-              />
+                :placeholder="$t('exmple First name')"
+               />
 
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
@@ -96,7 +96,7 @@
             rules="required"
           >
             <b-form-group
-              label="Last name"
+              :label="$t('Last name')"
               label-for="last-name"
             >
               <b-form-input
@@ -105,7 +105,7 @@
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
+                :placeholder="$t('exmple Last name')"
               />
 
               <b-form-invalid-feedback>
@@ -144,7 +144,7 @@
             rules="required|email"
           >
             <b-form-group
-              label="Email"
+              :label="$t('EMAIL')"
               label-for="email"
             >
               <b-form-input
@@ -159,7 +159,7 @@
               </b-form-invalid-feedback>
 
               <b-form-invalid-feedback v-if="duplicateErrors.email">
-                {{ "Email is duplicate" }}
+                {{ $t("Email is duplicate") }}
               </b-form-invalid-feedback>
 
               
@@ -201,7 +201,7 @@
             rules="required|regex:^([0-9]+)$"
            >
             <b-form-group
-              label="Phone"
+              :label="$t('Phone')"
               label-for="phone"
             >
               <b-form-input
@@ -217,7 +217,7 @@
 
               
               <b-form-invalid-feedback v-if="duplicateErrors.phone">
-                {{ "Phone is duplicate" }}
+                {{ $t("Phone is duplicate") }}
               </b-form-invalid-feedback>
               
             </b-form-group>
@@ -230,7 +230,7 @@
             rules="required|regex:^([0-9]+)$"
            >
             <b-form-group
-              label="Second phone"
+              :label="$t('second-phone')"
               label-for="second-phone"
             >
               <b-form-input
@@ -254,7 +254,7 @@
             rules="required"
             >
             <b-form-group
-              label="Wilaya"
+              :label="$t('Wilaya')"
               label-for="wilaya"
               :state="getValidationState(validationContext)"
             >
@@ -263,7 +263,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="wilayas"
-                        placeholder="Wilaya"
+                        :placeholder="$t('Wilaya')"
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -277,7 +277,7 @@
             rules="required"
             >
             <b-form-group
-              label="Daira"
+              :label="$t('Daira')"
               label-for="Daira"
               :state="getValidationState(validationContext)"
              >
@@ -286,7 +286,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="dairas"
-                        placeholder="Daira"
+                        :placeholder="$t('Daira')"
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -301,7 +301,7 @@
             rules="required"
             >
             <b-form-group
-              label="City"
+              :label="$t('City')"
               label-for="City"
               :state="getValidationState(validationContext)"
              >
@@ -310,7 +310,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="cities"
-                        placeholder="City"
+                        :placeholder="$t('City')"
                         
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
@@ -327,7 +327,7 @@
             rules="required"
            >
             <b-form-group
-              label="Address"
+              :label="$t('Address')"
               label-for="address"
             >
               <b-form-input
@@ -350,7 +350,7 @@
             rules="required"
            >
             <b-form-group
-              label="Bank account number"
+              :label="$t('Bank account number')"
               label-for="bank_account_number"
             >
               <b-form-input
@@ -487,7 +487,7 @@
             rules="required"
            >
             <b-form-group
-              label="Password"
+              :label="$t('Password')"
               label-for="password"
             >
               <b-form-input
@@ -510,7 +510,7 @@
             rules=""
            >
             <b-form-group
-              label="Company name"
+              :label="$t('Company name')"
               label-for="company_name"
             >
               <b-form-input
@@ -532,7 +532,7 @@
             rules=""
            >
             <b-form-group
-              label="Tax identification number"
+              :label="$t('Tax identification number')"
               label-for="tax_identification_number"
             >
               <b-form-input
@@ -556,7 +556,7 @@
             rules=""
             >
             <b-form-group
-              label="Trade type"
+              :label="$t('Trade type')"
               label-for="trade_type"
               :state="getValidationState(validationContext)"
             >
@@ -565,7 +565,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="tradeTypes"
-                        placeholder="Trade type"
+                        :placeholder="$t('Trade type')"
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -633,7 +633,7 @@
             rules="required"
             >
             <b-form-group
-              label="Status"
+              :label="$t('Status')"
               label-for="status"
               :state="getValidationState(validationContext)"
             >
@@ -642,7 +642,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="types"
-                        placeholder="Status"
+                        :placeholder="$t('Status')"
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -684,7 +684,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              {{ $t("Add") }}
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -692,7 +692,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              {{ $t("Cancel") }}
             </b-button>
           </div>
 

@@ -7,17 +7,17 @@
       :show="invoiceData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching invoice data
+        {{ $t("Error fetching invoice data") }}
       </h4>
       <div class="alert-body">
-        No invoice found with this invoice id. Check
+        {{ $t("No invoice found with this invoice id. Check") }}
         <b-link
           class="alert-link"
           :to="{ name: 'apps-invoice-list'}"
         >
-          Invoice List
+          {{ $t("Invoice List") }}
         </b-link>
-        for other invoices.
+        {{ $t("for other invoices") }}
       </div>
     </b-alert>
 

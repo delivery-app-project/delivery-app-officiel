@@ -5,7 +5,7 @@
       <!-- Table Top -->
       <b-row v-if="!forAccepted" class="mb-2">
         <b-col md="3" class="justify-content-end">
-          <label>Wilayas</label>
+          <label>{{ $t("Wilayas") }}</label>
           <v-select
             v-model="wilaya"
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -15,7 +15,7 @@
           />
         </b-col>
         <b-col md="3" class="justify-content-end">
-          <label>Dairas</label>
+          <label>{{ $t("Dairas") }}</label>
           <v-select
             v-model="daira"
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -25,7 +25,7 @@
           />
         </b-col>
         <b-col md="3" class="justify-content-end">
-          <label>Cities</label>
+          <label>{{ $t("Cities") }}</label>
           <v-select
             v-model="city"
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -42,7 +42,7 @@
           md="6"
           class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
         >
-          <label>Entries</label>
+          <label>{{ $t("Entries") }}</label>
           <v-select
             v-model="perPage"
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -58,14 +58,14 @@
             <b-form-input
               v-model="searchQuery"
               class="d-inline-block mr-1"
-              placeholder="Search..."
+              :placeholder="$t('Search')"
             />
             <v-select
               v-model="statusFilter"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
               :options="stOptions"
               class="invoice-filter-select"
-              placeholder="Select Status"
+              :placeholder="$t('Select Status')"
             >
               <template #selected-option="{ label }">
                 <span class="text-truncate overflow-hidden">
@@ -86,7 +86,7 @@
       primary-key="id"
       :sort-by.sync="sortBy"
       show-empty
-      empty-text="No matching records found"
+      :empty-text="$t('No matching records found')"
       :sort-desc.sync="isSortDirDesc"
       class="position-relative"
     >
@@ -123,8 +123,8 @@
           <p class="mb-0">
             {{ data.item.invoiceStatus }}
           </p>
-          <p class="mb-0">Balance: {{ data.item.balance }}</p>
-          <p class="mb-0">Due Date: {{ data.item.dueDate }}</p>
+          <p class="mb-0">{{ $t("Balance") }}: {{ data.item.balance }}</p>
+          <p class="mb-0">{{ $t("Due Date") }}: {{ data.item.dueDate }}</p>
         </b-tooltip>
       </template>
 
@@ -223,21 +223,21 @@
             </template>
             <b-dropdown-item>
               <feather-icon icon="DownloadIcon" />
-              <span class="align-middle ml-50">Download</span>
+              <span class="align-middle ml-50">{{ $t("Download") }}</span>
             </b-dropdown-item>
             <b-dropdown-item
               :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }"
             >
               <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
+              <span class="align-middle ml-50">{{ $t("Edit") }}</span>
             </b-dropdown-item>
             <b-dropdown-item>
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">Delete</span>
+              <span class="align-middle ml-50">{{ $t("Delete") }}</span>
             </b-dropdown-item>
             <b-dropdown-item>
               <feather-icon icon="CopyIcon" />
-              <span class="align-middle ml-50">Duplicate</span>
+              <span class="align-middle ml-50">{{ $t("Duplicate") }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </div>
@@ -255,8 +255,8 @@
           "
         >
           <span class="text-muted"
-            >Showing {{ dataMeta.from }} to {{ dataMeta.to }} of
-            {{ dataMeta.of }} entries</span
+            >{{ $t("Showing") }} {{ dataMeta.from }} {{ $t("to") }} {{ dataMeta.to }} {{ $t("of") }}
+            {{ dataMeta.of }} {{ $t("entries") }}</span
           >
         </b-col>
         <!-- Pagination -->

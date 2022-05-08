@@ -14,7 +14,7 @@
         size="sm"
         @click="onClick"
       >
-        Load More
+        {{ $t("Load More") }}
       </b-button>
     </b-overlay>
     <!-- overlay on button -->

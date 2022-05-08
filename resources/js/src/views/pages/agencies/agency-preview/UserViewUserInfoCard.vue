@@ -113,14 +113,14 @@
           :to="{ name: 'agency-update', params: { id: modelData.id } }"
           variant="primary"
         >
-          Edit
+          {{ $t("Edit") }}
         </b-button>
         <b-button
           :to="{ name: 'orders-agency', params: { id: modelData.id } }"
           variant="success"
           class="ml-1"
         >
-          Orders
+          {{ $t("Orders") }}
         </b-button>
         <!-- <b-button
           :to="{
@@ -165,15 +165,15 @@
           <b-dropdown-item  :to="{
             name: 'transaction-add',
             params: { id: modelData.id, type: 'agency' },
-          }"> Add transaction </b-dropdown-item>
+          }"> {{ $t("Add transaction") }}</b-dropdown-item>
           <b-dropdown-item :to="{
             name: 'transactions-source-agency',
             params: { type: 'source', agency_id: modelData.id },
-          }"> Created Transactions </b-dropdown-item>
+          }">{{ $t("Created Transactions") }}</b-dropdown-item>
           <b-dropdown-item :to="{
             name: 'transactions-destination-agency',
             params: { type: 'destination', agency_id: modelData.id },
-          }"> Transactions destinated </b-dropdown-item>
+          }">{{ $t("Transactions destinated") }}</b-dropdown-item>
           <!-- <b-dropdown-divider />
         <b-dropdown-item>Separated link</b-dropdown-item> -->
         </b-dropdown>

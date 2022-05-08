@@ -7,17 +7,17 @@
       :show="invoiceData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching invoice data
+        {{ $t("Error fetching invoice data") }}
       </h4>
       <div class="alert-body">
-        No invoice found with this invoice id. Check
+        {{ $t("No invoice found with this invoice id. Check") }}
         <b-link
           class="alert-link"
           :to="{ name: 'apps-invoice-list'}"
         >
-          Invoice List
+          {{ $t("Invoice List") }}
         </b-link>
-        for other invoices.
+        {{ $t("for other invoices.") }}
       </div>
     </b-alert>
 
@@ -63,12 +63,12 @@
               <!-- Header: Right Content -->
               <div class="mt-md-0 mt-2">
                 <h4 class="invoice-title">
-                  Invoice
+                  {{ $t("Invoice") }}
                   <span class="invoice-number">#{{ invoiceData.id }}</span>
                 </h4>
                 <div class="invoice-date-wrapper">
                   <p class="invoice-date-title">
-                    Date Issued:
+                    {{ $t("Date Issued") }}:
                   </p>
                   <p class="invoice-date">
                     {{ invoiceData.issuedDate }}
@@ -76,7 +76,7 @@
                 </div>
                 <div class="invoice-date-wrapper">
                   <p class="invoice-date-title">
-                    Due Date:
+                   {{ $t("Due Date") }}:
                   </p>
                   <p class="invoice-date">
                     {{ invoiceData.dueDate }}
@@ -103,7 +103,7 @@
                 class="p-0"
               >
                 <h6 class="mb-2">
-                  Invoice To:
+                  {{ $t("Invoice To") }}:
                 </h6>
                 <h6 class="mb-25">
                   {{ invoiceData.client.name }}
@@ -130,37 +130,37 @@
               >
                 <div>
                   <h6 class="mb-2">
-                    Payment Details:
+                    {{ $t("Payment Details") }}:
                   </h6>
                   <table>
                     <tbody>
                       <tr>
                         <td class="pr-1">
-                          Total Due:
+                          {{ $t("Total Due") }}:
                         </td>
                         <td><span class="font-weight-bold">{{ paymentDetails.totalDue }}</span></td>
                       </tr>
                       <tr>
                         <td class="pr-1">
-                          Bank name:
+                          {{ $t("Bank name") }}:
                         </td>
                         <td>{{ paymentDetails.bankName }}</td>
                       </tr>
                       <tr>
                         <td class="pr-1">
-                          Country:
+                          {{ $t("Country") }}:
                         </td>
                         <td>{{ paymentDetails.country }}</td>
                       </tr>
                       <tr>
                         <td class="pr-1">
-                          IBAN:
+                          {{ $t("IBAN") }}:
                         </td>
                         <td>{{ paymentDetails.iban }}</td>
                       </tr>
                       <tr>
                         <td class="pr-1">
-                          SWIFT code:
+                          {{ $t("SWIFT code") }}:
                         </td>
                         <td>{{ paymentDetails.swiftCode }}</td>
                       </tr>
@@ -200,8 +200,8 @@
                 order-md="1"
               >
                 <b-card-text class="mb-0">
-                  <span class="font-weight-bold">Salesperson:</span>
-                  <span class="ml-75">Alfie Solomons</span>
+                  <span class="font-weight-bold">{{ $t("Salesperson") }}:</span>
+                  <span class="ml-75">{{ $t("Alfie Solomon") }}s</span>
                 </b-card-text>
               </b-col>
 
@@ -281,7 +281,7 @@
             class="mb-75"
             block
           >
-            Send Invoice
+            {{ $t("Send Invoice") }}
           </b-button>
 
           <!-- Button: DOwnload -->
@@ -291,7 +291,7 @@
             class="mb-75"
             block
           >
-            Download
+            {{ $t("Download") }}
           </b-button>
 
           <!-- Button: Print -->
@@ -302,7 +302,7 @@
             block
             @click="printInvoice"
           >
-            Print
+            {{ $t("Print") }}
           </b-button>
 
           <!-- Button: Edit -->
@@ -313,7 +313,7 @@
             block
             :to="{ name: 'apps-invoice-edit', params: { id: $route.params.id } }"
           >
-            Edit
+            {{ $t("Edit") }}
           </b-button>
 
           <!-- Button: Add Payment -->
@@ -324,7 +324,7 @@
             class="mb-75"
             block
           >
-            Add Payment
+            {{ $t("Add Payment") }}
           </b-button>
         </b-card>
       </b-col>

@@ -12,7 +12,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add Payment
+          {{ $t("Add Payment") }}
         </h5>
 
         <feather-icon
@@ -32,7 +32,7 @@
 
         <!-- Invoice Balance -->
         <b-form-group
-          label="Invoice Balance"
+          :label="$t('Invoice Balance')"
           label-for="invoice-balance"
         >
           <b-form-input
@@ -45,7 +45,7 @@
 
         <!-- Payment Amount -->
         <b-form-group
-          label="Payment Amount"
+          :label="$t('Payment Amount')"
           label-for="payment-amount"
         >
           <b-form-input
@@ -59,7 +59,7 @@
 
         <!-- Payment Date -->
         <b-form-group
-          label="Payment Date"
+          :label="$t('Payment Date')"
           label-for="payment-date"
         >
           <flat-pickr
@@ -69,7 +69,7 @@
         </b-form-group>
 
         <b-form-group
-          label="Payment Method"
+          :label="$t('Payment Method')"
           label-for="payment-method"
         >
           <v-select
@@ -77,7 +77,7 @@
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
             :options="paymentMethods"
             label="Payment Method"
-            placeholder="Select Payment Method"
+            :placeholder="$t('Select Payment Method')"
             input-id="payment-method"
             :clearable="false"
           />
@@ -85,13 +85,13 @@
 
         <!-- Internal Payment Note -->
         <b-form-group
-          label="Internal Payment Note"
+          :label="$t('Internal Payment Note')"
           label-for="internal-payment-note"
         >
           <b-form-textarea
             id="internal-payment-note"
             v-model="addPaymentData.internalPaymentNote"
-            placeholder="Internal Payment Note"
+            :placeholder="$t('Internal Payment Note')"
             rows="5"
             trim
           />
@@ -106,14 +106,14 @@
             type="submit"
             @click="hide"
           >
-            Send
+            {{ $t("Send") }}
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
             variant="outline-secondary"
             @click="hide"
           >
-            Cancel
+            {{ $t("Cancel") }}
           </b-button>
         </div>
       </b-form>

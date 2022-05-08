@@ -1,6 +1,6 @@
 <template>
   <b-card>
-    <h5>Suggestions</h5>
+    <h5>{{ $t("Suggestions") }}</h5>
 
     <!-- user suggestion  -->
     <div

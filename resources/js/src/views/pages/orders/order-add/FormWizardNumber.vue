@@ -11,15 +11,15 @@
       @on-complete="formSubmitted"
     >
       <!-- Package info -->
-      <tab-content title="Package info" :before-change="validationFormSocial">
+      <tab-content :title="$t('Package info')" :before-change="validationFormSocial">
         <validation-observer ref="socialRules" tag="form">
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h5 class="mb-0">Package info</h5>
-              <small class="text-muted">Enter Your Package info</small>
+              <h5 class="mb-0">{{ $t("Package info") }}</h5>
+              <small class="text-muted">{{ $t("Enter Your Package info") }}</small>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Name" label-for="name-package">
+              <b-form-group :label="$t('Name')" label-for="name-package">
                 <validation-provider
                   #default="{ errors }"
                   name="Name"
@@ -29,14 +29,14 @@
                     id="name-package"
                     v-model="packageData.name"
                     :state="errors.length > 0 ? false : null"
-                    placeholder="Name"
+                    :placeholder="$t('Name')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
             <b-col md="12">
-              <b-form-group label="Description" label-for="Description">
+              <b-form-group :label="$t('Description')" label-for="Description">
                 <validation-provider
                   #default="{ errors }"
                   name="Description"
@@ -44,7 +44,7 @@
                 >
                   <b-form-textarea
                     id="Description"
-                    placeholder="Textarea"
+                    :placeholder="$t('Textarea')"
                     rows="3"
                     v-model="packageData.description"
                   />
@@ -100,23 +100,23 @@
       
       <!-- Source and destination info -->
       <tab-content
-        title="Source and destination info"
+        :title="$t('Source and destination info')"
         :before-change="validationFormSocial"
         >
         <validation-observer ref="sourceDestRules" tag="form">
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h5 class="mb-0">Source and destination info</h5>
+              <h5 class="mb-0"> {{ $t("Source and destination info") }}</h5>
               <small class="text-muted"
-                >Enter Your Source and destination info</small
+                >{{ $t("Enter Your Source and destination info") }}</small
               >
             </b-col>
             <!-- source   -->
 
-            <h5 class="mb-2 col-12">Source info</h5>
+            <h5 class="mb-2 col-12">{{ $t("Source info") }}</h5>
 
             <b-col md="3">
-              <b-form-group label="Wilaya" label-for="name-wilaya">
+              <b-form-group :label="$t('Wilaya')" label-for="name-wilaya">
                 <!-- Wilaya -->
                 <validation-provider
                   #default="{ errors }"
@@ -128,7 +128,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="wilayas"
-                    placeholder="Wilaya"
+                    :placeholder="$t('Wilaya')"
                   />
 
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -136,7 +136,7 @@
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="Daira" label-for="Daira">
+              <b-form-group :label="$t('Daira')" label-for="Daira">
                 <validation-provider
                   #default="{ errors }"
                   name="Daira"
@@ -147,14 +147,14 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="s_dairas"
-                    placeholder="Daira"
+                    :placeholder="$t('Daira')" 
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="City" label-for="City">
+              <b-form-group :label="$t('City')"  label-for="City">
                 <!-- City -->
                 <validation-provider
                   #default="{ errors }"
@@ -166,7 +166,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="s_cities"
-                    placeholder="City"
+                    :placeholder="$t('City')"
                   />
 
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -174,7 +174,7 @@
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="District" label-for="s-district">
+              <b-form-group :label="$t('District')" label-for="s-district">
                 <validation-provider
                   #default="{ errors }"
                   name="District"
@@ -184,7 +184,7 @@
                     id="s-district"
                     v-model="source.district"
                     :state="errors.length > 0 ? false : null"
-                    placeholder="District"
+                    :placeholder="$t('District')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -193,9 +193,9 @@
 
             <!-- destination -->
 
-            <h5 class="mb-2 col-12">Destination info</h5>
+            <h5 class="mb-2 col-12">{{ $t("Destination info") }}</h5>
             <b-col md="3">
-              <b-form-group label="Wilaya" label-for="name-wilaya">
+              <b-form-group :label="$t('Wilaya')" label-for="name-wilaya">
                 <!-- Wilaya -->
                 <validation-provider
                   #default="{ errors }"
@@ -207,7 +207,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="wilayas"
-                    placeholder="Wilaya"
+                    :placeholder="$t('Wilaya')"
                   />
 
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -215,7 +215,7 @@
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="Daira" label-for="Daira">
+              <b-form-group :label="$t('Daira')" label-for="Daira">
                 <validation-provider
                   #default="{ errors }"
                   name="Daira"
@@ -226,14 +226,14 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="d_dairas"
-                    placeholder="Daira"
+                    :placeholder="$t('Daira')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="City" label-for="City">
+              <b-form-group :label="$t('City')" label-for="City">
                 <!-- City -->
                 <validation-provider
                   #default="{ errors }"
@@ -245,7 +245,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="d_cities"
-                    placeholder="City"
+                    :placeholder="$t('City')"
                   />
 
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -253,7 +253,7 @@
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="District" label-for="s-district">
+              <b-form-group :label="$t('District')" label-for="s-district">
                 <validation-provider
                   #default="{ errors }"
                   name="District"
@@ -263,7 +263,7 @@
                     id="s-district"
                     v-model="destination.district"
                     :state="errors.length > 0 ? false : null"
-                    placeholder="District"
+                    :placeholder="$t('District')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -315,17 +315,17 @@
       </tab-content>
       
       <!-- Receiver details tab -->
-      <tab-content title="Receiver Details" :before-change="validationForm">
+      <tab-content :title="$t('Receiver Details')" :before-change="validationForm">
         <validation-observer ref="accountRules" tag="form">
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h5 class="mb-0">Receiver Details</h5>
-              <small class="text-muted"> Enter Your Receiver Details. </small>
+              <h5 class="mb-0">{{ $t("Receiver Details") }}</h5>
+              <small class="text-muted"> {{ $t("Enter Your Receiver Details") }} </small>
             </b-col>
 
             <!-- receiver name -->
             <b-col md="6">
-              <b-form-group label="ٌReceiver Name" label-for="receiver">
+              <b-form-group :label="$t('Receiver Name')" label-for="receiver">
                 <validation-provider
                   #default="{ errors }"
                   name="receiver"
@@ -335,7 +335,7 @@
                     id="receiver"
                     v-model="order.receiver"
                     :state="errors.length > 0 ? false : null"
-                    placeholder="johndoe"
+                    :placeholder="$t('exmple First name')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -343,7 +343,7 @@
             </b-col>
             <!-- receiver type -->
             <b-col md="6">
-              <b-form-group label="Receiver type" label-for="receiver_type">
+              <b-form-group :label="$t('Receiver type')" label-for="receiver_type">
                 <validation-provider
                   #default="{ errors }"
                   name="receiver_type"
@@ -360,7 +360,7 @@
                     v-model="order.receiver_type"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     :options="receiverTypesVT"
-                    label="text"
+                    :label="$t('text')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -368,7 +368,7 @@
             </b-col>
             <!-- phone -->
             <b-col md="6">
-              <b-form-group label="Phone" label-for="phone">
+              <b-form-group :label="$t('Phone')" label-for="phone">
                 <validation-provider
                   #default="{ errors }"
                   name="phone"
@@ -386,7 +386,7 @@
             </b-col>
             <!-- seconde phone -->
             <b-col md="6">
-              <b-form-group label="Second Phone" label-for="second_phone">
+              <b-form-group :label="$t('Second Phone')" label-for="second_phone">
                 <validation-provider
                   #default="{ errors }"
                   name="second_phone"
@@ -404,7 +404,7 @@
             </b-col>
             <!-- email -->
             <b-col md="6">
-              <b-form-group label="Email" label-for="email">
+              <b-form-group :label="$t('Email')" label-for="email">
                 <validation-provider
                   #default="{ errors }"
                   name="email"
@@ -423,7 +423,7 @@
             </b-col>
             <!-- code postal -->
             <b-col md="6">
-              <b-form-group label="Code postal" label-for="code_postal">
+              <b-form-group :label="$t('Code postal')" label-for="code_postal">
                 <validation-provider
                   #default="{ errors }"
                   name="code_postal"
@@ -487,16 +487,16 @@
       </tab-content>
 
       <!-- personal details tab -->
-      <tab-content title="Order dimensions" :before-change="validationFormInfo">
+      <tab-content :title="$t('Order dimensions')" :before-change="validationFormInfo">
         <validation-observer ref="infoRules" tag="form">
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h5 class="mb-0">Order dimentions</h5>
-              <small class="text-muted">Enter Your Order Info.</small>
+              <h5 class="mb-0">{{ $t("Order dimentions") }}</h5>
+              <small class="text-muted">{{ $t("Enter Your Order Info") }}</small>
             </b-col>
             <!-- weight -->
             <b-col md="6">
-              <b-form-group label="Weight" label-for="weight">
+              <b-form-group :label="$t('Weight')" label-for="weight">
                 <validation-provider
                   #default="{ errors }"
                   name="Weight"
@@ -514,7 +514,7 @@
             </b-col>
             <!-- height -->
             <b-col md="6">
-              <b-form-group label="Height" label-for="height">
+              <b-form-group :label="$t('Height')" label-for="height">
                 <validation-provider
                   #default="{ errors }"
                   name="Height"
@@ -531,7 +531,7 @@
                     v-model="order.height"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     :options="heightValues"
-                    label="text"
+                    :label="$t('text')"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -545,7 +545,7 @@
                 rules="required"
               >
                 <b-form-group
-                  label="Width"
+                  :label="$t('Width')"
                   label-for="width"
                   :state="errors.length > 0 ? false : null"
                 >
@@ -554,7 +554,7 @@
                     v-model="order.width"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     :options="widthValues"
-                    label="text"
+                    :label="$t('text')"
                   />
                   <b-form-invalid-feedback
                     :state="errors.length > 0 ? false : null"
@@ -572,7 +572,7 @@
                 rules="required"
               >
                 <b-form-group
-                  label="length"
+                  :label="$t('length')"
                   label-for="length"
                   :state="errors.length > 0 ? false : null"
                 >
@@ -584,7 +584,7 @@
                     :selectable="
                       (option) => !option.value.includes('nothing_selected')
                     "
-                    label="text"
+                    :label="$t('text')"
                   />
                   <b-form-invalid-feedback
                     :state="errors.length > 0 ? false : null"
@@ -602,7 +602,7 @@
                 rules="required"
               >
                 <b-form-group
-                  label="Etat"
+                  :label="$t('Etat')"
                   label-for="Etat"
                   :state="errors.length > 0 ? false : null"
                 >
@@ -611,7 +611,7 @@
                     v-model="order.etat"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     :options="etatsVT"
-                    label="text"
+                    :label="$t('text')"
                   />
                   <b-form-invalid-feedback
                     :state="errors.length > 0 ? false : null"
@@ -629,7 +629,7 @@
                 rules="required"
               >
                 <b-form-group
-                  label="quatity"
+                  :label="$t('quatity')"
                   label-for="quatity"
                   :state="errors.length > 0 ? false : null"
                 >
@@ -638,7 +638,7 @@
                     v-model="order.quatity"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     :options="quantityValues"
-                    label="text"
+                    :label="$t('text')"
                   />
                   <b-form-invalid-feedback
                     :state="errors.length > 0 ? false : null"
@@ -653,15 +653,15 @@
       </tab-content>
 
       <!-- address  -->
-      <tab-content title="Time info" :before-change="validationFormAddress">
+      <tab-content :title="$t('Time info')" :before-change="validationFormAddress">
         <validation-observer ref="addressRules" tag="form">
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h5 class="mb-0">Time info</h5>
-              <small class="text-muted">Enter your time info here.</small>
+              <h5 class="mb-0">{{ $t("Time info") }}</h5>
+              <small class="text-muted">{{ $t("Enter your time info here") }}</small>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Send Date" label-for="send_date">
+              <b-form-group :label="$t('Send Date')" label-for="send_date">
                 <validation-provider
                   #default="{ errors }"
                   name="Send Date"
@@ -683,7 +683,7 @@
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="ٌReceive Date" label-for="receive_date">
+              <b-form-group label="$t('Receive Date')" label-for="receive_date">
                 <validation-provider
                   #default="{ errors }"
                   name="Receive Date"
@@ -721,7 +721,7 @@
             </b-col> -->
             <b-col md="6">
               <b-form-group
-                label="Time Receive Date"
+                :label="$t('Time Receive Date')"
                 label-for="time_receive_date"
               >
                 <validation-provider

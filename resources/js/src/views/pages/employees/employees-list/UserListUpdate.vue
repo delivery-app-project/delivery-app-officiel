@@ -23,7 +23,7 @@
           py-1
         "
       >
-        <h5 class="mb-0">Update User</h5>
+        <h5 class="mb-0">{{ $t("Update User") }}</h5>
 
         <feather-icon
           class="ml-1 cursor-pointer"
@@ -72,14 +72,14 @@
             name="First name"
             rules="required"
           >
-            <b-form-group label="First name" label-for="first-name">
+            <b-form-group :label="$t('First name')" label-for="first-name">
               <b-form-input
                 id="first-name"
                 v-model="userData.first_name"
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
+                :placeholder="$t('exmple First name')"
               />
 
               <b-form-invalid-feedback>
@@ -94,14 +94,14 @@
             name="Last name"
             rules="required"
           >
-            <b-form-group label="Last name" label-for="last-name">
+            <b-form-group :label="$t('Last name')" label-for="last-name">
               <b-form-input
                 id="last-name"
                 v-model="userData.last_name"
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
+                :placeholder="$t('exmple Last name')"
               />
 
               <b-form-invalid-feedback>
@@ -139,7 +139,7 @@
             name="Email"
             rules="required|email"
           >
-            <b-form-group label="Email" label-for="email">
+            <b-form-group :label="$t('EMAIL')" label-for="email">
               <b-form-input
                 id="email"
                 v-model="userData.email"
@@ -155,7 +155,7 @@
               </b-form-invalid-feedback>
 
               <b-form-invalid-feedback v-if="duplicateErrors.email">
-                {{ "Email is duplicate" }}
+                {{ $t("Email is duplicate") }}
               </b-form-invalid-feedback>
 
               <!-- <small class="text-danger" v-if="duplicateErrors.email">
@@ -193,7 +193,7 @@
             name="Phone"
             rules="required|regex:^([0-9]+)$"
           >
-            <b-form-group label="Phone" label-for="phone">
+            <b-form-group :label="$t('Phone')" label-for="phone">
               <b-form-input
                 id="phone"
                 v-model="userData.phone"
@@ -209,7 +209,7 @@
               </b-form-invalid-feedback>
 
               <b-form-invalid-feedback v-if="duplicateErrors.phone">
-                {{ "Phone is duplicate" }}
+                {{ $t("Phone is duplicate") }}
               </b-form-invalid-feedback>
             </b-form-group>
           </validation-provider>
@@ -220,7 +220,7 @@
             name="Second phone"
             rules="required|regex:^([0-9]+)$"
           >
-            <b-form-group label="Second phone" label-for="second-phone">
+            <b-form-group :label="$t('second-phone')" label-for="second-phone">
               <b-form-input
                 id="second-phone"
                 v-model="userData.second_phone"
@@ -241,7 +241,7 @@
             rules="required"
           >
             <b-form-group
-              label="Wilaya"
+              :label="$t('Wilaya')"
               label-for="wilaya"
               :state="getValidationState(validationContext)"
             >
@@ -250,7 +250,7 @@
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 label="name"
                 :options="wilayas"
-                placeholder="Wilaya"
+                :placeholder="$t('Wilaya')"
               />
               <b-form-invalid-feedback
                 :state="getValidationState(validationContext)"
@@ -266,7 +266,7 @@
             rules="required"
           >
             <b-form-group
-              label="Daira"
+              :label="$t('Daira')"
               label-for="Daira"
               :state="getValidationState(validationContext)"
             >
@@ -275,7 +275,7 @@
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 label="name"
                 :options="dairas"
-                placeholder="Daira"
+                :placeholder="$t('Daira')"
               />
               <b-form-invalid-feedback
                 :state="getValidationState(validationContext)"
@@ -292,7 +292,7 @@
             rules="required"
           >
             <b-form-group
-              label="City"
+              :label="$t('City')"
               label-for="City"
               :state="getValidationState(validationContext)"
             >
@@ -301,7 +301,7 @@
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 label="name"
                 :options="cities"
-                placeholder="City"
+                :placeholder="$t('City')"
               />
               <b-form-invalid-feedback
                 :state="getValidationState(validationContext)"
@@ -317,7 +317,7 @@
             name="Address"
             rules="required"
           >
-            <b-form-group label="Address" label-for="address">
+            <b-form-group :label="$t('Address')" label-for="address">
               <b-form-input
                 id="address"
                 v-model="userData.district"
@@ -338,7 +338,7 @@
             rules="required"
           >
             <b-form-group
-              label="Bank account number"
+              :label="$t('Bank account number')"
               label-for="bank_account_number"
             >
               <b-form-input
@@ -361,7 +361,7 @@
             rules="required"
           >
             <b-form-group
-              label="commercial registration no"
+              :label="$t('commercial registration no')"
               label-for="commercial_registration_no"
             >
               <b-form-input
@@ -383,7 +383,7 @@
             rules="required"
           >
             <b-form-group
-              label="Insurrance number"
+              :label="$t('Insurrance number')"
               label-for="insurance_number"
             >
               <b-form-input
@@ -406,7 +406,7 @@
             rules="required"
           >
             <b-form-group
-              label="Birth Certificate number"
+              :label="$t('Birth Certificate number')"
               label-for="birth_certifcate_number"
             >
               <b-form-input
@@ -429,7 +429,7 @@
             rules="required"
           >
             <b-form-group
-              label="Car registration number"
+              :label="$t('Car registration number')"
               label-for="car_registration_number"
             >
               <b-form-input
@@ -451,7 +451,7 @@
             name="Joining amount"
             rules="required"
           >
-            <b-form-group label="Jouning amount" label-for="joining_amount">
+            <b-form-group :label="$t('Jouning amount')" label-for="joining_amount">
               <b-form-input
                 id="joining_amount"
                 v-model="userData.joining_amount"
@@ -467,7 +467,7 @@
 
           <!--Password -->
           <validation-provider #default="validationContext" name="Password">
-            <b-form-group label="Password" label-for="password">
+            <b-form-group :label="$t('Password')" label-for="password">
               <b-form-input
                 id="password"
                 v-model="userData.password"
@@ -512,7 +512,7 @@
             rules="required"
           >
             <b-form-group
-              label="User Role"
+              :label="$t('User Role')"
               label-for="user-role"
               :state="getValidationState(validationContext)"
             >
@@ -539,7 +539,7 @@
             rules="required"
           >
             <b-form-group
-              label="Status"
+              :label="$t('Status')"
               label-for="status"
               :state="getValidationState(validationContext)"
             >
@@ -548,7 +548,7 @@
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 label="name"
                 :options="types"
-                placeholder="Status"
+                :placeholder="$t('Status')"
               />
               <b-form-invalid-feedback
                 :state="getValidationState(validationContext)"
@@ -590,7 +590,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              {{ $t("Add") }}
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -598,7 +598,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              {{ $t("Cancel") }}
             </b-button>
           </div>
         </b-form>

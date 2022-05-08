@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <h5 class="mb-2">
-      Suggested Pages
+      {{ $t("Suggested Pages") }}
     </h5>
 
     <!-- suggested pages -->

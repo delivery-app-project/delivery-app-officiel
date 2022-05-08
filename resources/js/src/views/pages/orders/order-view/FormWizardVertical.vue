@@ -11,32 +11,32 @@
     >
 
       <!-- account datails tab -->
-      <tab-content title="Package info">
+      <tab-content :title="$t('Package info')">
         <b-row>
           <b-col
             cols="12"
             class="mb-2"
             >
             <h5 class="mb-0">
-              Package info
+              {{ $t("Package info") }}
             </h5>
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Package name"
+              :label="$t('Package name')"
               label-for="name-package"
             >
              <b-form-input
                     id="name-package"
                     v-model="packageData.name"
-                    placeholder="Name"
+                    :placeholder="$t('Name')"
                     disabled
               />
             </b-form-group>
           </b-col>
           <b-col md="12">
             <b-form-group
-              label="Description"
+              :label="$t('Description')"
               label-for="Description"
             >
               <b-form-textarea
@@ -79,56 +79,56 @@
       <!-- Source and destination info -->
       <tab-content
 
-        title="Source and destin..."
+        :title="$t('Source and destination')"
          >
           <b-row>
             <b-col cols="12" class="mb-2">
-              <h6 class="mb-0">Source and destination</h6>
+              <h6 class="mb-0">{{ $t("Source and destination") }}</h6>
             </b-col>
             <!-- source   -->
 
-            <h5 class="mb-2 col-12">Source</h5>
+            <h5 class="mb-2 col-12">{{ $t("Source") }}</h5>
 
             <b-col md="3">
-              <b-form-group label="Wilaya" label-for="name-wilaya">
+              <b-form-group :label="$t('Wilaya')" label-for="name-wilaya">
                 <!-- Wilaya -->
                   <b-form-input
                     v-model="orderData.address_source.city.daira.wilaya.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="Wilaya"
+                    :placeholder="$t('Wilaya')"
                     disabled
                   />
 
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="Daira" label-for="Daira">
+              <b-form-group :label="$t('Daira')" label-for="Daira">
 
                  <b-form-input
                     v-model="orderData.address_source.city.daira.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="Daira"
+                    :placeholder="$t('Daira')"
                     disabled
                   />
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="City" label-for="City">
+              <b-form-group :label="$t('City')" label-for="City">
                 <!-- City -->
                 <b-form-input
                     v-model="orderData.address_source.city.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="City"
+                    :placeholder="$t('City')"
                     disabled
                   />
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="District" label-for="s-district">
+              <b-form-group :label="$t('District')" label-for="s-district">
                   <b-form-input
                     id="s-district"
                     v-model="orderData.address_source.district"
-                    placeholder="District"
+                    :placeholder="$t('District')"
                     disabled
                   />
               </b-form-group>
@@ -136,47 +136,47 @@
 
             <!-- destination -->
 
-            <h5 class="mb-2 col-12">Destination info</h5>
+            <h5 class="mb-2 col-12">{{ $t("Destination info") }}</h5>
             <b-col md="3">
-              <b-form-group label="Wilaya" label-for="name-wilaya">
+              <b-form-group :label="$t('Wilaya')" label-for="name-wilaya">
                 <!-- Wilaya -->
                   <b-form-input
                     v-model="orderData.address_destination.city.daira.wilaya.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="Wilaya"
+                    :placeholder="$t('Wilaya')"
                     disabled
                   />
 
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="Daira" label-for="Daira">
+              <b-form-group :label="$t('Daira')" label-for="Daira">
 
                  <b-form-input
                     v-model="orderData.address_destination.city.daira.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="Daira"
+                    :placeholder="$t('Daira')"
                     disabled
                   />
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="City" label-for="City">
+              <b-form-group :label="$t('City')" label-for="City">
                 <!-- City -->
                 <b-form-input
                     v-model="orderData.address_destination.city.name"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    placeholder="City"
+                    :placeholder="$t('City')"
                     disabled
                   />
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="District" label-for="s-district">
+              <b-form-group :label="$t('District')" label-for="s-district">
                   <b-form-input
                     id="s-district"
                     v-model="orderData.address_destination.district"
-                    placeholder="District"
+                    :placeholder="$t('District')"
                     disabled
                   />
               </b-form-group>
@@ -186,19 +186,19 @@
       </tab-content>
 
       <!-- Receiver Details -->
-      <tab-content title="Receiver Details">
+      <tab-content :title="$t('Receiver Details')">
         <b-row>
           <b-col
             cols="12"
             class="mb-2"
           >
             <h5 class="mb-0">
-              Receiver Details
+              {{ $t("Receiver Details") }}
             </h5>
            </b-col>
           <b-col md="6">
             <b-form-group
-              label="Receiver Name"
+              :label="$t('Receiver Name')"
               label-for="v-first-name"
             >
 
@@ -212,7 +212,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Receiver type"
+              :label="$t('Receiver type')"
               label-for="v-last-name"
             >
               <b-form-input
@@ -224,7 +224,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Phone"
+              :label="$t('Phone')"
               label-for="phone"
             >
              <b-form-input
@@ -238,7 +238,7 @@
           <b-col md="6">
             <b-form-group
               label-for="second_phone"
-              label="Second phone"
+              :label="$t('Second phone')"
             >
              <b-form-input
                     id="second_phone"
@@ -252,7 +252,7 @@
           <b-col md="6">
             <b-form-group
               label-for="email"
-              label="Email"
+              :label="$t('Email')"
             >
              <b-form-input
                     id="email"
@@ -266,7 +266,7 @@
           <b-col md="6">
             <b-form-group
               label-for="code_postal"
-              label="Code Postal"
+              label="$t('Code Postal')"
             >
              <b-form-input
                     id="code_postal"
@@ -279,19 +279,19 @@
       </tab-content>
 
       <!-- Order dimensions -->
-      <tab-content title="Order dimensions">
+      <tab-content :title="$t('Order dimensions')">
         <b-row>
           <b-col
             cols="12"
             class="mb-2"
           >
             <h5 class="mb-0">
-              Order dimensions
+              "{{ $t("Order dimensions") }}"
             </h5>
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Weight"
+              :label="$t('Weight')"
               label-for="weight"
             >
               <b-form-input
@@ -303,7 +303,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Height"
+              :label="$t('Height')"
               label-for="Height"
             >
               <b-form-input
@@ -315,7 +315,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="length"
+              label="$t('length')"
               label-for="length"
             >
               <b-form-input
@@ -327,7 +327,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Width"
+              :label="$t('Width')"
               label-for="Width"
             >
               <b-form-input
@@ -340,7 +340,7 @@
 
           <b-col md="6">
             <b-form-group
-              label="Etat"
+              :label="$t('Etat')"
               label-for="Etat"
             >
               <b-form-input
@@ -353,7 +353,7 @@
 
           <b-col md="6">
             <b-form-group
-              label="quatity"
+              :label="$t('quatity')"
               label-for="quatity"
             >
               <b-form-input
@@ -367,19 +367,19 @@
       </tab-content>
 
       <!-- social link -->
-      <tab-content title="Time info">
+      <tab-content :title="$t('Time info')">
         <b-row>
           <b-col
             cols="12"
             class="mb-2"
           >
             <h5 class="mb-0">
-              Time info
+              {{ $t("Time info") }}
             </h5>
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="Send date"
+              :label="$t('Send date')"
               label-for="send_date"
             >
               <b-form-input
@@ -392,7 +392,7 @@
           </b-col>
           <b-col md="6">
             <b-form-group
-              label="ٌReceive date"
+              :label="$t('Receive date')"
               label-for="receive_date"
             >
               <b-form-input
@@ -406,7 +406,7 @@
           
           <b-col md="6">
             <b-form-group
-              label="Time Receive Date"
+              :label="$t('Time Receive Date')"
               label-for="time_receive_date"
             >
               <b-form-input

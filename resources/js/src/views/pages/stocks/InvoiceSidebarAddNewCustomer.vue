@@ -12,7 +12,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add Customer
+          {{ $t("Add Customer") }}
         </h5>
 
         <feather-icon
@@ -32,20 +32,20 @@
 
         <!-- Customer Name -->
         <b-form-group
-          label="Customer Name"
+          :label="$t('Customer Name')"
           label-for="customer-name"
         >
           <b-form-input
             id="customer-name"
             v-model="customer.name"
             trim
-            placeholder="John Doe"
+            :placeholder="$t('exmple Last name','exmple First name',)"
           />
         </b-form-group>
 
         <!-- Email -->
         <b-form-group
-          label="Email"
+          :label="$t('Email')"
           label-for="email"
         >
           <b-form-input
@@ -59,20 +59,20 @@
 
         <!-- Address -->
         <b-form-group
-          label="Address"
+          :label="$t('Address')"
           label-for="address"
         >
           <b-form-textarea
             id="address"
             v-model="customer.message"
-            placeholder="221B Baker Street"
+            :placeholder="$t('Address')"
             trim
           />
         </b-form-group>
 
         <!-- Country -->
         <b-form-group
-          label="Country"
+          :label="$t('country')"
           label-for="country"
         >
           <v-select
@@ -86,7 +86,7 @@
 
         <!-- Contact -->
         <b-form-group
-          label="Contact"
+          :label="$t('Contact')"
           label-for="contact"
         >
           <b-form-input
@@ -107,14 +107,14 @@
             type="submit"
             @click="hide"
           >
-            Add
+            {{ $t("Add") }}
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
             variant="outline-secondary"
             @click="hide"
           >
-            Cancel
+            {{ $t("Cancel") }}
           </b-button>
         </div>
       </b-form>

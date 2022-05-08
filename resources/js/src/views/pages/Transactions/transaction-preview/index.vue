@@ -28,37 +28,37 @@
           </b-card-header>
           <b-card-body>
             <dl class="row">
-              <dt class="col-sm-3">Send Date</dt>
+              <dt class="col-sm-3">{{ $t("Send Date") }}</dt>
               <dd class="col-sm-9">
                 {{ modelData.send_date }}
               </dd>
             </dl>
             <dl class="row">
-              <dt class="col-sm-3">Receive Date</dt>
+              <dt class="col-sm-3">{{ $t("Receive Date") }}</dt>
               <dd class="col-sm-9">
                 {{ modelData.receive_date }}
               </dd>
             </dl>
             <dl class="row">
-              <dt class="col-sm-3">Time send Date</dt>
+              <dt class="col-sm-3">{{ $t("Time send Date") }}</dt>
               <dd class="col-sm-9 ml-auto">
                 {{ modelData.time_send_date }}
               </dd>
             </dl>
             <dl class="row">
-              <dt class="col-sm-3">Time receive Date</dt>
+              <dt class="col-sm-3">{{ $t("Time receive Date") }}</dt>
               <dd class="col-sm-9 ml-auto">
                 {{ modelData.time_receive_date }}
               </dd>
             </dl>
             <dl class="row">
-              <dt class="col-sm-3">Source</dt>
+              <dt class="col-sm-3">{{ $t("Source") }}</dt>
               <dd class="col-sm-9">
                 {{ modelData.source ? modelData.source.name : null }}
               </dd>
             </dl>
             <dl class="row">
-              <dt class="col-sm-3 text-truncate">Destination</dt>
+              <dt class="col-sm-3 text-truncate">{{ $t("Destination") }}</dt>
               <dd class="col-sm-9">
                 {{ modelData.destination ? modelData.destination.name : null }}
               </dd>
@@ -122,7 +122,7 @@
       </b-row> -->
 
       <b-col md="12">
-        <b-card-actions title="Orders of the transaction" action-collapse>
+        <b-card-actions :title="$t('Orders of the transaction')" action-collapse>
           <orders-list :transaction="modelData" />
         </b-card-actions>
       </b-col>

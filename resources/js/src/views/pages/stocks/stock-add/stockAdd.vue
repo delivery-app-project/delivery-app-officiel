@@ -1,12 +1,12 @@
 <template>
-  <b-card-code title="Add Stock">
+  <b-card-code :title="$t('Add Stock')">
     <validation-observer ref="simpleRules">
       <b-form>
         <b-row>
           <!--  This field is required-->
           <b-col md="6">
             <b-form-group>
-              <label>This field is required</label>
+              <label>{{ $t("This field is required") }}</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required"
@@ -15,7 +15,7 @@
                 <b-form-input
                   v-model="name"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Stock name"
+                  :placeholder="$t('Stock name')"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -25,7 +25,7 @@
           <!--Enter Number between 10 & 20 -->
           <b-col md="6">
             <b-form-group>
-              <label>Type of the Stock</label>
+              <label>{{ $t("Type of the Stock") }}</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required"
@@ -36,7 +36,7 @@
                     v-model="type"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
-                    placeholder="Type"
+                    :placeholder="$t('Type')"
                     :options="morphTypes"
                   />
                 </b-form-group>
@@ -53,7 +53,7 @@
           <!-- Must match the specified regular expression : ^([0-9]+)$ - numbers only -->
           <b-col md="6">
             <b-form-group>
-              <label>Must be a phone number</label>
+              <label>{{ $t("Must be a phone number") }}</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required|regex:^([0-9]+)$"
@@ -62,10 +62,10 @@
                 <b-form-input
                   v-model="phone"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Must be phone"
+                  :placeholder="$t('Must be a phone number')"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
-                <small v-if="duplicateErrors.phone" class="text-danger">{{ 'phone is duplicate' }}</small>
+                <small v-if="duplicateErrors.phone" class="text-danger">{{ $t("phone is duplicate") }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -172,7 +172,7 @@
 
           <b-col md="6">
             <b-form-group>
-              <label>Stock director</label>
+              <label>{{ $t("Stock director") }}</label>
               <validation-provider
                 #default="{ errors }"
                 name="Stock director"
@@ -184,7 +184,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="employees"
-                    placeholder="Director"
+                    :placeholder="$t('Director')"
                   />
                 </b-form-group>
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -195,7 +195,7 @@
           <!-- Must be a valid email -->
           <b-col md="6">
             <b-form-group>
-              <label>Must be a valid email</label>
+              <label>{{ $t("Must be a valid email") }}</label>
               <validation-provider
                 #default="{ errors }"
                 name="Email"
@@ -204,7 +204,7 @@
                 <b-form-input
                   v-model="emailValue"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="Email"
+                  :placeholder="$t('Email')"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
                 <small v-if="duplicateErrors.email" class="text-danger">{{ 'email is duplicate' }}</small>
@@ -215,7 +215,7 @@
           <!--Must be a valid url  -->
           <b-col md="6">
             <b-form-group>
-              <label>Only if your Stock contain a Agency</label>
+              <label>{{ $t("Only if your Stock contain a Agency") }}</label>
               <validation-provider #default="{ errors }" name="agency" rules="">
                 <b-form-group>
                   <v-select
@@ -223,7 +223,7 @@
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="name"
                     :options="agencies"
-                    placeholder="Agency"
+                    :placeholder="$t('Agency')"
                   />
                 </b-form-group>
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -234,7 +234,7 @@
           <b-col>
             <b-row ref="row">
               <b-col md="4">
-                <b-form-group label="Address" label-for="address">
+                <b-form-group :label="$t('Address')" label-for="address">
                   <validation-provider
                     #default="{ errors }"
                     name="Address"
@@ -243,7 +243,7 @@
                     <b-form-input
                       v-model="address"
                       :state="errors.length > 0 ? false : null"
-                      placeholder="Address"
+                      :placeholder="$t('Address')"
                     />
                     <small class="text-danger">{{ errors[0] }}</small>
                   </validation-provider>
@@ -252,7 +252,7 @@
 
               <!-- Cost -->
               <b-col md="2">
-                <b-form-group label="Wilaya" label-for="wilaya">
+                <b-form-group :label="$t('Wilaya')" label-for="wilaya">
                   <!-- <b-form-input id="wilaya" type="number" placeholder="32" /> -->
                   <validation-provider
                     #default="{ errors }"
@@ -265,7 +265,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="wilayas"
-                        placeholder="Wilaya"
+                        :placeholder="$t('Wilaya')"
                       />
                     </b-form-group>
                     <small class="text-danger">{{ errors[0] }}</small>
@@ -275,7 +275,7 @@
 
               <!-- Quantity -->
               <b-col md="2">
-                <b-form-group label="Daira" label-for="daira">
+                <b-form-group :label="$t('Daira')" label-for="daira">
                   <!-- <b-form-input id="daira" type="number" placeholder="1" /> -->
                   <validation-provider
                     #default="{ errors }"
@@ -288,7 +288,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="dairas"
-                        placeholder="Daira"
+                        :placeholder="$t('Daira')"
                       />
                     </b-form-group>
                     <small class="text-danger">{{ errors[0] }}</small>
@@ -297,7 +297,7 @@
               </b-col>
 
               <b-col md="2">
-                <b-form-group label="City" label-for="city">
+                <b-form-group :label="$t('City')" label-for="city">
                   <!-- <b-form-input id="city" type="number" placeholder="1" /> -->
 
                   <validation-provider
@@ -311,7 +311,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="cities"
-                        placeholder="City"
+                        :placeholder="$t('City')"
                       />
                     </b-form-group>
                     <small class="text-danger">{{ errors[0] }}</small>
@@ -350,7 +350,7 @@
               type="submit"
               @click.prevent="validationForm"
             >
-              Submit
+              {{ $t("Submit") }}
             </b-button>
           </b-col>
         </b-row>

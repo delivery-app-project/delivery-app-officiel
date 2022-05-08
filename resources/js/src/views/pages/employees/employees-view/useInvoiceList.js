@@ -4,7 +4,7 @@ import store from '@/store'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-
+import i18n from '@/libs/i18n/index.js'
 export default function useInvoicesList() {
   // Use toast
   const toast = useToast()

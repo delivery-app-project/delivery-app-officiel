@@ -7,17 +7,17 @@
       :show="modelData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching user data
+        {{ $t("Error fetching user data") }}
       </h4>
       <div class="alert-body">
-        No user found with this user id. Check
+        {{ $t("No user found with this user id. Check") }}
         <b-link
           class="alert-link"
           :to="{ name: 'apps-users-list'}"
         >
-          User List
+          {{ $t("User List") }}
         </b-link>
-        for other users.
+        {{ $t("mfor other users") }}
       </div>
     </b-alert>
 
@@ -59,7 +59,7 @@
 
       <b-col md="12">
         <b-card-actions
-          title="Employees of the Stock"
+          :title="$t('Employees of the Stock')"
           action-collapse
           >
          <employees-list :stock="modelData" @refetchStock="refetchStock"/>
@@ -69,7 +69,7 @@
 
       <b-col md="12">
         <b-card-actions
-          title="Agencies of the Stock"
+          title="$t('Agencies of the Stock')"
           action-collapse
           >
           <agencies-list :stock="modelData" @refetchStock="refetchStock"/>

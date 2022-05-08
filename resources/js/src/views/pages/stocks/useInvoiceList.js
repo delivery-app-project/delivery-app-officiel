@@ -1,6 +1,6 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
-
+import i18n from '@/libs/i18n/index.js'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
@@ -16,10 +16,10 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'name', label: 'name', sortable: true },
-    { key: 'type.name', label: 'Type', sortable: true },
-    { key: 'director.name', label: 'director', sortable: true },
-    { key: 'actions' },
+    { key: 'name', label: i18n.t('name'), sortable: true },
+    { key: 'type.name', label: i18n.t('Type'), sortable: true },
+    { key: 'director.name', label: i18n.t('director'), sortable: true },
+    { key: 'actions' , label: i18n.t('actions')},
 
   ]
   const perPage = ref(10)

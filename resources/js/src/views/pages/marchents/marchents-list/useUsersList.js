@@ -1,7 +1,7 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
 import { title } from '@core/utils/filter'
-
+import i18n from '@/libs/i18n/index.js'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
@@ -18,15 +18,15 @@ export default function useUsersList() {
 
  //   {key: 'currentPlan',label: 'Plan',formatter: title,sortable: true,},
 
-    { key: 'user.first_name', label: 'Name', sortable: true },
-    { key: 'user.last_name', label: 'LastName', sortable: true },
-    { key: 'user.email', label: 'EMAIL', sortable: true },
-    { key: 'user.phone', label: 'Phone', sortable: true },
+    { key: 'user.first_name', label: i18n.t('name'), sortable: true },
+    { key: 'user.last_name', label: i18n.t('LastName'), sortable: true },
+    { key: 'user.email', label: i18n.t('EMAIL'), sortable: true },
+    { key: 'user.phone', label:i18n.t('Phone'), sortable: true },
     // if faut aporter les permestion  role bs + emplyee
     //{key: '',label: 'Role',formatter: title,sortable: true,},
-    {key: 'user.permanent_employee',label: 'Status',formatter: title,sortable: true,},
+    {key: 'user.permanent_employee',label:i18n.t( 'Status'),formatter: title,sortable: true,},
 
-    { key: 'actions' },
+    { key: 'actions' ,label:i18n.t( 'actions')},
   ]
   const perPage = ref(10)
   const totalUsers = ref(0)

@@ -24,7 +24,7 @@
           md="6"
           class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
         >
-          <label>Entries</label>
+          <label>{{ $t("Entries") }}</label>
           <v-select
             v-model="perPage"
             :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -37,14 +37,14 @@
             variant="primary"
             :to="{ name: 'agency-add'}"
           >
-            Add record
+            {{ $t("Add record") }}
           </b-button>
           <b-button
             v-else-if="stock"
             @click="isAddNewUserSidebarStockActive = true"
             variant="primary"
           >
-            Add Agency to Stock
+            {{ $t("Add Agency to Stock") }}
           </b-button>
         </b-col>
 
@@ -59,7 +59,7 @@
             <b-form-input
               v-model="searchQuery"
               class="d-inline-block mr-1"
-              placeholder="Search..."
+              :placeholder="$t('Search')"
             />
             <!-- <v-select
               v-model="statusFilter"
@@ -88,7 +88,7 @@
       primary-key="id"
       :sort-by.sync="sortBy"
       show-empty
-      empty-text="No matching records found"
+      :empty-text="$t('No matching records found')"
       :sort-desc.sync="isSortDirDesc"
       class="position-relative"
     >
@@ -187,7 +187,7 @@
             pill
             variant="light-success"
           >
-            Paid
+            {{ $t("Paid") }}
           </b-badge>
         </template>
         <template v-else>
@@ -250,7 +250,7 @@
           sm="6"
           class="d-flex align-items-center justify-content-center justify-content-sm-start"
         >
-          <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+          <span class="text-muted">{{ $t("Showing") }} {{ dataMeta.from }} {{ $t("to") }} {{ dataMeta.to }} {{ $t("of") }} {{ dataMeta.of }} {{ $t("entries") }}</span>
         </b-col>
         <!-- Pagination -->
         <b-col

@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Attach  New User to Stock
+          {{ $t("Attach  New User to Stock") }}
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required"
             >
             <b-form-group
-              label="Agency"
+              :label="$t('Agency')"
               label-for="Agency"
               :state="getValidationState(validationContext)"
              >
@@ -55,7 +55,7 @@
                         :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                         label="name"
                         :options="agencies"
-                        placeholder="Select Agency"
+                        :placeholder="$t('Select Agency')"
                         multiple
                         
               />
@@ -101,7 +101,7 @@
               class="mr-2"
               type="submit"
             >
-              Add agencies
+              {{ $t("Add agencies") }}
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -109,7 +109,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              {{ $t("Cancel") }}
             </b-button>
           </div>
 

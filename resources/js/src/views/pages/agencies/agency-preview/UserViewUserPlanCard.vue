@@ -8,7 +8,7 @@
         {{modelData.director.user.name}}
       </h5>
       <b-badge variant="light-primary">
-        Director
+        {{ $t("Director") }}
       </b-badge>
       <small class="text-muted w-100">July 22, 2021</small>
     </b-card-header>
@@ -16,7 +16,7 @@
     <b-card-body>
       <ul class="list-unstyled my-1">
         <li>
-          <span class="align-middle">{{modelData.employees.length}} Employees</span>
+          <span class="align-middle">{{modelData.employees.length}}{{ $t("Employees") }}</span>
         </li>
         <li class="my-25">
           <span class="align-middle">10 GB storage</span>

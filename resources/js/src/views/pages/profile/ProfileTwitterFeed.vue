@@ -1,6 +1,6 @@
 <template>
   <b-card>
-    <h5>Twitter Feeds</h5>
+    <h5>{{ $t("Twitter Feeds") }}</h5>
 
     <!-- twitter feed -->
     <div

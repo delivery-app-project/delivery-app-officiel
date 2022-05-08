@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          {{ $t("Add New User") }}
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required"
           >
             <b-form-group
-              label="Full Name"
+              :label="$t('Full Name')"
               label-for="full-name"
             >
               <b-form-input
@@ -55,7 +55,7 @@
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
+                :placeholder="$t('exmple First name','exmple Last name')" 
               />
 
               <b-form-invalid-feedback>
@@ -71,7 +71,7 @@
             rules="required|alpha-num"
           >
             <b-form-group
-              label="Username"
+              :label="$t('Username')"
               label-for="username"
             >
               <b-form-input
@@ -94,7 +94,7 @@
             rules="required|email"
           >
             <b-form-group
-              label="Email"
+              :label="$t('Email')"
               label-for="email"
             >
               <b-form-input
@@ -117,7 +117,7 @@
             rules="required"
           >
             <b-form-group
-              label="Contact"
+              :label="$t('Contact')"
               label-for="contact"
             >
               <b-form-input
@@ -140,7 +140,7 @@
             rules="required"
           >
             <b-form-group
-              label="Company"
+              :label="$t('Company')"
               label-for="company"
             >
               <b-form-input
@@ -163,7 +163,7 @@
             rules="required"
           >
             <b-form-group
-              label="Country"
+              :label="$t('Country')"
               label-for="country"
               :state="getValidationState(validationContext)"
             >
@@ -187,7 +187,7 @@
             rules="required"
           >
             <b-form-group
-              label="User Role"
+              :label="$t('User Role')"
               label-for="user-role"
               :state="getValidationState(validationContext)"
             >
@@ -212,7 +212,7 @@
             rules="required"
           >
             <b-form-group
-              label="Plan"
+              :label="$t('Plan')"
               label-for="plan"
               :state="getValidationState(validationContext)"
             >
@@ -238,7 +238,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              {{ $t("Add") }}
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -246,7 +246,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              {{ $t("Cancel") }}
             </b-button>
           </div>
 

@@ -2,13 +2,13 @@
   <section class="invoice-preview-wrapper">
     <!-- Alert: No item found -->
     <b-alert variant="danger" :show="invoiceData === undefined">
-      <h4 class="alert-heading">Error fetching invoice data</h4>
+      <h4 class="alert-heading">{{ $t("Error fetching invoice data") }}</h4>
       <div class="alert-body">
-        No invoice found with this invoice id. Check
+        {{ $t("No invoice found with this invoice id. Check") }}
         <b-link class="alert-link" :to="{ name: 'apps-invoice-list' }">
-          Invoice List
+          {{ $t("Invoice List") }}
         </b-link>
-        for other invoices.
+        {{ $t("for other invoices") }}
       </div>
     </b-alert>
 
@@ -37,8 +37,8 @@
                   {{ invoiceData.address.district }}
                 </p>
                 <p class="card-text mb-25">
-                  City : {{ invoiceData.address.city.name }},Daira :
-                  {{ invoiceData.address.city.daira.name }},Wilaya :
+                  {{ $t("City") }} : {{ invoiceData.address.city.name }},{{ $t("Daira") }} :
+                  {{ invoiceData.address.city.daira.name }},{{ $t("Wilaya") }} :
                   {{ invoiceData.address.city.daira.wilaya.name }}
                 </p>
                 <!-- <p class="card-text mb-0">
@@ -49,18 +49,18 @@
               <!-- Header: Right Content -->
               <div class="mt-md-0 mt-2">
                 <h4 class="invoice-title">
-                  Agency :
+                  {{ $t("Agency") }} :
                   <span class="invoice-number">{{ invoiceData.name }}</span>
                 </h4>
                 <div v-if="invoiceData.main_stock">
                   <div class="invoice-date-wrapper">
-                    <p class="invoice-date-title">Stock :</p>
+                    <p class="invoice-date-title">{{ $t("Stock") }} :</p>
                     <p class="invoice-date">
                       {{ invoiceData.main_stock.name }}
                     </p>
                   </div>
                   <div class="invoice-date-wrapper">
-                    <p class="invoice-date-title">Due Date:</p>
+                    <p class="invoice-date-title">{{ $t("Due Date") }}:</p>
                     <p class="invoice-date">
                       {{ invoiceData.dueDate }}
                     </p>
@@ -78,7 +78,7 @@
             <b-row class="invoice-spacing">
               <!-- Col: Invoice To -->
               <b-col cols="12" xl="6" class="p-0">
-                <h6 class="mb-2">Invoice To:</h6>
+                <h6 class="mb-2">{{ $t("Invoice To") }}:</h6>
                 <h6 class="mb-25">
                   {{ invoiceData.client.name }}
                 </h6>
@@ -104,11 +104,11 @@
                 class="p-0 mt-xl-0 mt-2 d-flex justify-content-xl-end"
               >
                 <div>
-                  <h6 class="mb-2">Payment Details:</h6>
+                  <h6 class="mb-2">{{ $t("Payment Details") }}:</h6>
                   <table>
                     <tbody>
                       <tr>
-                        <td class="pr-1">Total Due:</td>
+                        <td class="pr-1">{{ $t("Total Due") }}:</td>
                         <td>
                           <span class="font-weight-bold">{{
                             paymentDetails.totalDue
@@ -116,19 +116,19 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="pr-1">Bank name:</td>
+                        <td class="pr-1">{{ $t("Bank name") }}:</td>
                         <td>{{ paymentDetails.bankName }}</td>
                       </tr>
                       <tr>
-                        <td class="pr-1">Country:</td>
+                        <td class="pr-1">{{ $t("Country") }}:</td>
                         <td>{{ paymentDetails.country }}</td>
                       </tr>
                       <tr>
-                        <td class="pr-1">IBAN:</td>
+                        <td class="pr-1">{{ $t("IBANs") }}:</td>
                         <td>{{ paymentDetails.iban }}</td>
                       </tr>
                       <tr>
-                        <td class="pr-1">SWIFT code:</td>
+                        <td class="pr-1">{{ $t("SWIFT code") }}:</td>
                         <td>{{ paymentDetails.swiftCode }}</td>
                       </tr>
                     </tbody>
@@ -228,7 +228,7 @@
             class="mb-75"
             block
           >
-            Send Invoice
+            {{ $t("Send Invoice") }}
           </b-button>
 
           <!-- Button: DOwnload -->
@@ -238,7 +238,7 @@
             class="mb-75"
             block
           >
-            Download
+            {{ $t("Download") }}
           </b-button>
 
           <!-- Button: Print -->
@@ -249,7 +249,7 @@
             block
             @click="printInvoice"
           >
-            Print
+            {{ $t("Print") }}
           </b-button>
 
           <!-- Button: Edit -->
@@ -263,7 +263,7 @@
               params: { id: $route.params.id },
             }"
           >
-            Edit
+            {{ $t("Edit") }}
           </b-button>
 
           <!-- Button: Add Payment -->
@@ -274,7 +274,7 @@
             class="mb-75"
             block
           >
-            Add Payment
+            {{ $t("Add Payment") }}
           </b-button>
         </b-card>
       </b-col>

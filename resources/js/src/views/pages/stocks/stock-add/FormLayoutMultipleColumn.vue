@@ -6,7 +6,7 @@
       <b-row>
         <b-col md="6">
           <b-form-group
-            label="First Name"
+            :label="$t('First Name')"
             label-for="mc-first-name"
           >
             <b-form-input
@@ -17,23 +17,23 @@
         </b-col>
         <b-col md="6">
           <b-form-group
-            label="Last Name"
+            :label="$t('Last Name')"
             label-for="mc-last-name"
           >
             <b-form-input
               id="mc-last-name"
-              placeholder="Last Name"
+              :placeholder="$t('Last Name')"
             />
           </b-form-group>
         </b-col>
         <b-col md="6">
           <b-form-group
-            label="City"
+            :label="$t('City')"
             label-for="mc-city"
           >
             <b-form-input
               id="mc-city"
-              placeholder="City"
+              :placeholder="$t('City')"
             />
           </b-form-group>
         </b-col>
@@ -50,13 +50,13 @@
         </b-col>
         <b-col md="6">
           <b-form-group
-            label="Company"
+            :label="$t('Company')"
             label-for="mc-company"
           >
             <div class="form-label-group">
               <b-form-input
                 id="mc-company"
-                placeholder="Company"
+                :placeholder="$t('Company')"
               />
             </div>
           </b-form-group>
@@ -64,13 +64,13 @@
         <b-col md="6">
           <b-form-group
             label-for="mc-email"
-            label="Email"
+            :label="$t('Email')"
           >
             <div class="form-label-group">
               <b-form-input
                 id="mc-email"
                 type="email"
-                placeholder="Email"
+                :placeholder="$t('Email')"
               />
             </div>
           </b-form-group>
@@ -83,7 +83,7 @@
               name="checkbox-10" 
               value="Remember_me"
             >
-              Remember me
+              {{ $t("Remember me") }}
             </b-form-checkbox>
           </b-form-group>
         </b-col>
@@ -96,14 +96,14 @@
             variant="primary"
             class="mr-1"
           >
-            Submit
+            {{ $t("Submit") }}
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
             type="reset"
             variant="outline-secondary"
           >
-            Reset
+            {{ $t("Reset") }}
           </b-button>
         </b-col>
       </b-row>

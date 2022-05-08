@@ -30,13 +30,14 @@
                 :to="{ name: 'apps-users-edit', params: { id: userData.id } }"
                 variant="primary"
               >
-                Edit
+              {{ $t("Edit") }}
+                
               </b-button>
               <b-button
                 variant="outline-danger"
                 class="ml-1"
               >
-                Delete
+              {{ $t("Delete") }}
               </b-button>
             </div>
           </div>
@@ -94,7 +95,7 @@
                 icon="UserIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Username</span>
+              <span class="font-weight-bold">{{ $t("Username") }}</span>
             </th>
             <td class="pb-50">
               {{ userData.username }}
@@ -106,7 +107,7 @@
                 icon="CheckIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Status</span>
+              <span class="font-weight-bold"></span>
             </th>
             <td class="pb-50 text-capitalize">
               {{ userData.status }}
@@ -118,7 +119,7 @@
                 icon="StarIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Role</span>
+              <span class="font-weight-bold">{{ $t("Role") }}</span>
             </th>
             <td class="pb-50 text-capitalize">
               {{ userData.role }}
@@ -130,7 +131,7 @@
                 icon="FlagIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Country</span>
+              <span class="font-weight-bold">{{ $t("Country") }}</span>
             </th>
             <td class="pb-50">
               {{ userData.country }}
@@ -142,7 +143,7 @@
                 icon="PhoneIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Contact</span>
+              <span class="font-weight-bold">{{ $t("Country") }}</span>
             </th>
             <td>
               {{ userData.contact }}

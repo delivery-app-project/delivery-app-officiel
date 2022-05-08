@@ -42,7 +42,7 @@
               <h5 class="mb-0">
                 23.3k
               </h5>
-              <small>Monthly Sales</small>
+              <small>{{ $t("Monthly Sales") }}</small>
             </div>
           </div>
 
@@ -60,7 +60,7 @@
               <h5 class="mb-0">
                 $99.87k
               </h5>
-              <small>Annual Profit</small>
+              <small>{{ $t("Annual Profit") }}</small>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
                 icon="PhoneIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Phone</span>
+              <span class="font-weight-bold">{{ $t("Phone") }}</span>
             </th>
             <td class="pb-50">
               {{ modelData.phone }}
@@ -93,7 +93,7 @@
                 icon="CheckIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">type</span>
+              <span class="font-weight-bold">{{ $t("type") }}</span>
             </th>
             <td class="pb-50 text-capitalize">
               {{ modelData.type.name }}
@@ -105,7 +105,7 @@
                 icon="FlagIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Wilaya</span>
+              <span class="font-weight-bold">{{ $t("Wilaya") }}</span>
             </th>
             <td class="pb-50 text-capitalize">
               {{ modelData.address.city.daira.wilaya.name }}
@@ -117,7 +117,7 @@
                 icon="FlagIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Daira</span>
+              <span class="font-weight-bold">{{ $t("Daira") }}</span>
             </th>
             <td class="pb-50">
               {{ modelData.address.city.daira.name }}
@@ -129,7 +129,7 @@
                 icon="FlagIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">City</span>
+              <span class="font-weight-bold">{{ $t("City") }}</span>
             </th>
             <td>
               {{ modelData.address.city.name }}
@@ -141,7 +141,7 @@
                 icon="MapIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Address</span>
+              <span class="font-weight-bold">{{ $t("Address") }}</span>
             </th>
             <td>
               {{ modelData.address.district }}
@@ -156,7 +156,7 @@
                 :to="{ name: 'stock-update', params: { id: modelData.id } }"
                 variant="primary"
                  >
-                Edit
+                {{ $t("Edit") }}
               </b-button>
               
               <b-button
@@ -164,7 +164,7 @@
                 variant="success"
                 class="ml-1"
                  >
-                Orders
+                {{ $t("Orders") }}
               </b-button>
 
               
@@ -201,11 +201,11 @@
                 class="ml-1"
               >
                 <b-dropdown-item   :to="{ name: 'transaction-add', params: { id: modelData.id,type:'stock' } }"
-                > Add transaction </b-dropdown-item>
+                > {{ $t("Add transaction") }} </b-dropdown-item>
                 <b-dropdown-item   :to="{ name: 'transactions-source-stock', params: { type : 'source', stock_id: modelData.id} }"
-              > Created Transactions </b-dropdown-item>
+              > {{ $t("Created Transactions") }} </b-dropdown-item>
                 <b-dropdown-item  :to="{ name: 'transactions-destination-stock', params: { type : 'destination', stock_id: modelData.id} }"
-               > Transactions destinated </b-dropdown-item>
+               > {{ $t("Transactions destinated") }} </b-dropdown-item>
                 <!-- <b-dropdown-divider />
               <b-dropdown-item>Separated link</b-dropdown-item> -->
               </b-dropdown>

@@ -28,7 +28,7 @@
             variant="primary"
             :to="{ name: 'apps-invoice-add'}"
           >
-            Add Record
+            {{ $t("Add Record") }}
           </b-button>
         </b-col>
 
@@ -41,14 +41,14 @@
             <b-form-input
               v-model="searchQuery"
               class="d-inline-block mr-1"
-              placeholder="Search..."
+              :placeholder="$t('Search')"
             />
             <v-select
               v-model="statusFilter"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
               :options="statusOptions"
               class="invoice-filter-select"
-              placeholder="Select Status"
+              :placeholder="$t('Select Status')"
             >
               <template #selected-option="{ label }">
                 <span class="text-truncate overflow-hidden">
@@ -70,7 +70,7 @@
       primary-key="id"
       :sort-by.sync="sortBy"
       show-empty
-      empty-text="No matching records found"
+      :empty-text="$t('No matching records found')"
       :sort-desc.sync="isSortDirDesc"
       class="position-relative"
     >
@@ -111,10 +111,10 @@
             {{ data.item.invoiceStatus }}
           </p>
           <p class="mb-0">
-            Balance: {{ data.item.balance }}
+            {{ $t("Balance") }}{{ data.item.balance }}
           </p>
           <p class="mb-0">
-            Due Date: {{ data.item.dueDate }}
+            {{ $t("Due Date") }}{{ data.item.dueDate }}
           </p>
         </b-tooltip>
       </template>
@@ -151,7 +151,7 @@
             pill
             variant="light-success"
           >
-            Paid
+            {{ $t("Paid") }}
           </b-badge>
         </template>
         <template v-else>
@@ -204,19 +204,19 @@
             </template>
             <b-dropdown-item>
               <feather-icon icon="DownloadIcon" />
-              <span class="align-middle ml-50">Download</span>
+              <span class="align-middle ml-50">{{ $t("Download") }}</span>
             </b-dropdown-item>
             <b-dropdown-item :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
+              <span class="align-middle ml-50">{{ $t("Edit") }}</span>
             </b-dropdown-item>
             <b-dropdown-item>
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">Delete</span>
+              <span class="align-middle ml-50">{{ $t("Delete") }}</span>
             </b-dropdown-item>
             <b-dropdown-item>
               <feather-icon icon="CopyIcon" />
-              <span class="align-middle ml-50">Duplicate</span>
+              <span class="align-middle ml-50">{{ $t("Duplicate") }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </div>
@@ -231,7 +231,7 @@
           sm="6"
           class="d-flex align-items-center justify-content-center justify-content-sm-start"
         >
-          <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+          <span class="text-muted">{{ $t("Showing") }} {{ dataMeta.from }} {{ $t("to") }} {{ dataMeta.to }} {{ $t("of") }} {{ dataMeta.of }} {{ $t("entries") }}</span>
         </b-col>
         <!-- Pagination -->
         <b-col
