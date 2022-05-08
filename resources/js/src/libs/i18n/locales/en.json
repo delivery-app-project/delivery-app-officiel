@@ -100,6 +100,7 @@
  "Stock":"Stock",
  "Submit":"Submit",
  "Remember me":"Remember me",
+ "Remember Me":"Remember Me",
  "Reset":"Reset",
  "Add Agency":"Add Agency",
  "Select Agency":"Select Agency",
@@ -149,6 +150,7 @@
  "Enter Your Receiver Details":"Enter Your Receiver Details",
  "ٌReceiver Name":"ٌReceiver Name ",
  "Receiver type":"Receiver type",
+ "receiver":"receiver",
  "text":"text",
  "Code postal":"Code postal",
  "Order dimentions":"Order dimentions",
@@ -162,6 +164,7 @@
 "Enter your time info here":"Enter your time info here",
 "Send Date":"Send Date",
 "Receive Date":"Receive Date",
+"RECEIVE DATE":"Receive Date",
 "Time Receive Date":"Time Receive Date",
 
 "Package name":"Package name",
@@ -181,6 +184,7 @@
 "Twitter Feeds":"Twitter Feeds",
 "Add Transaction":"Add Transaction",
 "Time Send Date":"Time Send Date",
+"TIME SEND DATE":"TIME SEND DATE",
 "List of orders":"List of orders",
 "All Orders":"All Orders",
 "Orders of the transaction":"Orders of the transaction",
@@ -197,6 +201,14 @@
 "Alfie Solomons":"Alfie Solomons",
 "Monthly Sales":"Monthly Sales",
 "Annual Profit":"Annual Profit",
+"created at":"created at",
+"Reveiver type":"Reveiver type",
+"quantity":"quantity",
+"Forgot Password?":"Forgot Password?",
+"Sign in":"Sign in",
+"New on our platform?":"New on our platform?",
+"Create an account":"Create an account",
+"or":"or",
 
 
 

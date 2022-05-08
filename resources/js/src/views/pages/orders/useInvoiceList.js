@@ -1,6 +1,6 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
-
+import i18n from '@/libs/i18n/index.js'
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
@@ -16,17 +16,17 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
-    { key: 'receiver', sortable: true },
-    { label : 'Reveiver type' ,key: 'receiver_type.name', sortable: true },
-    { key: 'phone', sortable: true, formatter: val => `$${val}` },
-    { key: 'code_postal', sortable: true },
+    { key: 'receiver',label: i18n.t('receiver'), sortable: true },
+    { key: 'receiver_type.name',label: i18n.t('Reveiver type'), sortable: true },
+    { key: 'phone',label: i18n.t('Phone'), sortable: true, formatter: val => `$${val}` },
+    { key: 'code_postal', label: i18n.t('Code postal'),sortable: true },
     // { key: 'weight', sortable: true },
     // { key: 'height' },
     // { key: 'length' },
     // { key: 'width' },
-    { key: 'quatity' },
-    { label : 'Etat' ,key: 'etat.name' },
-    { key: 'actions' },
+    { key: 'quatity' ,label: i18n.t('quantity'),},
+    { key: 'etat.name' ,label: i18n.t('Etat')},
+    { key: 'actions' ,label: i18n.t('actions'),},
   ]
   const perPage = ref(10)
   const totalInvoices = ref(0)

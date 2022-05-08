@@ -14,6 +14,7 @@
   "Packages" : "الطرود",
   "Orders" : "الطلبيات",
   "name":"الاسم",
+  "Name":"الاسم",
   "LastName":"اللقب",
   "EMAIL":"البريد الإلكتروني",
   "email":"البريد الإلكتروني",
@@ -99,6 +100,7 @@
   "Stock":"مخزن",
   "Submit":"إرسال",
   "Remember me":"تذكرنى",
+  "Remember Me":"تذكرنى",
   "Reset":"إعادة ضبط",
   "Add Agency":"إضافة وكالة",
   "Employees of the agency":"موظفي الوكالة",
@@ -146,6 +148,7 @@
   "Enter Your Receiver Details":"أدخل معلومات المستقبل",
   "ٌReceiver Name":"اسم المتلقي",
   "Receiver type":"نوع المستقبل",
+  "receiver":"المستقبل",
   "text":"نص",
   "Code postal":"الرقم البريدي",
   "Order dimentions":"أبعاد الطلب",
@@ -159,6 +162,7 @@
   "Enter your time info here":"أدخل معلومات وقتك هنا",
   "Send Date":"تاريخ إرسال",
   "Receive Date":"تاريخ الإستلام",
+  "RECEIVE DATE":"تاريخ الإستلام",
   "Time Receive Date":"تاريخ استلام الوقت",
   
   
@@ -179,6 +183,7 @@
 "Twitter Feeds":"تغذيات تويتر",
 "Add Transaction":"أضف معاملة",
 "Time Send Date":"تاريخ إرسال الوقت",
+"TIME SEND DATE":"تاريخ إرسال الوقت",
 "List of orders":"قائمة الطلبيات",
 "All Orders":"جميع الطلبيات",
 "Orders of the transaction":" الطلبيات الصفقة",
@@ -195,6 +200,14 @@
 "Alfie Solomons":"ألفي سليمان",
 "Monthly Sales":"المبيعات الشهرية",
 "Annual Profit":"الأرباح السنوية",
+"created at":"أنشئت في",
+"Reveiver type":"نوع المستقبل",
+"quantity":"كمية",
+"Forgot Password?":"هل نسيت كلمة السر؟",
+"Sign in":"تسجيل الدخول",
+"New on our platform?":"جديد على منصتنا؟",
+"Create an account":"انشئ حساب",
+"or":"أو",
 
 
 

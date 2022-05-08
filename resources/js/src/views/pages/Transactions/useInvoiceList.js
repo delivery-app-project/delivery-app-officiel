@@ -18,8 +18,8 @@ export default function useInvoicesList() {
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
     { key: 'send_date', label: i18n.t('Send Date'), sortable: true },
-    { key: 'time_send_date', label: i18n.t('Time send Date'), sortable: true },
-    { key: 'receive_date', label: i18n.t('Receive date'), sortable: true },
+    { key: 'time_send_date', label: i18n.t('TIME SEND DATE'), sortable: true },
+    { key: 'receive_date', label: i18n.t('RECEIVE DATE'), sortable: true },
     { key: 'actions' , label: i18n.t('actions')},
 
   ]
